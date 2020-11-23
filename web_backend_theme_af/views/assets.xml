@@ -28,12 +28,6 @@
         </xpath>
     </template>
 
-    <template id="assets_common" name="AF Common Tema" inherit_id="web.assets_common">
-        <xpath expr=".">
-            <link rel="stylesheet" href="/web_backend_theme_af/static/src/scss/web_style.scss"/>
-        </xpath>
-    </template>
-
     <template id="assets_backend" name="Backend Assets" inherit_id="web.assets_backend">
         <xpath expr="//link[last()]" position="after">
      		<link rel="stylesheet" type="text/css" href="/web_backend_theme_af/static/src/libs/simplebar/simplebar.css"/>
