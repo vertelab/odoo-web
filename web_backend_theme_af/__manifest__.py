@@ -13,14 +13,13 @@
     "license": "LGPL-3",
     "installable": True,
     "depends": [
-        'portal', 'web'
+        'web'
     ],
     "qweb": [
         "static/src/xml/*.xml",
     ],
     "data": [
         'views/assets.xml',
-        'views/template.xml',
         "views/web.xml"
     ]
 }
