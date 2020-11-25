@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="a11y_report_assets_backend" name="A11y Report assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                 <script type="text/javascript" src="/web_a11y_report/static/src/js/activity_menu.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
