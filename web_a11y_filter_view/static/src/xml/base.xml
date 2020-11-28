@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="ListView.buttons" t-extend="ListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="replace">
+            <button type="button" class="btn btn-primary o_list_button_add" accesskey="c">
+                Create <t t-esc="widget.displayName"/>
+            </button>
+        </t>
+    </t>
+
+     <t t-name="FormView.buttons" t-extend="FormView.buttons">
+        <t t-jquery="button.o_form_button_create" t-operation="replace">
+            <button type="button" class="btn btn-primary o_form_button_create" accesskey="c">
+                Create <t t-esc="widget.displayName"/>
+            </button>
+        </t>
+          <t t-jquery="button.o_form_button_edit" t-operation="replace">
+            <button type="button" class="btn btn-primary o_form_button_edit" accesskey="c">
+                Edit <t t-esc="widget.displayName"/>
+            </button>
+        </t>
+    </t>
+
+    <t t-name="KanbanView.buttons" t-extend="KanbanView.buttons">
+        <t t-jquery="button" t-operation="replace">
+             <button type="button" t-attf-class="btn #{btnClass} o-kanban-button-new" accesskey="c">
+                Create <t t-esc="widget.displayName"/>
+            </button>
+        </t>
+    </t>
+    
+</templates>
