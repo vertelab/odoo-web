@@ -1,9 +1,11 @@
 {
-    "name": " Web Fenix Dashboard AF",
-    "version": "12.0.0.0",
+    "name": " Web Dashboard Data",
+    "version": "12.0.0.1",
     "description": """
-     This module shows the dashbord of an employee´s daily work.
+     This module shows the dashbord of an employee´s daily work. \n
+     12.0.0.1 - This update Adds an instruction page
 """,
+    "summary": "This module shows the dashbord of an employee´s daily work.",
     "author": "Vertel AB",
     "license": "AGPL-3",
     "website": "https://vertel.se/",
