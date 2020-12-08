@@ -25,17 +25,19 @@
                                 <t t-raw="record.welcome_dsc.raw_value"/>
                             </p>
                             <br/>
-                            <table>
+                            <table width="100%">
                                 <tr>
                                     <t t-foreach="record.box_ids.raw_value" t-as="box">
                                         <t t-if="box.is_group">
-                                            <td width="33%" style="padding-left:5px;background-color:#8080805c">
+                                            <td width="15%"
+                                                style="padding-left:5px;background-color:#8080805c;vertical-align: top">
                                                 <t t-raw="box.name"/>
                                                 <t t-raw="box.sub_title"/>
                                                 <t t-raw="box.description"/>
                                                 <t t-esc="record.user_id.groups_id"/>
                                                 <a t-att-href="box.action_url">
-                                                    <i style="font-size:200px;padding-left:5%" t-att-class="box.image"/>
+                                                    <i style="font-size:200px;padding-left:5%"
+                                                       t-att-class="box.image"/>
                                                 </a>
                                             </td>
                                         </t>
@@ -97,7 +99,8 @@
                             <field name="description"/>
                             <field name="action_id"/>
                             <field name="image"/>
-                            <field name="group_ids" widget="many2many_tags"/>
+                            <field name="group_ids" widget="many2many_tags"
+                            options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                         </tree>
                         <form>
                             <group>
@@ -106,7 +109,8 @@
                                 <field name="description"/>
                                 <field name="action_id"/>
                                 <field name="image"/>
-                                <field name="group_ids" widget="many2many_tags"/>
+                                <field name="group_ids" widget="many2many_tags"
+                                options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                             </group>
                         </form>
                     </field>
@@ -124,7 +128,7 @@
 
     <menuitem id="af_dashboard_menu_config" action="action_af_dashboard_config"
               name="My Dashboard Configuration" sequence="100"
-              groups="web_dashboard_fenix.group_my_dashboard_manager"/>
+              groups="web_dashboard_dafa.group_my_dashboard_manager"/>
 
      <record id="af_dashboard_box_view_tree" model="ir.ui.view">
         <field name="name">af.dashboard.box.tree</field>
@@ -154,7 +158,8 @@
                     <field name="description"/>
                     <field name="action_id"/>
                     <field name="image"/>
-                    <field name="group_ids" widget="many2many_tags"/>
+                    <field name="group_ids" widget="many2many_tags"
+                    options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                 </group>
             </form>
         </field>
