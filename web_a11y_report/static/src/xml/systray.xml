@@ -7,49 +7,4 @@
              </li>
         </t>
     </t>
-
-    <t t-name="web_a11y_report.AccessibilityReport">
-        <div class="container-fluid">
-            <div class="row">
-                <table class="table" style="margin-left:15px;">
-                    <tr>
-                        <td>
-                            <h1>Accessibility Report for</h1>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h2>Header 1</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h2>Header 2</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h2>Links</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="https://www.funka.com/design-for-alla/lagar-och-regler/" target="_blank">
-                                https://www.funka.com/design-for-alla/lagar-och-regler/</a><br/>
-                            <a href="https://www.funka.com/design-for-alla/lagar-och-regler/webbtillganglighetsdirektivet/"
-                                target="_blank">
-                                https://www.funka.com/design-for-alla/lagar-och-regler/webbtillganglighetsdirektivet/</a><br/>
-                            <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32019L0882&amp;qid=1559901328978&amp;from=EN"
-                                target="_blank">
-                                https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32019L0882&amp;qid=1559901328978&amp;from=EN</a><br/>
-                            <a href="https://www.boia.org/products/wcag-2-0-aa-audit-report/" target="_blank">
-                                https://www.boia.org/products/wcag-2-0-aa-audit-report/</a><br/>
-                            <a href="https://www.a11yproject.com/" target="_blank">https://www.a11yproject.com/</a><br/>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </t>
-
 </templates>
