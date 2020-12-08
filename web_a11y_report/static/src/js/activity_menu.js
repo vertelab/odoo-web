@@ -18,13 +18,14 @@ ActivityMenu.include({
         'show.bs.dropdown': '_onActivityMenuShow',
     },
     _onwebA11yReportClick: function () {
-         new Dialog(this, {
-            size: 'large',
-            width: "100%",
-            dialogClass: 'o_act_window',
-            title: _t("Accessibility Report"),
-            $content: $(QWeb.render("web_a11y_report.AccessibilityReport"))
-        }).open();
+        var reportname = 'web_a11y_report.accessibility_report_template?docids=' + 1 + '&report_type=' + 'qweb-html';
+        var action = {
+            'type': 'ir.actions.report',
+            'report_type': 'qweb-html',
+            'report_name': reportname,
+            'report_file': 'web_a11y_report.accessibility_report_template'
+        };
+        return this.do_action(action)
     },
 });
 
