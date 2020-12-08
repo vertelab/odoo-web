@@ -128,7 +128,7 @@
 
     <menuitem id="af_dashboard_menu_config" action="action_af_dashboard_config"
               name="My Dashboard Configuration" sequence="100"
-              groups="web_dashboard_data.group_my_dashboard_manager"/>
+              groups="web_dashboard_dafa.group_my_dashboard_manager"/>
 
      <record id="af_dashboard_box_view_tree" model="ir.ui.view">
         <field name="name">af.dashboard.box.tree</field>
