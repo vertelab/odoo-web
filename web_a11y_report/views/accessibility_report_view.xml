@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="record_accessibility_report" model="accessibility.report">
+            <field name="name">Header 1</field>
+        </record>
+    </data>
+    <data>
+        <record id="form_view_accessibility_report" model="ir.ui.view">
+            <field name="name">accessibility.form.view</field>
+            <field name="model">accessibility.report</field>
+            <field name="arch" type="xml">
+                <form string="Accessibility Report">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_accessibility_report" model="ir.actions.act_window">
+            <field name="name">Accessibility Report</field>
+            <field name="res_model">accessibility.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="form_view_accessibility_report"/>
+            <field name="res_id" ref="record_accessibility_report"/>
+        </record>
+
+        <record id="accessibility_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">accessibility.res.config.settings.view.form.inherit.account</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="40"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Accessibility Report</span>
+                                <div class="content-group">
+                                    <div>
+                                        <button name="%(action_accessibility_report)d"
+                                                icon="fa-arrow-right" type="action"
+                                                string="Update Accessibility Report" class="btn-link"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <template id="accessibility_report_template">
+<!--            <t t-call="web.html_container">-->
+                <div class="page">
+                        <t t-foreach="docs" t-as="o">
+                            <span t-field="o.name"/>
+                        </t>
+                </div>
+<!--            </t>-->
+        </template>
+
+        <!-- Report -->
+        <report
+            id="report_accessibility_report"
+            model="accessibility.report"
+            string="Accessibility Report"
+            report_type="qweb-html"
+            name="web_a11y_report.accessibility_report_template"
+            file="web_a11y_report.accessibility_report_template"
+            print_report_name="object.name"
+            menu="False"
+        />
+    </data>
+</odoo>
