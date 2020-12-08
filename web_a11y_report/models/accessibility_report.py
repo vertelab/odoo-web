@@ -4,5 +4,7 @@ class AccessibilityReport(models.Model):
 
     _name = "accessibility.report"
     _description = "Accessibility Report"
+    _rec_name = 'name_2'
 
-    name = fields.Html("Name")
+    name = fields.Html("Repor Content")
+    name_2 = fields.Char("Name", default="Accessibility Report")
