@@ -17,7 +17,5 @@
     ],
     "data": [
         "views/assets.xml",
-        "views/accessibility_report_view.xml",
-        "security/ir.model.access.csv"
     ]
 }
