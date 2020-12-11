@@ -11,7 +11,8 @@
 		            			t-att-data-menu-xmlid="app.xmlID" 
 		            			t-att-data-action-id="app.actionID"
 		            			class="nav-link" role="menuitem">
-		                	<img class="af_apps_sidebar_icon" t-attf-src="data:image/png;base64,#{app.web_icon_data}"/>
+							<!-- If you want the menu icons visible again, remove the style param. -->	
+		                	<img class="af_apps_sidebar_icon" t-attf-src="data:image/png;base64,#{app.web_icon_data}" style="display:none"/>
 					        <span class="af_apps_sidebar_name">
 					            <t t-esc="app.name"/>
 					        </span>
