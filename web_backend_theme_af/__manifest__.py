@@ -2,12 +2,12 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    "name": "Web Backend Tema AF V12",
+    "name": "Depreciated Web Backend Tema AF V12",
     "summary": "Web Backend Theme AF V12	",
-    "version": "12.0.0.6",
+    "version": "12.0.0.7",
     "category": "Theme/Backend",
     "description": """
-		Web Backend tema AF för Odoo 12.0 community edition.
+		Web Backend tema AF för Odoo 12.0 community edition. With New CSS
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
