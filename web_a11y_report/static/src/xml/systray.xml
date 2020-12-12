@@ -2,7 +2,7 @@
 
     <t t-extend="mail.systray.ActivityMenu">
         <t t-jquery="li" t-operation="before">
-             <li class="o_mail_systray_item">
+             <li class="web_a11y_report" style="color:white">
               <a class="web_a11y_report">Accessibility Report</a>
              </li>
         </t>
