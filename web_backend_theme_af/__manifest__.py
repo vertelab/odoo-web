@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    "name": "Depreciated Web Backend Tema AF V12",
+    "name": "Web Backend Tema AF V12",
     "summary": "Web Backend Theme AF V12	",
     "version": "12.0.0.7",
     "category": "Theme/Backend",
