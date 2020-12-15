@@ -130,7 +130,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="af_dashboard_main_menu_config"
+    <menuitem id="af_dashboard_main_menu_config" parent="af_dashboard_menu"
               name="Dashboard Configurations" sequence="100"
               groups="web_dashboard_dafa.group_my_dashboard_manager"/>
 
