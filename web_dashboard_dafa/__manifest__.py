@@ -12,13 +12,14 @@
     "website": "https://vertel.se/",
     "category": "Tools",
     "depends": [
-        "web_one2many_kanban"
+        "web_one2many_kanban", "partner_firstname"
     ],
     "data": [
         "security/security.xml",
         "views/af_dashboard.xml",
         "wizard/update_dashboard_config.xml",
         "security/ir.model.access.csv",
+        "data/fa.class.csv"
     ],
     'post_init_hook': 'post_init_hook',
     "application": "False",
