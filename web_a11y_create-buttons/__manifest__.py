@@ -1,6 +1,6 @@
 {
-    "name": "Web A11y Filter View",
-    "summary": "Web Ally Filter View",
+    "name": "Web A11y Create buttons",
+    "summary": "Web Ally Create buttons",
     "version": "12.0.1.2",
     "category": "Theme/Backend",
     "description": """
@@ -9,7 +9,7 @@
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
-    "installable": False,
+    "installable": True,
     "depends": [
         'web'
     ],
