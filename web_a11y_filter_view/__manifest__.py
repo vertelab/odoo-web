@@ -1,7 +1,7 @@
 {
     "name": "Web A11y Filter View",
     "summary": "Web Ally Filter View",
-    "version": "12.0.1.1",
+    "version": "12.0.1.2",
     "category": "Theme/Backend",
     "description": """
 		Added model description on Create and Edit button.
@@ -9,7 +9,7 @@
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
-    "installable": False,
+    "installable": True,
     "depends": [
         'web'
     ],
