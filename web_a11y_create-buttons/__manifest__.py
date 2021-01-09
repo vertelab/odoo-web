@@ -1,10 +1,11 @@
 {
-    "name": "Web A11y Create buttons",
-    "summary": "Web Ally Create buttons",
-    "version": "12.0.1.2",
+    "name": "Backend - Modelnames on buttons",
+    "summary": "Adds model-name to buttons for A11y",
+    "version": "12.0.1.0.3",
     "category": "Theme/Backend",
     "description": """
-		Added model description on Create and Edit button.
+		Adds model-description to Create and Edit buttons.\n
+		Changed name and version-number of module in manifest.\n
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
