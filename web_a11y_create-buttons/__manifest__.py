@@ -5,7 +5,6 @@
     "category": "Theme/Backend",
     "description": """
 		Added model description on Create and Edit button.
-		Removed due to error
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
