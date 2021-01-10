@@ -128,7 +128,7 @@ msgstr "Senast uppdaterad"
 #: model:ir.actions.act_window,name:web_dashboard_dafa.action_af_dashboard
 #: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_menu
 msgid "My Dashboard"
-msgstr "Min anslagstavla"
+msgstr "Min startsida"
 
 #. module: web_dashboard_dafa
 #: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_boxes_menu_config
