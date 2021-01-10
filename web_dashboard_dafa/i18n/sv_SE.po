@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0-20201022\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-10 10:36+0000\n"
-"PO-Revision-Date: 2021-01-10 10:36+0000\n"
+"POT-Creation-Date: 2021-01-10 12:34+0000\n"
+"PO-Revision-Date: 2021-01-10 12:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,13 +24,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__action_id
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__action_id
 msgid "Action"
-msgstr "Åtgärd"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__action_url
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__action_url
 msgid "Action URL"
-msgstr "Åtgärds-URL"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__af_dashboard_id
@@ -45,21 +45,21 @@ msgstr ""
 #. module: web_dashboard_dafa
 #: model_terms:ir.ui.view,arch_db:web_dashboard_dafa.update_dashboard_config
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__create_uid
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__create_uid
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__create_uid
 msgid "Created by"
-msgstr "Skapad av"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__create_date
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__create_date
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__create_date
 msgid "Created on"
-msgstr "Skapad den"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model,name:web_dashboard_dafa.model_dashboard_boxes
@@ -70,20 +70,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__description
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__description
 msgid "Description"
-msgstr "Beskrivning"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__display_name
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__display_name
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__display_name
 msgid "Display Name"
-msgstr "Visningsnamn"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__group_ids
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__group_ids
 msgid "Groups"
-msgstr "Grupper"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__id
@@ -96,7 +96,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__image
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__image
 msgid "Image Class"
-msgstr "Bildformat"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__is_group
@@ -108,27 +108,27 @@ msgstr ""
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes____last_update
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config____last_update
 msgid "Last Modified on"
-msgstr "Senast redigerad"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__write_uid
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__write_uid
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__write_uid
 msgid "Last Updated by"
-msgstr "Senast uppdaterad av"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__write_date
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__write_date
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__write_date
 msgid "Last Updated on"
-msgstr "Senast uppdaterad"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.actions.act_window,name:web_dashboard_dafa.action_af_dashboard
 #: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_menu
 msgid "My Dashboard"
-msgstr "Min anslagstavla"
+msgstr "Min startsida"
 
 #. module: web_dashboard_dafa
 #: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_boxes_menu_config
@@ -144,7 +144,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:web_dashboard_dafa.action_af_dashboard_config
 #: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_menu_config
 msgid "My Dashboard Configuration"
-msgstr "Min anslagstavla"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:res.groups,name:web_dashboard_dafa.group_my_dashboard_manager
@@ -154,66 +154,66 @@ msgstr ""
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__name
 msgid "Name"
-msgstr "Namn"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__sub_title
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__sub_title
 msgid "Sub title"
-msgstr "Undertitel"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__name
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__name
 msgid "Title"
-msgstr "Titel"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model_terms:ir.ui.view,arch_db:web_dashboard_dafa.update_dashboard_config
 msgid "Update"
-msgstr "Uppdatera"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model,name:web_dashboard_dafa.model_update_dashboard_config
 msgid "Update Dashboard"
-msgstr "Uppdatera anslagstavla"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.ui.menu,name:web_dashboard_dafa.update_af_dashboard_menu_config_menu
 msgid "Update Dashboard data"
-msgstr "Uppdatera anslagstavlans information"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.actions.act_window,name:web_dashboard_dafa.action_update_af_dashboard_config
 msgid "Update My Dashboard Configuration"
-msgstr "Uppdatera anslagstavlans konfiguration"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__user_id
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__user_id
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__user_ids
 msgid "User"
-msgstr "Användare"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model,name:web_dashboard_dafa.model_res_users
 msgid "Users"
-msgstr "Användare"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__want_to_update_welcome_data
 msgid "Want to update Welcome Data?"
-msgstr "Vill du uppdatera välkomstinformationen?"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__welcome_dsc
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__welcome_dsc
 msgid "Welcome Description"
-msgstr "Välkomsttext"
+msgstr ""
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__welcome_msg
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__welcome_msg
 msgid "Welcome String"
-msgstr "Välkomsthälsning"
+msgstr ""
 
