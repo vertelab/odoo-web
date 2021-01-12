@@ -7,6 +7,7 @@ class Dashboard(models.Model):
 
     name = fields.Char("Name")
     user_id = fields.Many2one('res.users', "User")
+    firstname = fields.Char(related='user_id.firstname', store=True)
     welcome_msg = fields.Char("Welcome String", default="Welcome")
     welcome_dsc = fields.Html("Welcome Description", default=" You will soon be able to visualise and perform "
                     "all your daily tasks as a FA here. You can already create accounts and handle different "
@@ -17,13 +18,15 @@ class DashboardBoxes(models.Model):
 
     _name = 'dashboard.boxes'
     _description = "Dashboard Boxes"
+    _rec_name = "user_id"
 
     af_dashboard_id = fields.Many2one('af.dashboard')
     user_id = fields.Many2one('res.users', related='af_dashboard_id.user_id', store=True)
     name = fields.Html("Title")
     sub_title = fields.Html("Sub title")
     description = fields.Html("Description")
-    image = fields.Char("Image Class")
+    image = fields.Many2one('fa.class', "Image Class")
+    image_class_name = fields.Char(related='image.class_name', store=True)
     group_ids = fields.Many2many("res.groups", "rel_dashboax_box_group", "box_id", "rel_box_group_id", "Groups")
     is_group = fields.Boolean("Is Group", compute="_compare_box_user_group")
     action_id = fields.Many2one("ir.actions.act_window", "Action")
@@ -50,7 +53,13 @@ class DashboardBoxes(models.Model):
                     else:
                         is_group = False
 
+class FAClass(models.Model):
 
+    _name = 'fa.class'
+    _description = 'FA Class'
+
+    name = fields.Char("Name")
+    class_name = fields.Char("Class Name")
 
 class ResUsers(models.Model):
 
