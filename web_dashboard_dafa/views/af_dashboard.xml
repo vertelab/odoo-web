@@ -8,6 +8,7 @@
             <kanban class="o_kanban_mobile" create="false" import="false">
                 <field name="name"/>
                 <field name="user_id"/>
+                <field name="firstname"/>
                 <field name="welcome_msg"/>
                 <field name="welcome_dsc"/>
                 <field name="box_ids"/>
@@ -16,7 +17,10 @@
                         <div style="width:100%;height:500px;border:none;background-color:#80808003">
                             <h2>
                                 <t t-esc="record.welcome_msg.value"/>
-                                <t t-if="record.user_id.raw_value">
+                                <t t-if="record.firstname.raw_value">
+                                    <t t-esc="record.firstname.raw_value"/>
+                                </t>
+                                <t t-else="">
                                     <t t-esc="record.user_id.value"/>
                                 </t>
                             </h2>
@@ -25,7 +29,7 @@
                                 <t t-raw="record.welcome_dsc.raw_value"/>
                             </p>
                             <br/>
-                            <table width="100%">
+                            <table width="100%" style="border-collapse: separate;border-spacing: 15px;">
                                 <tr>
                                     <t t-foreach="record.box_ids.raw_value" t-as="box">
                                         <t t-if="box.is_group">
@@ -36,8 +40,8 @@
                                                 <t t-raw="box.description"/>
                                                 <t t-esc="record.user_id.groups_id"/>
                                                 <a t-att-href="box.action_url">
-                                                    <i style="font-size:200px;padding-left:5%"
-                                                       t-att-class="box.image"/>
+                                                    <i style="font-size:100px;padding-left:1%"
+                                                       t-att-class="box.image_class_name"/>
                                                 </a>
                                             </td>
                                         </t>
@@ -126,54 +130,117 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="af_dashboard_menu_config" action="action_af_dashboard_config"
-              name="My Dashboard Configuration" sequence="100"
+    <menuitem id="af_dashboard_main_menu_config" parent="af_dashboard_menu"
+              name="Dashboard Configurations" sequence="100"
               groups="web_dashboard_dafa.group_my_dashboard_manager"/>
 
-     <record id="af_dashboard_box_view_tree" model="ir.ui.view">
-        <field name="name">af.dashboard.box.tree</field>
-        <field name="model">dashboard.boxes</field>
+    <menuitem id="af_dashboard_menu_config" action="action_af_dashboard_config"
+              name="All Users Dashboard Configuration" sequence="1"
+              parent="af_dashboard_main_menu_config"
+              groups="-web_dashboard_dafa.group_my_dashboard_manager,base.group_system"/>
+
+    <record id="my_af_dashboard_view_tree" model="ir.ui.view">
+        <field name="name">my.af.dashboard.tree</field>
+        <field name="model">af.dashboard</field>
         <field name="arch" type="xml">
             <tree create="false">
                 <field name="user_id"/>
                 <field name="name"/>
-                <field name="sub_title"/>
-                <field name="description"/>
-                <field name="action_id"/>
-                <field name="image"/>
-                <field name="group_ids" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
 
-    <record id="af_dashboard_box_view_form" model="ir.ui.view">
-        <field name="name">af.dashboard.box.form</field>
-        <field name="model">dashboard.boxes</field>
+    <record id="my_af_dashboard_view_form" model="ir.ui.view">
+        <field name="name">my.af.dashboard.form</field>
+        <field name="model">af.dashboard</field>
         <field name="arch" type="xml">
             <form create="false">
                 <group>
-                    <field name="user_id"/>
-                    <field name="name"/>
-                    <field name="sub_title"/>
-                    <field name="description"/>
-                    <field name="action_id"/>
-                    <field name="image"/>
-                    <field name="group_ids" widget="many2many_tags"
-                    options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                    <group>
+                        <field name="name" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="user_id" readonly="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="welcome_msg"/>
+                </group>
+                <group>
+                    <field name="welcome_dsc"/>
+                </group>
+                <group>
+                    <field name="box_ids" nolabel="1">
+                        <tree>
+                            <field name="name"/>
+                            <field name="sub_title"/>
+                            <field name="description"/>
+                            <field name="action_id"/>
+                            <field name="image"/>
+                            <field name="group_ids" widget="many2many_tags"
+                            options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                                <field name="sub_title"/>
+                                <field name="description"/>
+                                <field name="action_id"/>
+                                <field name="image"/>
+                                <field name="group_ids" widget="many2many_tags"
+                                options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                            </group>
+                        </form>
+                    </field>
                 </group>
             </form>
         </field>
     </record>
 
-    <record id="action_af_dashboard_boxes_config" model="ir.actions.act_window">
-        <field name="name">My Dashboard Boxes Configuration</field>
-        <field name="res_model">dashboard.boxes</field>
+    <record id="action_my_af_dashboard_boxes_config" model="ir.actions.act_window">
+        <field name="name">My Dashboard Configuration</field>
+        <field name="res_model">af.dashboard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+    <menuitem id="af_dashboard_boxes_menu_config" action="action_my_af_dashboard_boxes_config"
+              name="My Dashboard Configuration" sequence="3" parent="af_dashboard_main_menu_config"/>
+
+    <record id="fa_class_tree" model="ir.ui.view">
+        <field name="name">fa.class.tree</field>
+        <field name="model">fa.class</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="class_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fa_class_from" model="ir.ui.view">
+        <field name="name">fa.class.from</field>
+        <field name="model">fa.class</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="class_name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+     <record id="action_fa_class_config" model="ir.actions.act_window">
+        <field name="name">Image Names</field>
+        <field name="res_model">fa.class</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="af_dashboard_boxes_menu_config" action="action_af_dashboard_boxes_config"
-              name="My Dashboard Boxes" sequence="3" parent="af_dashboard_menu_config"/>
+    <menuitem id="fa_class_menu_config" action="action_fa_class_config"
+              name="Images" sequence="4" parent="af_dashboard_main_menu_config"/>
 
 
 </odoo>

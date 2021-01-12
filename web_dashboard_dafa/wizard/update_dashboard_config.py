@@ -11,7 +11,7 @@ class UpdateDashboardConfiguration(models.TransientModel):
     name = fields.Html("Title")
     sub_title = fields.Html("Sub title")
     description = fields.Html("Description")
-    image = fields.Char("Image Class")
+    image = fields.Many2one("fa.class", "Image Class")
     group_ids = fields.Many2many("res.groups", "rel_update_dashboax_box_group", "update_dash__id",
                                  "rel_update_dah_group_id", "Groups")
     action_id = fields.Many2one("ir.actions.act_window", "Action")
