@@ -1,7 +1,7 @@
 {
     "name": "Backend - Modelnames on buttons",
     "summary": "Adds model-name to buttons for A11y",
-    "version": "12.0.1.0.3",
+    "version": "12.0.1.0.4",
     "category": "Theme/Backend",
     "description": """
 		Adds model-description to Create and Edit buttons.\n
@@ -17,5 +17,6 @@
         "static/src/xml/base.xml",
     ],
     "data": [
+        'views/assets.xml'
     ]
 }
