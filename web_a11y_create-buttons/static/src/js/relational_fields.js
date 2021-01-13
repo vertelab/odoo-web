@@ -14,9 +14,9 @@ var Pager = require('web.Pager');
 
 var _t = core._t;
 var qweb = core.qweb;
-//Added this js file to change following line of relational_fields.FieldX2Many's init function
+//Added this js file to change line number 26 of relational_fields.FieldX2Many's init function
 //But for now init function doesn't work. Need to check why
-//Changed "create_text: _t('ADD')" to "create_text: _t(this.string)" at line 24
+//Changed "create_text: _t('ADD')" to "create_text: _t(this.string)" at line 26
 var relational_fields = require('web.relational_fields');
 var FieldX2Many = relational_fields.FieldX2Many.extend({
     init: function (parent, name, record, options) {
