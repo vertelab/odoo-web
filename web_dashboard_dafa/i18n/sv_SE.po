@@ -226,3 +226,8 @@ msgstr "Konfiguration Anslagstavla"
 #: model:ir.ui.menu,name:web_dashboard_dafa.fa_class_menu_config
 msgid "Images"
 msgstr "Bilder"
+
+#. module: web_dashboard_dafa
+#: model:ir.actions.act_window,name:web_dashboard_dafa.action_fa_class_config
+msgid "Image Names"
+msgstr "Bildnamn"
