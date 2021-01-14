@@ -217,3 +217,12 @@ msgstr ""
 msgid "Welcome String"
 msgstr ""
 
+#. module: web_dashboard_dafa
+#: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_main_menu_config
+msgid "Dashboard Configurations"
+msgstr "Konfiguration Anslagstavla"
+
+#. module: web_dashboard_dafa
+#: model:ir.ui.menu,name:web_dashboard_dafa.fa_class_menu_config
+msgid "Images"
+msgstr "Bilder"
