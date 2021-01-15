@@ -16,27 +16,28 @@ class UpdateDashboardConfiguration(models.TransientModel):
                                  "rel_update_dah_group_id", "Groups")
     action_id = fields.Many2one("ir.actions.act_window", "Action")
     action_url = fields.Char("Action URL", compute="_compute_action_url")
-    user_ids = fields.Many2many("res.users", "rel_update_dah_users", "user_id", "rel_dash_user_id")
+    # user_ids = fields.Many2many("res.users", "rel_update_dah_users", "user_id", "rel_dash_user_id")
 
     def add_boxes(self):
         config_obj = self.env['af.dashboard']
-        for user in self.user_ids:
-            config = config_obj.search([('user_id', '=', user.id)], limit=1)
-            if config:
-                if self.want_to_update_welcome_data:
-                    config.welcome_msg = self.welcome_msg
-                    config.welcome_dsc = self.welcome_dsc
-                if self.image or self.group_ids or self.action_id:
-                    config.box_ids = [(0, 0, {
-                        'name': self.name,
-                        'sub_title': self.sub_title,
-                        'description': self.description,
-                        'image': self.image,
-                        'group_ids': [(4, group.id) for group in self.group_ids],
-                        # 'is_group': self.is_group,
-                        'action_id': self.action_id if self.action_id.id else False,
-                        'action_url': self.action_url
-                    })]
+        for group in self.group_ids:
+            for user in group.users:
+                config = config_obj.search([('user_id', '=', user.id)], limit=1)
+                if config:
+                    if self.want_to_update_welcome_data:
+                        config.welcome_msg = self.welcome_msg
+                        config.welcome_dsc = self.welcome_dsc
+                    if self.image or self.group_ids or self.action_id:
+                        config.box_ids = [(0, 0, {
+                            'name': self.name,
+                            'sub_title': self.sub_title,
+                            'description': self.description,
+                            'image': self.image,
+                            'group_ids': [(4, group.id) for group in self.group_ids],
+                            # 'is_group': self.is_group,
+                            'action_id': self.action_id if self.action_id.id else False,
+                            'action_url': self.action_url
+                        })]
 
     @api.depends('action_id')
     def _compute_action_url(self):
