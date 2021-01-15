@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import Warning
 
 class Dashboard(models.Model):
 
@@ -13,6 +14,13 @@ class Dashboard(models.Model):
                     "all your daily tasks as a FA here. You can already create accounts and handle different "
                     "permission rules to your employees under the tab Administration in the menu bar.")
     box_ids = fields.One2many('dashboard.boxes', 'af_dashboard_id')
+
+    @api.model
+    def create(self, vals):
+        res = super(Dashboard, self).create(vals)
+        if 'from_manual' in self._context:
+            raise Warning(_("You can't create manual configuration!"))
+        return res
 
 class DashboardBoxes(models.Model):
 
@@ -31,6 +39,13 @@ class DashboardBoxes(models.Model):
     is_group = fields.Boolean("Is Group", compute="_compare_box_user_group")
     action_id = fields.Many2one("ir.actions.act_window", "Action")
     action_url = fields.Char("Action URL", compute="_compute_action_url")
+
+    @api.model
+    def create(self, vals):
+        res = super(DashboardBoxes, self).create(vals)
+        if 'from_manual' in self._context:
+            raise Warning(_("You can't create manual configuration!"))
+        return res
 
     @api.depends('action_id')
     def _compute_action_url(self):
