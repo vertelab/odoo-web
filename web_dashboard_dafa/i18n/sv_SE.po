@@ -222,6 +222,11 @@ msgid "Images"
 msgstr "Bilder"
 
 #. module: web_dashboard_dafa
+#: model:ir.actions.act_window,name:web_dashboard_dafa.action_fa_class_config
+msgid "Image Names"
+msgstr "Bildnamn"
+
+#. module: web_dashboard_dafa
 #: model:ir.ui.menu,name:web_dashboard_dafa.update_af_dashboard_menu_config_menu
 msgid "Add Items to multiple users"
 msgstr "Lägg till konfiguration för flera användare"
@@ -243,3 +248,4 @@ msgstr "Konfiguration av Min anslagstavla"
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_fa_class__class_name
 msgid "Class Name"
 msgstr "Klassnamn"
+
