@@ -69,7 +69,7 @@
         <field name="name">af.dashboard.tree</field>
         <field name="model">af.dashboard</field>
         <field name="arch" type="xml">
-            <tree create="false">
+            <tree>
                 <field name="name"/>
                 <field name="user_id"/>
             </tree>
@@ -104,7 +104,7 @@
                             <field name="action_id"/>
                             <field name="image"/>
                             <field name="group_ids" widget="many2many_tags"
-                            options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                                   options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                         </tree>
                         <form>
                             <group>
@@ -114,7 +114,7 @@
                                 <field name="action_id"/>
                                 <field name="image"/>
                                 <field name="group_ids" widget="many2many_tags"
-                                options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                                       options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                             </group>
                         </form>
                     </field>
@@ -128,6 +128,7 @@
         <field name="res_model">af.dashboard</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'from_manual':1}</field>
     </record>
 
     <menuitem id="af_dashboard_main_menu_config" parent="af_dashboard_menu"
@@ -178,7 +179,7 @@
                             <field name="action_id"/>
                             <field name="image"/>
                             <field name="group_ids" widget="many2many_tags"
-                            options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                                   options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                         </tree>
                         <form>
                             <group>
@@ -188,7 +189,7 @@
                                 <field name="action_id"/>
                                 <field name="image"/>
                                 <field name="group_ids" widget="many2many_tags"
-                                options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                                       options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                             </group>
                         </form>
                     </field>
@@ -207,6 +208,48 @@
 
     <menuitem id="af_dashboard_boxes_menu_config" action="action_my_af_dashboard_boxes_config"
               name="My Dashboard Configuration" sequence="3" parent="af_dashboard_main_menu_config"/>
+
+    <record id="dashboard_boxes_tree_view" model="ir.ui.view">
+        <field name="name">dashboard.boxes.tree</field>
+        <field name="model">dashboard.boxes</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="dashboard_boxes_form_view" model="ir.ui.view">
+        <field name="name">dashboard.boxes.form</field>
+        <field name="model">dashboard.boxes</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <group>
+                    <field name="af_dashboard_id" readonly="1"/>
+                    <field name="name"/>
+                    <field name="sub_title"/>
+                    <field name="description"/>
+                    <field name="action_id"/>
+                    <field name="image"/>
+                    <field name="group_ids" widget="many2many_tags"
+                           options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                </group>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dashboard_boxes_config" model="ir.actions.act_window">
+        <field name="name">Dashboard Boxes</field>
+        <field name="res_model">dashboard.boxes</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'from_manual':1}</field>
+    </record>
+
+    <menuitem id="dashboard_boxes_menu_config" action="action_dashboard_boxes_config"
+              name="Dashboard Boxes Configuration" sequence="4" parent="af_dashboard_main_menu_config"/>
 
     <record id="fa_class_tree" model="ir.ui.view">
         <field name="name">fa.class.tree</field>
@@ -232,7 +275,7 @@
         </field>
     </record>
 
-     <record id="action_fa_class_config" model="ir.actions.act_window">
+    <record id="action_fa_class_config" model="ir.actions.act_window">
         <field name="name">Image Names</field>
         <field name="res_model">fa.class</field>
         <field name="view_type">form</field>

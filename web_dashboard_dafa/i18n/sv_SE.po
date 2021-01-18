@@ -141,12 +141,6 @@ msgid "My Dashboard Boxes Configuration"
 msgstr ""
 
 #. module: web_dashboard_dafa
-#: model:ir.actions.act_window,name:web_dashboard_dafa.action_af_dashboard_config
-#: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_menu_config
-msgid "My Dashboard Configuration"
-msgstr ""
-
-#. module: web_dashboard_dafa
 #: model:res.groups,name:web_dashboard_dafa.group_my_dashboard_manager
 msgid "My Dashboard Manager"
 msgstr ""
@@ -220,7 +214,7 @@ msgstr ""
 #. module: web_dashboard_dafa
 #: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_main_menu_config
 msgid "Dashboard Configurations"
-msgstr "Konfiguration Anslagstavla"
+msgstr "Konfiguration Startsida"
 
 #. module: web_dashboard_dafa
 #: model:ir.ui.menu,name:web_dashboard_dafa.fa_class_menu_config
@@ -231,3 +225,27 @@ msgstr "Bilder"
 #: model:ir.actions.act_window,name:web_dashboard_dafa.action_fa_class_config
 msgid "Image Names"
 msgstr "Bildnamn"
+
+#. module: web_dashboard_dafa
+#: model:ir.ui.menu,name:web_dashboard_dafa.update_af_dashboard_menu_config_menu
+msgid "Add Items to multiple users"
+msgstr "Lägg till konfiguration för flera användare"
+
+#. module: web_dashboard_dafa
+#: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_menu_config
+msgid "All Users Dashboard Configuration"
+msgstr "Konfigurera Anslagstavlan för alla användare"
+
+#. module: web_dashboard_dafa
+#: model:ir.actions.act_window,name:web_dashboard_dafa.action_af_dashboard_config
+#: model:ir.actions.act_window,name:web_dashboard_dafa.action_my_af_dashboard_boxes_config
+#: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_boxes_menu_config
+msgid "My Dashboard Configuration"
+msgstr "Konfiguration av Min anslagstavla"
+
+#. module: web_dashboard_dafa
+#: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__image_class_name
+#: model:ir.model.fields,field_description:web_dashboard_dafa.field_fa_class__class_name
+msgid "Class Name"
+msgstr "Klassnamn"
+
