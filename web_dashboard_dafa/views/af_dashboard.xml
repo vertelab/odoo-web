@@ -226,7 +226,7 @@
         <field name="arch" type="xml">
             <form create="false">
                 <group>
-                    <field name="af_dashboard_id"/>
+                    <field name="af_dashboard_id" readonly="1"/>
                     <field name="name"/>
                     <field name="sub_title"/>
                     <field name="description"/>
