@@ -14,7 +14,8 @@
                 <field name="box_ids"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div style="width:100%;height:500px;border:none;background-color:#80808003">
+                        <div style="width:100%;height:500px;border:none;background-color:#80808003"
+                             class="dashboard_dafa">
                             <h2>
                                 <t t-esc="record.welcome_msg.value"/>
                                 <t t-if="record.firstname.raw_value">
@@ -32,13 +33,12 @@
                             <table width="100%" style="border-collapse: separate;border-spacing: 15px;">
                                 <tr>
                                     <t t-foreach="record.box_ids.raw_value" t-as="box">
-                                        <t t-if="box.is_group">
+                                        <t t-if="box.is_detail">
                                             <td width="15%"
-                                                style="padding-left:5px;background-color:#8080805c;vertical-align: top">
+                                                style="padding-left:5px;background-color:#80808003;vertical-align: top">
                                                 <t t-raw="box.name"/>
                                                 <t t-raw="box.sub_title"/>
                                                 <t t-raw="box.description"/>
-                                                <t t-esc="record.user_id.groups_id"/>
                                                 <a t-att-href="box.action_url">
                                                     <i style="font-size:100px;padding-left:1%"
                                                        t-att-class="box.image_class_name"/>
@@ -64,6 +64,109 @@
     </record>
 
     <menuitem id="af_dashboard_menu" action="action_af_dashboard" name="My Dashboard" sequence="0"/>
+
+    <record id="res_groups_dash_tree_view" model="ir.ui.view">
+        <field name="name">res.groups.dashboard.tree</field>
+        <field name="model">res.groups</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_groups_dash_form_view" model="ir.ui.view">
+        <field name="name">res.groups.dashboard.form</field>
+        <field name="model">res.groups</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <group>
+                    <field name="name" readonly="1"/>
+                </group>
+                <notebook>
+                    <page string="Boxes" name="boxes">
+                        <field name="box_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="sub_title"/>
+                                <field name="description"/>
+                                <field name="image"/>
+                                <field name="action_id"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="sub_title"/>
+                                    <field name="description"/>
+                                    <field name="image"/>
+                                    <field name="action_id"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page string="Users" name="users">
+                        <field name="users" readonly="1"/>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_res_groups_dashboard" model="ir.actions.act_window">
+        <field name="name">Groups</field>
+        <field name="res_model">res.groups</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_res_groups_dashboard_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_res_groups_dashboard"/>
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="res_groups_dash_tree_view"/>
+    </record>
+
+
+    <record id="action_res_groups_dashboard_form" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_res_groups_dashboard"/>
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="res_groups_dash_form_view"/>
+    </record>
+
+    <record id="res_groups_tree_view" model="ir.ui.view">
+        <field name="name">res.groups.tree</field>
+        <field name="model">res.groups</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_res_groups_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="base.action_res_groups"/>
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="res_groups_tree_view"/>
+    </record>
+
+
+    <record id="action_res_groups_form" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="base.action_res_groups"/>
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="base.view_groups_form"/>
+    </record>
+
+
+    <menuitem id="af_dashboard_main_menu_config" parent="af_dashboard_menu"
+              name="Dashboard Configurations" sequence="100"
+              groups="web_dashboard_dafa.group_my_dashboard_manager"/>
+
+    <menuitem id="res_groups_dashboard_menu" action="action_res_groups_dashboard"
+              name="Groups" sequence="1" parent="af_dashboard_main_menu_config"/>
+
 
     <record id="af_dashboard_view_tree" model="ir.ui.view">
         <field name="name">af.dashboard.tree</field>
@@ -103,8 +206,6 @@
                             <field name="description"/>
                             <field name="action_id"/>
                             <field name="image"/>
-                            <field name="group_ids" widget="many2many_tags"
-                                   options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                         </tree>
                         <form>
                             <group>
@@ -113,8 +214,6 @@
                                 <field name="description"/>
                                 <field name="action_id"/>
                                 <field name="image"/>
-                                <field name="group_ids" widget="many2many_tags"
-                                       options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                             </group>
                         </form>
                     </field>
@@ -124,19 +223,16 @@
     </record>
 
     <record id="action_af_dashboard_config" model="ir.actions.act_window">
-        <field name="name">My Dashboard Configuration</field>
+        <field name="name">All User's Dashboard Configuration</field>
         <field name="res_model">af.dashboard</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="context">{'from_manual':1}</field>
     </record>
 
-    <menuitem id="af_dashboard_main_menu_config" parent="af_dashboard_menu"
-              name="Dashboard Configurations" sequence="100"
-              groups="web_dashboard_dafa.group_my_dashboard_manager"/>
 
     <menuitem id="af_dashboard_menu_config" action="action_af_dashboard_config"
-              name="All Users Dashboard Configuration" sequence="1"
+              name="All Users Dashboard Configuration" sequence="2"
               parent="af_dashboard_main_menu_config"
               groups="-web_dashboard_dafa.group_my_dashboard_manager,base.group_system"/>
 
@@ -178,8 +274,6 @@
                             <field name="description"/>
                             <field name="action_id"/>
                             <field name="image"/>
-                            <field name="group_ids" widget="many2many_tags"
-                                   options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                         </tree>
                         <form>
                             <group>
@@ -188,8 +282,6 @@
                                 <field name="description"/>
                                 <field name="action_id"/>
                                 <field name="image"/>
-                                <field name="group_ids" widget="many2many_tags"
-                                       options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                             </group>
                         </form>
                     </field>
@@ -232,8 +324,6 @@
                     <field name="description"/>
                     <field name="action_id"/>
                     <field name="image"/>
-                    <field name="group_ids" widget="many2many_tags"
-                           options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                 </group>
 
             </form>
@@ -249,7 +339,7 @@
     </record>
 
     <menuitem id="dashboard_boxes_menu_config" action="action_dashboard_boxes_config"
-              name="Dashboard Boxes Configuration" sequence="4" parent="af_dashboard_main_menu_config"/>
+              name="Dashboard Boxes Configuration" sequence="6" parent="af_dashboard_main_menu_config"/>
 
     <record id="fa_class_tree" model="ir.ui.view">
         <field name="name">fa.class.tree</field>

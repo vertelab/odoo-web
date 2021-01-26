@@ -7,19 +7,13 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="welcome_msg" attrs="{'required': [('want_to_update_welcome_data', '=', True)]}"/>
-                    <field name="welcome_dsc" attrs="{'required': [('want_to_update_welcome_data', '=', True)]}"/>
-                    <field name="want_to_update_welcome_data"/>
-                    <field name="name"/>
-                    <field name="sub_title"/>
-                    <field name="description"/>
-                    <field name="action_id"/>
-                    <field name="image"/>
+                    <field name="welcome_msg"/>
+                    <field name="welcome_dsc"/>
                     <field name="group_ids" widget="many2many_tags"
                            options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
                 </group>
                 <footer>
-                     <button string="Update" type="object" class="oe_highlight" name="add_boxes"/>
+                     <button string="Update" type="object" class="oe_highlight" name="upate_data"/>
                      <button string="Cancel" class="oe_link" special="cancel"/>
                 </footer>
             </form>
@@ -27,14 +21,14 @@
     </record>
 
     <record id="action_update_af_dashboard_config" model="ir.actions.act_window">
-        <field name="name">Update My Dashboard Configuration</field>
+        <field name="name">Update Welcome Data</field>
         <field name="res_model">update.dashboard.config</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
 
-    <menuitem id="update_af_dashboard_menu_config_menu" action="action_update_af_dashboard_config"
-              name="Add Items to multiple users" sequence="2" parent="af_dashboard_main_menu_config"
+    <menuitem id="update_af_dashboard_welcome_data_menu" action="action_update_af_dashboard_config"
+              name="Update Welcome Data" sequence="5" parent="af_dashboard_main_menu_config"
                 groups="base.group_system"/>
 </odoo>

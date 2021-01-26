@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="web_dashboard_dafa assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+           <link rel="stylesheet" type="text/css" href="/web_dashboard_dafa/static/src/css/kanban.css"/>
+        </xpath>
+    </template>
+</odoo>
