@@ -1,0 +1,10 @@
+.o_kanban_view .o_kanban_record:focus, .o_kanban_view .o_kanban_record:focus-within, .o_kanban_view
+.o_kanban_quick_create:focus, .o_kanban_view .o_kanban_quick_create:focus-within {
+
+    -webkit-box-shadow: 0px 0px 0px 0px #6c757d;
+    -moz-box-shadow: 0px 0px 0px 0px #6c757d;
+    box-shadow: 0px 0px 0px 0px #6c757d;
+    z-index: 1;
+    outline: none;
+
+}

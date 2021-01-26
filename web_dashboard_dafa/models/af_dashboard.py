@@ -1,5 +1,57 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import Warning
+import re
+
+class ResGroups(models.Model):
+
+    _inherit = 'res.groups'
+
+    box_ids = fields.One2many('group.dashboard.boxes', 'group_id', "Boxes")
+
+class GroupBoxes(models.Model):
+    _name = 'group.dashboard.boxes'
+
+    name = fields.Html("Title")
+    sub_title = fields.Html("Sub title")
+    description = fields.Html("Description")
+    image = fields.Many2one('fa.class', "Image Class")
+    image_class_name = fields.Char(related='image.class_name', store=True)
+    action_id = fields.Many2one("ir.actions.act_window", "Action")
+    action_url = fields.Char("Action URL", compute="_compute_action_url")
+    group_id = fields.Many2one('res.groups', "Group")
+
+    @api.model
+    def create(self, vals):
+        res = super(GroupBoxes, self).create(vals)
+        if res:
+            for user in res.group_id.users:
+                dashboard = self.env['af.dashboard'].search([('user_id', '=', user.id)], limit=1)
+                if dashboard:
+                    dashboard.box_ids = [(0, 0, {
+                        'af_dashboard_id': dashboard.id,
+                        'name': res.name,
+                        'sub_title': res.sub_title,
+                        'description': res.description,
+                        'image': res.image.id if res.image else False,
+                        'action_id': res.action_id.id if res.action_id else False,
+                        'group_box_id': res.id
+                    })]
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(GroupBoxes, self).write(vals)
+        for box in self:
+            user_boxes = self.env['dashboard.boxes'].search([('group_box_id', '=', box.id)])
+            for user_box in user_boxes:
+                user_box.write({
+                        'name': box.name,
+                        'sub_title': box.sub_title,
+                        'description': box.description,
+                        'image': box.image.id if box.image else False,
+                        'action_id': box.action_id.id if box.action_id else False,
+                    })
+        return res
 
 class Dashboard(models.Model):
 
@@ -35,10 +87,22 @@ class DashboardBoxes(models.Model):
     description = fields.Html("Description")
     image = fields.Many2one('fa.class', "Image Class")
     image_class_name = fields.Char(related='image.class_name', store=True)
-    group_ids = fields.Many2many("res.groups", "rel_dashboax_box_group", "box_id", "rel_box_group_id", "Groups")
-    is_group = fields.Boolean("Is Group", compute="_compare_box_user_group")
     action_id = fields.Many2one("ir.actions.act_window", "Action")
     action_url = fields.Char("Action URL", compute="_compute_action_url")
+    group_box_id = fields.Many2one("group.dashboard.boxes")
+    is_detail = fields.Boolean(compute='_check_is_detail', store=True)
+
+    @api.depends('name', 'sub_title', 'description')
+    def _check_is_detail(self):
+        for box in self:
+            cleanr = re.compile('<.*?>')
+            clean_name = re.sub(cleanr, '', box.name)
+            clean_sub_title = re.sub(cleanr, '', box.sub_title)
+            clean_description = re.sub(cleanr, '', box.description)
+            if clean_name or clean_sub_title or clean_description:
+                box.is_detail = True
+            else:
+                box.is_detail = False
 
     @api.model
     def create(self, vals):
@@ -54,19 +118,6 @@ class DashboardBoxes(models.Model):
             if box.action_id:
                 link = '%s/web#action=%s&model=%s' % (base_url, box.action_id.id, box.action_id.res_model)
                 box.action_url = link
-
-    @api.depends('group_ids', 'af_dashboard_id.user_id.groups_id')
-    def _compare_box_user_group(self):
-        for box in self:
-            is_group = False
-            if box.group_ids and box.af_dashboard_id and box.af_dashboard_id.user_id and \
-                    box.af_dashboard_id.user_id.groups_id:
-                for group in box.group_ids:
-                    if not is_group and group.id in box.af_dashboard_id.user_id.groups_id.ids:
-                        is_group = True
-                        box.is_group = True
-                    else:
-                        is_group = False
 
 class FAClass(models.Model):
 
@@ -84,8 +135,50 @@ class ResUsers(models.Model):
     def create(self, vals):
         res = super(ResUsers, self).create(vals)
         if res:
-            self.env['af.dashboard'].sudo().create({
+            dashboard = self.env['af.dashboard'].sudo().create({
                 'name': res.name,
                 'user_id': res.id
             })
+            if dashboard:
+                for group in res.groups_id:
+                    for g_box in group.box_ids:
+                        dashboard.box_ids = [(0, 0, {
+                            'af_dashboard_id': dashboard.id,
+                            'name': g_box.name,
+                            'sub_title': g_box.sub_title,
+                            'description': g_box.description,
+                            'image': g_box.image.id if g_box.image else False,
+                            'action_id': g_box.action_id.id if g_box.action_id else False,
+                            'group_box_id': g_box.id
+                        })]
+        return res
+
+    @api.multi
+    def write(self, vals):
+        res = super(ResUsers, self).write(vals)
+        for user in self:
+            dashboard = self.env['af.dashboard'].search([('user_id', '=', user.id)], limit=1)
+            if dashboard:
+                dashboard_boxes = dashboard.box_ids.mapped('group_box_id').ids
+                group_boxes_list = []
+                for group in user.groups_id:
+                    for g_box in group.box_ids:
+                        group_boxes_list.append(g_box.id)
+                        if g_box.id not in dashboard_boxes:
+                            dashboard.box_ids = [(0, 0, {
+                                'af_dashboard_id': dashboard.id,
+                                'name': g_box.name,
+                                'sub_title': g_box.sub_title,
+                                'description': g_box.description,
+                                'image': g_box.image.id if g_box.image else False,
+                                'action_id': g_box.action_id.id if g_box.action_id else False,
+                                'group_box_id': g_box.id
+                            })]
+                user_boxes_list = dashboard.box_ids.mapped('group_box_id').ids
+                extra_boxes = list(set(user_boxes_list) - set(group_boxes_list))
+                for extra_box in extra_boxes:
+                    box = self.env['dashboard.boxes'].search([('user_id', '=', user.id),
+                                                              ('group_box_id', '=', extra_box)])
+                    if box:
+                        box.unlink()
         return res

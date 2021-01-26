@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="add_dashboard_box" model="ir.ui.view">
+        <field name="name">add.dashboard.box</field>
+        <field name="model">add.dashboard.box</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="sub_title"/>
+                    <field name="description"/>
+                    <field name="action_id"/>
+                    <field name="image"/>
+                    <field name="group_ids" widget="many2many_tags"
+                           options="{'no_create':True,'no_edit':True,'no_create_edit':True}"/>
+                </group>
+                <footer>
+                     <button string="Add" type="object" class="oe_highlight" name="add_boxes"/>
+                     <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_add_af_dashboard_boxes" model="ir.actions.act_window">
+        <field name="name">Add Boxes</field>
+        <field name="res_model">add.dashboard.box</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="update_af_dashboard_menu_config_menu" action="action_add_af_dashboard_boxes"
+              name="Add Items to multiple users" sequence="4" parent="af_dashboard_main_menu_config"
+                groups="base.group_system"/>
+</odoo>
