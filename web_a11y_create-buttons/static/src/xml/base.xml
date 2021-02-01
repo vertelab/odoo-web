@@ -12,7 +12,7 @@
         </t>
     </t>
 
-     <t t-name="FormView.buttons" t-extend="FormView.buttons">
+    <t t-name="FormView.buttons" t-extend="FormView.buttons">
         <t t-jquery="button.o_form_button_create" t-operation="replace">
             <button type="button" class="btn btn-primary o_form_button_create" accesskey="c">
                 Create  <t t-if="widget">
@@ -20,9 +20,16 @@
                 </t>
             </button>
         </t>
-          <t t-jquery="button.o_form_button_edit" t-operation="replace">
-            <button type="button" class="btn btn-primary o_form_button_edit" accesskey="c">
+        <t t-jquery="button.o_form_button_edit" t-operation="replace">
+            <button type="button" class="btn btn-primary o_form_button_edit" accesskey="a">
                 Edit  <t t-if="widget">
+                    <t t-esc="widget.displayName"/>
+                </t>
+            </button>
+        </t>
+        <t t-jquery="button.o_form_button_save" t-operation="replace">
+            <button type="button" class="btn btn-primary o_form_button_save" accesskey="s">
+                Save  <t t-if="widget">
                     <t t-esc="widget.displayName"/>
                 </t>
             </button>
@@ -32,9 +39,13 @@
     <t t-name="KanbanView.buttons" t-extend="KanbanView.buttons">
         <t t-jquery="button" t-operation="replace">
              <button type="button" t-attf-class="btn #{btnClass} o-kanban-button-new" accesskey="c">
-                Create  <t t-if="widget">
+                Create <t t-if="widget">
                     <t t-esc="widget.displayName"/>
                 </t>
+                 <!-- Need to change line no 42 with following line to show module name in One2many Kanban view's Create button
+                 Create <t t-esc="create_text"> <t t-if="widget">
+                 Also need to work on static/src/js/relational_fields.js file
+                 -->
             </button>
         </t>
     </t>
