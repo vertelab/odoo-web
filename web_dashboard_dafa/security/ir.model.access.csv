@@ -4,3 +4,4 @@ access_af_dashboard_boxes,af.dashboard.boxes.access,model_dashboard_boxes,base.g
 access_fa_class,fa.class.access,model_fa_class,base.group_user,1,1,1,1
 access_ir_module_category,module.category.access,base.model_ir_module_category,group_my_dashboard_manager,1,0,0,0
 access_group_boxes,group.dashboard.boxes.access,model_group_dashboard_boxes,group_my_dashboard_manager,1,1,1,1
+access_group_boxes_user,group.dashboard.boxes.access.user,model_group_dashboard_boxes,,1,1,1,1

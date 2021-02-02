@@ -27,7 +27,9 @@
                             </h2>
                             <br/>
                             <p>
-                                <t t-raw="record.welcome_dsc.raw_value"/>
+                                <t t-if="record.welcome_dsc.raw_value">
+                                    <t t-raw="record.welcome_dsc.raw_value"/>
+                                </t>
                             </p>
                             <br/>
                             <table width="100%" style="border-collapse: separate;border-spacing: 15px;">
@@ -70,7 +72,7 @@
         <field name="model">res.groups</field>
         <field name="arch" type="xml">
             <tree create="false">
-                <field name="name"/>
+                <field name="display_name"/>
             </tree>
         </field>
     </record>
@@ -81,7 +83,8 @@
         <field name="arch" type="xml">
             <form create="false">
                 <group>
-                    <field name="name" readonly="1"/>
+                    <field name="display_name" readonly="1"/>
+                    <field name="welcome_dsc"/>
                 </group>
                 <notebook>
                     <page string="Boxes" name="boxes">
@@ -175,6 +178,7 @@
             <tree>
                 <field name="name"/>
                 <field name="user_id"/>
+                <field name="group_ids" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
@@ -198,26 +202,39 @@
                 <group>
                     <field name="welcome_dsc"/>
                 </group>
-                <group>
-                    <field name="box_ids" nolabel="1">
-                        <tree>
-                            <field name="name"/>
-                            <field name="sub_title"/>
-                            <field name="description"/>
-                            <field name="action_id"/>
-                            <field name="image"/>
-                        </tree>
-                        <form>
-                            <group>
-                                <field name="name"/>
-                                <field name="sub_title"/>
-                                <field name="description"/>
-                                <field name="action_id"/>
-                                <field name="image"/>
-                            </group>
-                        </form>
-                    </field>
-                </group>
+                <notebook>
+                    <page string="Boxes" name="box_ids">
+                        <group>
+                            <field name="box_ids" nolabel="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="sub_title"/>
+                                    <field name="description"/>
+                                    <field name="action_id"/>
+                                    <field name="image"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="sub_title"/>
+                                        <field name="description"/>
+                                        <field name="action_id"/>
+                                        <field name="image"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+                    <page string="Groups" name="group_ids">
+                        <group>
+                            <field name="group_ids">
+                                <tree>
+                                    <field name="display_name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </notebook>
             </form>
         </field>
     </record>

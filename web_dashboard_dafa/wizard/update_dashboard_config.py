@@ -12,9 +12,20 @@ class UpdateDashboardConfiguration(models.TransientModel):
 
     def upate_data(self):
         config_obj = self.env['af.dashboard']
+        user_list = []
         for group in self.group_ids:
-            for user in group.users:
-                config = config_obj.search([('user_id', '=', user.id)], limit=1)
-                if config:
-                    config.welcome_msg = self.welcome_msg
-                    config.welcome_dsc = self.welcome_dsc
+            group.welcome_dsc = self.welcome_dsc
+            user_list.extend(group.users)
+            if self.welcome_msg:
+                for user in group.users:
+                    config = config_obj.search([('user_id', '=', user.id)], limit=1)
+                    if config:
+                        config.welcome_msg = self.welcome_msg
+        for user in user_list:
+            dashboard = config_obj.search([('user_id', '=', user.id)], limit=1)
+            if dashboard:
+                welcome_dsc = ''
+                for group in user.groups_id:
+                    welcome_dsc += group.welcome_dsc if group.welcome_dsc else ''
+                dashboard.welcome_dsc = welcome_dsc
+

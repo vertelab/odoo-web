@@ -7,6 +7,24 @@ class ResGroups(models.Model):
     _inherit = 'res.groups'
 
     box_ids = fields.One2many('group.dashboard.boxes', 'group_id', "Boxes")
+    welcome_dsc = fields.Html("Welcome Description")
+
+    @api.multi
+    def write(self, vals):
+        res = super(ResGroups, self).write(vals)
+        config_obj = self.env['af.dashboard']
+        if vals.get('welcome_dsc'):
+            for group in self:
+                for user in group.users:
+                    dashboard = config_obj.search([('user_id', '=', user.id)], limit=1)
+                    if dashboard:
+                        dashboard.welcome_dsc = ''
+                        welcome_dsc = ''
+                        for group in user.groups_id:
+                            welcome_dsc += group.welcome_dsc if group.welcome_dsc else ''
+                        dashboard.welcome_dsc = welcome_dsc
+
+        return res
 
 class GroupBoxes(models.Model):
     _name = 'group.dashboard.boxes'
@@ -62,10 +80,9 @@ class Dashboard(models.Model):
     user_id = fields.Many2one('res.users', "User")
     firstname = fields.Char(related='user_id.firstname', store=True)
     welcome_msg = fields.Char("Welcome String", default="Welcome")
-    welcome_dsc = fields.Html("Welcome Description", default=" You will soon be able to visualise and perform "
-                    "all your daily tasks as a FA here. You can already create accounts and handle different "
-                    "permission rules to your employees under the tab Administration in the menu bar.")
+    welcome_dsc = fields.Html("Welcome Description")
     box_ids = fields.One2many('dashboard.boxes', 'af_dashboard_id')
+    group_ids = fields.Many2many('res.groups', related='user_id.groups_id')
 
     @api.model
     def create(self, vals):
@@ -140,7 +157,9 @@ class ResUsers(models.Model):
                 'user_id': res.id
             })
             if dashboard:
+                welcome_dsc = ''
                 for group in res.groups_id:
+                    welcome_dsc += group.welcome_dsc if group.welcome_dsc else ''
                     for g_box in group.box_ids:
                         dashboard.box_ids = [(0, 0, {
                             'af_dashboard_id': dashboard.id,
@@ -151,17 +170,22 @@ class ResUsers(models.Model):
                             'action_id': g_box.action_id.id if g_box.action_id else False,
                             'group_box_id': g_box.id
                         })]
+                dashboard.welcome_dsc = welcome_dsc
         return res
 
     @api.multi
     def write(self, vals):
         res = super(ResUsers, self).write(vals)
+        dashboard_obj = self.env['af.dashboard']
         for user in self:
-            dashboard = self.env['af.dashboard'].search([('user_id', '=', user.id)], limit=1)
+            dashboard = dashboard_obj.search([('user_id', '=', user.id)], limit=1)
             if dashboard:
                 dashboard_boxes = dashboard.box_ids.mapped('group_box_id').ids
+                dashboard.welcome_dsc = ''
                 group_boxes_list = []
+                desc = ''
                 for group in user.groups_id:
+                    desc += group.welcome_dsc if group.welcome_dsc else ''
                     for g_box in group.box_ids:
                         group_boxes_list.append(g_box.id)
                         if g_box.id not in dashboard_boxes:
@@ -174,6 +198,7 @@ class ResUsers(models.Model):
                                 'action_id': g_box.action_id.id if g_box.action_id else False,
                                 'group_box_id': g_box.id
                             })]
+                dashboard.welcome_dsc = desc
                 user_boxes_list = dashboard.box_ids.mapped('group_box_id').ids
                 extra_boxes = list(set(user_boxes_list) - set(group_boxes_list))
                 for extra_box in extra_boxes:
