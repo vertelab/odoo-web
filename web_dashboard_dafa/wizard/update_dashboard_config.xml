@@ -30,5 +30,5 @@
 
     <menuitem id="update_af_dashboard_welcome_data_menu" action="action_update_af_dashboard_config"
               name="Update Welcome Data" sequence="5" parent="af_dashboard_main_menu_config"
-                groups="base.group_system"/>
+                groups="group_my_dashboard_manager"/>
 </odoo>

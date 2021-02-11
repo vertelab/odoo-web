@@ -84,13 +84,6 @@ class Dashboard(models.Model):
     box_ids = fields.One2many('dashboard.boxes', 'af_dashboard_id')
     group_ids = fields.Many2many('res.groups', related='user_id.groups_id')
 
-    @api.model
-    def create(self, vals):
-        res = super(Dashboard, self).create(vals)
-        if 'from_manual' in self._context:
-            raise Warning(_("You can't create manual configuration!"))
-        return res
-
 class DashboardBoxes(models.Model):
 
     _name = 'dashboard.boxes'
@@ -120,13 +113,6 @@ class DashboardBoxes(models.Model):
                 box.is_detail = True
             else:
                 box.is_detail = False
-
-    @api.model
-    def create(self, vals):
-        res = super(DashboardBoxes, self).create(vals)
-        if 'from_manual' in self._context:
-            raise Warning(_("You can't create manual configuration!"))
-        return res
 
     @api.depends('action_id')
     def _compute_action_url(self):
