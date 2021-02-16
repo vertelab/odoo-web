@@ -18,7 +18,6 @@
         "security/security.xml",
         "views/af_dashboard.xml",
         "wizard/update_dashboard_config.xml",
-        "wizard/add_dashboard_box.xml",
         "security/ir.model.access.csv",
         "data/fa.class.csv",
         "views/assets.xml"
