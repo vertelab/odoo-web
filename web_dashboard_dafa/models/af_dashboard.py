@@ -21,7 +21,17 @@ class ResGroups(models.Model):
                         dashboard.welcome_dsc = ''
                         welcome_dsc = ''
                         for group in user.groups_id:
-                            welcome_dsc += group.welcome_dsc if group.welcome_dsc else ''
+                            cleanr = re.compile('<.*?>')
+                            if group.welcome_dsc:
+                                group_wel_des = re.sub(cleanr, '', group.welcome_dsc)
+                            else:
+                                group_wel_des = ''
+                            if welcome_dsc:
+                                wel_des = re.sub(cleanr, '', welcome_dsc)
+                            else:
+                                wel_des = ''
+                            if group.welcome_dsc and group_wel_des not in wel_des:
+                                welcome_dsc += group.welcome_dsc
                         dashboard.welcome_dsc = welcome_dsc
 
         return res
@@ -45,22 +55,38 @@ class GroupBoxes(models.Model):
             for user in res.group_id.users:
                 dashboard = self.env['af.dashboard'].search([('user_id', '=', user.id)], limit=1)
                 if dashboard:
-                    dashboard.box_ids = [(0, 0, {
-                        'af_dashboard_id': dashboard.id,
-                        'name': res.name,
-                        'sub_title': res.sub_title,
-                        'description': res.description,
-                        'image': res.image.id if res.image else False,
-                        'action_id': res.action_id.id if res.action_id else False,
-                        'group_box_id': res.id
-                    })]
+                    cleanr = re.compile('<.*?>')
+                    same_box = dashboard.box_ids.filtered(lambda b: re.sub(cleanr, '', b.description).strip() ==
+                                                                    re.sub(cleanr, '', res.description).strip())
+                    if same_box:
+                        dashboard.box_ids = [(0, 0, {
+                            'af_dashboard_id': dashboard.id,
+                            'name': res.name,
+                            'sub_title': res.sub_title,
+                            'description': res.description,
+                            'image': res.image.id if res.image else False,
+                            'action_id': res.action_id.id if res.action_id else False,
+                            'group_box_id': res.id,
+                            'hide': True
+                        })]
+                    else:
+                        dashboard.box_ids = [(0, 0, {
+                            'af_dashboard_id': dashboard.id,
+                            'name': res.name,
+                            'sub_title': res.sub_title,
+                            'description': res.description,
+                            'image': res.image.id if res.image else False,
+                            'action_id': res.action_id.id if res.action_id else False,
+                            'group_box_id': res.id
+                        })]
         return res
 
     @api.multi
     def write(self, vals):
         res = super(GroupBoxes, self).write(vals)
+        dash_box_obj = self.env['dashboard.boxes']
         for box in self:
-            user_boxes = self.env['dashboard.boxes'].search([('group_box_id', '=', box.id)])
+            user_boxes = dash_box_obj.search([('group_box_id', '=', box.id)])
             for user_box in user_boxes:
                 user_box.write({
                         'name': box.name,
@@ -69,7 +95,28 @@ class GroupBoxes(models.Model):
                         'image': box.image.id if box.image else False,
                         'action_id': box.action_id.id if box.action_id else False,
                     })
+                all_user_boxes = user_box.af_dashboard_id.box_ids
+                checked_boxs = []
+                for usr_box in all_user_boxes:
+                    if usr_box.description and usr_box.id not in checked_boxs:
+                        usr_box.hide = False
+                        cleanr = re.compile('<.*?>')
+                        same_boxs = all_user_boxes.filtered(
+                            lambda b: re.sub(cleanr, '', b.description).strip() == re.sub(cleanr, '', usr_box.description).strip()
+                            and b.id != usr_box.id)
+                        for same_box in same_boxs:
+                            same_box.hide = True
+                            checked_boxs.append(same_box.id)
+                        checked_boxs.append(usr_box.id)
         return res
+
+    @api.multi
+    def unlink(self):
+        for box in self:
+            user_boxes = self.env['dashboard.boxes'].search([('group_box_id', '=', box.id)])
+            for user_box in user_boxes:
+                user_box.unlink()
+        return super(GroupBoxes, self).unlink()
 
 class Dashboard(models.Model):
 
@@ -79,10 +126,22 @@ class Dashboard(models.Model):
     name = fields.Char("Name")
     user_id = fields.Many2one('res.users', "User")
     firstname = fields.Char(related='user_id.firstname', store=True)
-    welcome_msg = fields.Char("Welcome String", default="Welcome")
+    welcome_msg = fields.Char("Welcome String", default="Bienvenida", translate=True)
     welcome_dsc = fields.Html("Welcome Description")
     box_ids = fields.One2many('dashboard.boxes', 'af_dashboard_id')
     group_ids = fields.Many2many('res.groups', related='user_id.groups_id')
+
+    def check_duplicate_boxes(self):
+        for dashboard in self:
+            for box in dashboard.box_ids:
+                if box.description and box.user_id and not box.hide:
+                    cleanr = re.compile('<.*?>')
+                    same_boxes = dashboard.box_ids.filtered(lambda b: b.id != box.id)
+                    if same_boxes:
+                        for same_box in same_boxes:
+                            if re.sub(cleanr, '', box.description).strip() == re.sub(cleanr, '', same_box.description).strip():
+                                same_box.hide = True
+
 
 class DashboardBoxes(models.Model):
 
@@ -101,6 +160,7 @@ class DashboardBoxes(models.Model):
     action_url = fields.Char("Action URL", compute="_compute_action_url")
     group_box_id = fields.Many2one("group.dashboard.boxes")
     is_detail = fields.Boolean(compute='_check_is_detail', store=True)
+    hide = fields.Boolean("Hide")
 
     @api.depends('name', 'sub_title', 'description')
     def _check_is_detail(self):
@@ -145,17 +205,53 @@ class ResUsers(models.Model):
             if dashboard:
                 welcome_dsc = ''
                 for group in res.groups_id:
-                    welcome_dsc += group.welcome_dsc if group.welcome_dsc else ''
+                    cleanr = re.compile('<.*?>')
+                    if group.welcome_dsc:
+                        group_wel_des = re.sub(cleanr, '', group.welcome_dsc)
+                    else:
+                        group_wel_des = ''
+                    if welcome_dsc:
+                        wel_des = re.sub(cleanr, '', welcome_dsc)
+                    else:
+                        wel_des = ''
+                    if group.welcome_dsc and group_wel_des not in wel_des:
+                        welcome_dsc += group.welcome_dsc
                     for g_box in group.box_ids:
-                        dashboard.box_ids = [(0, 0, {
-                            'af_dashboard_id': dashboard.id,
-                            'name': g_box.name,
-                            'sub_title': g_box.sub_title,
-                            'description': g_box.description,
-                            'image': g_box.image.id if g_box.image else False,
-                            'action_id': g_box.action_id.id if g_box.action_id else False,
-                            'group_box_id': g_box.id
-                        })]
+                        if g_box.description:
+                            cleanr = re.compile('<.*?>')
+                            same_box = dashboard.box_ids.filtered(
+                                lambda b: re.sub(cleanr, '', b.description).strip() == re.sub(cleanr, '', g_box.description).strip())
+                            if same_box:
+                                dashboard.box_ids = [(0, 0, {
+                                    'af_dashboard_id': dashboard.id,
+                                    'name': g_box.name,
+                                    'sub_title': g_box.sub_title,
+                                    'description': g_box.description,
+                                    'image': g_box.image.id if g_box.image else False,
+                                    'action_id': g_box.action_id.id if g_box.action_id else False,
+                                    'group_box_id': g_box.id,
+                                    'hide': True
+                                })]
+                            else:
+                                dashboard.box_ids = [(0, 0, {
+                                    'af_dashboard_id': dashboard.id,
+                                    'name': g_box.name,
+                                    'sub_title': g_box.sub_title,
+                                    'description': g_box.description,
+                                    'image': g_box.image.id if g_box.image else False,
+                                    'action_id': g_box.action_id.id if g_box.action_id else False,
+                                    'group_box_id': g_box.id
+                                })]
+                        else:
+                            dashboard.box_ids = [(0, 0, {
+                                'af_dashboard_id': dashboard.id,
+                                'name': g_box.name,
+                                'sub_title': g_box.sub_title,
+                                'description': g_box.description,
+                                'image': g_box.image.id if g_box.image else False,
+                                'action_id': g_box.action_id.id if g_box.action_id else False,
+                                'group_box_id': g_box.id
+                            })]
                 dashboard.welcome_dsc = welcome_dsc
         return res
 
@@ -171,19 +267,55 @@ class ResUsers(models.Model):
                 group_boxes_list = []
                 desc = ''
                 for group in user.groups_id:
-                    desc += group.welcome_dsc if group.welcome_dsc else ''
+                    cleanr = re.compile('<.*?>')
+                    if group.welcome_dsc:
+                        group_wel_des = re.sub(cleanr, '', group.welcome_dsc)
+                    else:
+                        group_wel_des = ''
+                    if desc:
+                        wel_des = re.sub(cleanr, '', desc)
+                    else:
+                        wel_des = ''
+                    if group.welcome_dsc and group_wel_des not in wel_des:
+                        desc += group.welcome_dsc
                     for g_box in group.box_ids:
                         group_boxes_list.append(g_box.id)
                         if g_box.id not in dashboard_boxes:
-                            dashboard.box_ids = [(0, 0, {
-                                'af_dashboard_id': dashboard.id,
-                                'name': g_box.name,
-                                'sub_title': g_box.sub_title,
-                                'description': g_box.description,
-                                'image': g_box.image.id if g_box.image else False,
-                                'action_id': g_box.action_id.id if g_box.action_id else False,
-                                'group_box_id': g_box.id
-                            })]
+                            if g_box.description:
+                                cleanr = re.compile('<.*?>')
+                                same_box = dashboard.box_ids.filtered(
+                                    lambda b: re.sub(cleanr, '', b.description).strip() == re.sub(cleanr, '', g_box.description).strip())
+                                if same_box:
+                                    dashboard.box_ids = [(0, 0, {
+                                        'af_dashboard_id': dashboard.id,
+                                        'name': g_box.name,
+                                        'sub_title': g_box.sub_title,
+                                        'description': g_box.description,
+                                        'image': g_box.image.id if g_box.image else False,
+                                        'action_id': g_box.action_id.id if g_box.action_id else False,
+                                        'group_box_id': g_box.id,
+                                        'hide': True
+                                    })]
+                                else:
+                                    dashboard.box_ids = [(0, 0, {
+                                        'af_dashboard_id': dashboard.id,
+                                        'name': g_box.name,
+                                        'sub_title': g_box.sub_title,
+                                        'description': g_box.description,
+                                        'image': g_box.image.id if g_box.image else False,
+                                        'action_id': g_box.action_id.id if g_box.action_id else False,
+                                        'group_box_id': g_box.id
+                                    })]
+                            else:
+                                dashboard.box_ids = [(0, 0, {
+                                    'af_dashboard_id': dashboard.id,
+                                    'name': g_box.name,
+                                    'sub_title': g_box.sub_title,
+                                    'description': g_box.description,
+                                    'image': g_box.image.id if g_box.image else False,
+                                    'action_id': g_box.action_id.id if g_box.action_id else False,
+                                    'group_box_id': g_box.id
+                                })]
                 dashboard.welcome_dsc = desc
                 user_boxes_list = dashboard.box_ids.mapped('group_box_id').ids
                 extra_boxes = list(set(user_boxes_list) - set(group_boxes_list))
@@ -192,4 +324,18 @@ class ResUsers(models.Model):
                                                               ('group_box_id', '=', extra_box)])
                     if box:
                         box.unlink()
+                all_user_boxes = dashboard.box_ids
+                checked_boxs = []
+                for usr_box in all_user_boxes:
+                    if usr_box.description and usr_box.id not in checked_boxs:
+                        usr_box.hide = False
+                        cleanr = re.compile('<.*?>')
+                        same_boxs = all_user_boxes.filtered(
+                            lambda b: re.sub(cleanr, '', b.description).strip() == re.sub(cleanr, '',
+                                                                                          usr_box.description).strip()
+                                      and b.id != usr_box.id)
+                        for same_box in same_boxs:
+                            same_box.hide = True
+                            checked_boxs.append(same_box.id)
+                        checked_boxs.append(usr_box.id)
         return res
