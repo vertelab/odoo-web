@@ -126,10 +126,14 @@ class Dashboard(models.Model):
     name = fields.Char("Name")
     user_id = fields.Many2one('res.users', "User")
     firstname = fields.Char(related='user_id.firstname', store=True)
-    welcome_msg = fields.Char("Welcome String", default="Bienvenida", translate=True)
+    welcome_msg = fields.Char("Welcome String", default="Välkommen")
     welcome_dsc = fields.Html("Welcome Description")
     box_ids = fields.One2many('dashboard.boxes', 'af_dashboard_id')
     group_ids = fields.Many2many('res.groups', related='user_id.groups_id')
+
+    def update_welcome_string(self):
+        for dashboard in self:
+            dashboard.welcome_msg = "Välkommen"
 
     def check_duplicate_boxes(self):
         for dashboard in self:
@@ -141,7 +145,6 @@ class Dashboard(models.Model):
                         for same_box in same_boxes:
                             if re.sub(cleanr, '', box.description).strip() == re.sub(cleanr, '', same_box.description).strip():
                                 same_box.hide = True
-
 
 class DashboardBoxes(models.Model):
 
