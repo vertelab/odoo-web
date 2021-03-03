@@ -35,7 +35,7 @@
                             <table width="100%" style="border-collapse: separate;border-spacing: 15px;">
                                 <tr>
                                     <t t-foreach="record.box_ids.raw_value" t-as="box">
-                                        <t t-if="box.is_detail">
+                                        <t t-if="box.is_detail and box.hide != true">
                                             <td width="15%"
                                                 style="padding-left:5px;background-color:#80808003;vertical-align: top">
                                                 <t t-raw="box.name"/>
@@ -207,6 +207,7 @@
                         <group>
                             <field name="box_ids" nolabel="1">
                                 <tree>
+                                    <field name="hide"/>
                                     <field name="name"/>
                                     <field name="sub_title"/>
                                     <field name="description"/>
@@ -215,6 +216,7 @@
                                 </tree>
                                 <form>
                                     <group>
+                                        <field name="hide"/>
                                         <field name="name"/>
                                         <field name="sub_title"/>
                                         <field name="description"/>
@@ -247,20 +249,19 @@
         <field name="context">{'from_manual':1}</field>
     </record>
 
-     <record id="action_af_dashboard_config_tree" model="ir.actions.act_window.view">
-		<field eval="1" name="sequence" />
-		<field name="view_mode">tree</field>
-		<field name="view_id" ref="af_dashboard_view_tree" />
-		<field name="act_window_id" ref="action_af_dashboard_config" />
-	</record>
+    <record id="action_af_dashboard_config_tree" model="ir.actions.act_window.view">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="af_dashboard_view_tree"/>
+        <field name="act_window_id" ref="action_af_dashboard_config"/>
+    </record>
 
     <record id="action_af_dashboard_config_form" model="ir.actions.act_window.view">
-		<field eval="2" name="sequence" />
-		<field name="view_mode">form</field>
-		<field name="view_id" ref="af_dashboard_view_form" />
-		<field name="act_window_id" ref="action_af_dashboard_config" />
-	</record>
-
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="af_dashboard_view_form"/>
+        <field name="act_window_id" ref="action_af_dashboard_config"/>
+    </record>
 
 
     <menuitem id="af_dashboard_menu_config" action="action_af_dashboard_config"
@@ -331,21 +332,38 @@
     </record>
 
     <record id="action_my_af_dashboard_boxes_config_tree" model="ir.actions.act_window.view">
-		<field eval="2" name="sequence" />
-		<field name="view_mode">form</field>
-		<field name="view_id" ref="my_af_dashboard_view_form" />
-		<field name="act_window_id" ref="action_my_af_dashboard_boxes_config" />
-	</record>
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="my_af_dashboard_view_form"/>
+        <field name="act_window_id" ref="action_my_af_dashboard_boxes_config"/>
+    </record>
 
     <record id="action_my_af_dashboard_boxes_config_form" model="ir.actions.act_window.view">
-		<field eval="1" name="sequence" />
-		<field name="view_mode">tree</field>
-		<field name="view_id" ref="my_af_dashboard_view_tree" />
-		<field name="act_window_id" ref="action_my_af_dashboard_boxes_config" />
-	</record>
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="my_af_dashboard_view_tree"/>
+        <field name="act_window_id" ref="action_my_af_dashboard_boxes_config"/>
+    </record>
 
     <menuitem id="af_dashboard_boxes_menu_config" action="action_my_af_dashboard_boxes_config"
               groups="group_my_dashboard_manager"
               name="My Dashboard Configuration" sequence="3" parent="af_dashboard_main_menu_config"/>
+
+    <record id="hide_duplicate_boxes" model="ir.actions.server">
+        <field name="name">Hide Duplicate Boxes</field>
+        <field name="model_id" ref="web_dashboard_dafa.model_af_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">records.check_duplicate_boxes()
+        </field>
+    </record>
+
+    <record id="update_welcome_string" model="ir.actions.server">
+        <field name="name">Update Welcome String</field>
+        <field name="model_id" ref="web_dashboard_dafa.model_af_dashboard"/>
+        <field name="state">code</field>
+        <field name="code">records.update_welcome_string()
+        </field>
+    </record>
+
 
 </odoo>

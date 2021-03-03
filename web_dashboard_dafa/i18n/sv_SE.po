@@ -80,10 +80,13 @@ msgid "Display Name"
 msgstr ""
 
 #. module: web_dashboard_dafa
-#: model:ir.model.fields,field_description:web_dashboard_dafa.field_dashboard_boxes__group_ids
+#: model:ir.actions.act_window,name:web_dashboard_dafa.action_res_groups_dashboard
+#: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__group_ids
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__group_ids
+#: model:ir.ui.menu,name:web_dashboard_dafa.res_groups_dashboard_menu
+#: model_terms:ir.ui.view,arch_db:web_dashboard_dafa.af_dashboard_view_form
 msgid "Groups"
-msgstr ""
+msgstr "Grupper"
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__id
@@ -200,16 +203,23 @@ msgid "Want to update Welcome Data?"
 msgstr ""
 
 #. module: web_dashboard_dafa
+#: model:ir.actions.act_window,name:web_dashboard_dafa.action_update_af_dashboard_config
+#: model:ir.ui.menu,name:web_dashboard_dafa.update_af_dashboard_welcome_data_menu
+msgid "Update Welcome Data"
+msgstr "Uppdatera välkomstdata"
+
+#. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__welcome_dsc
+#: model:ir.model.fields,field_description:web_dashboard_dafa.field_res_groups__welcome_dsc
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__welcome_dsc
 msgid "Welcome Description"
-msgstr ""
+msgstr "Välkomstbeskrivning"
 
 #. module: web_dashboard_dafa
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_af_dashboard__welcome_msg
 #: model:ir.model.fields,field_description:web_dashboard_dafa.field_update_dashboard_config__welcome_msg
 msgid "Welcome String"
-msgstr ""
+msgstr "Välkommen sträng"
 
 #. module: web_dashboard_dafa
 #: model:ir.ui.menu,name:web_dashboard_dafa.af_dashboard_main_menu_config
