@@ -1,23 +1,33 @@
- 
+
+
+
 // Fontes
 // font for regulat text 
 @font-face {
-  font-family: OpenSans-Regular;
+  font-family: "OpenSans-Regular";
   src: url('/web_backend_theme_af/static/src/font/OpenSans/OpenSans-Regular.ttf');
  
 }
 
 @font-face {
-  font-family: OpenSans-SemiBold;
+  font-family: "OpenSans-SemiBold";
    src: url('/web_backend_theme_af/static/src/font/OpenSans/OpenSans-SemiBold.ttf');
 }
 
 
 @font-face {
-  font-family: OpenSans-Bold;
+  font-family: "OpenSans-Bold";
    src: url('/web_backend_theme_af/static/src/font/OpenSans/OpenSans-Bold.ttf');
 }
 
+BODY {
+  font-family: 'OpenSans-Regular', sans-serif, Arial;
+  font-size: 14px;
+}
+
+SELECT {
+  font-family: 'OpenSans-Regular', sans-serif, Arial;	
+}
 
 
 
@@ -34,50 +44,7 @@ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAEAIAAAB1mz
 
 //------------------------
 
-// AF Colors
-//------------------------
 
-$brand-primary: #00005a; // Färgytor, infografik, diagram, primär knapp, nyhetspuff, skjutreglage , grafik
-$brand-primary-hover: #1616b2; // hover på primärfärg
-$brand-primary-20: #ccccde;
-$brand-secondary: #b7ee4a; // Viktiga ingångar, endast mot profilblå bakgrund
-$brand-secondary-hover: #caff62;
-$brand-symbol: #95c23e; // Grafik på vit/ljus bakgrund
-$brand-symbol-40: #d5e6b2;
-$brand-symbol-10: #f4f8eb;
-$brand-green-40: #d5e6b2;
-$brand-pink: #d43372; // Kampanjyta, grafiska element
-$brand-pink-40: #eeadc7;
-$brand-white: #ffffff; // Bakgrundsfärg
-$brand-black: #000000;
-$brand-grey-90: #333333; 
-$brand-grey-70: #666666;
-$brand-grey-50: #999999;
-$brand-grey-30: #d1d1d1;
-$brand-grey-20: #efefef; // Hover på dropdown
-$brand-grey-10: #f5f5f5; // Bakgrundsfärg om inte vitt fungerar
-
-$button-primary: #00005a;
-$button-primary-text: #fff;
-$button-primary-hover: #1616b2;
-$button-secondary: #fff;
-$button-secondary-hover: #1616b2;
-$button-secondary-text: #00005a;
-$button-secondary-text-hover: #1616b2;
-
-// Funktionsfärger
-
-$brand-blue: #1616b2; // Viktig information, länkar, länkikoner, primära knappars och e-tjänsteingångars hover
-$brand-blue-hover: #f1f8fe;
-$brand-blue-light: #f1f8fe; // Sekundära knappars och e-tjänsteingångars hover
-$brand-green: #058470; // Kryssruta, checkbox, radiobutton, OK, även komplementfärg
-$brand-green-10: #f4f8eb; // Positiv validering meddelande, bakgrundsplatta
-$brand-yellow: #fddc41; // Varningsmeddelande och status
-$brand-yellow-light: #fff8d9; // Varningsmeddelande
-$brand-red: #e21c50; // Endast felmeddelande
-$brand-red-light: #fdedf3; // Endast felmeddelande
-$brand-link-hover: #424ae0;
-$brand-link-visited: #822998;
 
 //------------------------
 
@@ -92,7 +59,8 @@ A {
 }
 
 .breadcrumb {
-	
+	font-size: 14px;
+	color: $brand-primary;
 	
 }
 
@@ -103,6 +71,7 @@ A {
 @media (min-width: 992px) {
 	.af_sidebar_type_large .af_apps_sidebar_panel {
     	min-width: 300px !important;
+    	
 	}
 }
 
@@ -114,10 +83,8 @@ A {
 }
 
 
-
-BODY {
-  font-family: 'OpenSans-Regular';
-  font-size: 14px;
+.o_dropdown_menu {
+	min-width: 315px;
 }
 
 
@@ -188,6 +155,7 @@ HEADER {
 			left: 250px;
 			background-color: transparent !important;
 			overflow-y: unset;
+			position: absolute;
 			
 			
 			
@@ -437,6 +405,20 @@ HTML {
 }
 
 
+.btn,
+.btn-secondary {
+	background-color: $button-secondary;
+	color: $button-secondary-text;
+	border: 1px solid $button-secondary-text;
+}
+
+.btn:hover,
+.btn-secondary:hover {
+	background-color: $button-secondary;
+	color: $button-secondary-text-hover;
+	border-color: $button-secondary-text-hover;
+}
+
 .btn-primary {
 	background-color: $button-primary;
 	color: $button-primary-text;
@@ -445,19 +427,10 @@ HTML {
 
 .btn-primary:hover {
 	background-color: $button-primary-hover;
+	color: $button-primary-text;
 }
 
-.btn-secondary {
-	background-color: $button-secondary;
-	color: $button-secondary-text;
-	border: 1px solid $button-secondary-text;
-}
 
-.btn-secondary:hover {
-	background-color: $button-secondary;
-	color: $button-secondary-text-hover;
-	border-color: $button-secondary-text-hover;
-}
 
 
 // Tabs
@@ -499,13 +472,26 @@ HTML {
 
 // INPUT
 //------------------------
+ 
 SELECT.o_input, 
 INPUT.o_input {
+	border: 1px solid $brand-grey-70;
+	height: 31px;
+	border-radius: 0px;
+	font-size: 14px;
+}
+
+
+/*
+SELECT.o_input {
 	border: 1px solid $brand-primary;
 	height: 32px;
 	border-radius: 5px;
 	font-size: 16px;
 }
+*/
+
+
 
 
 // Search INPUT
@@ -516,17 +502,51 @@ INPUT.o_input {
 	.breadcrumb {
 		width: 40%;
 		
+		
 		LI {
-			color: white !important;
+			font-size: 16px;
+			//color: $brand-primary;
 		}	
 	}
 	
 	.o_cp_left {
 		width: 40%;	
+		
+		.o_form_button_create {
+			display: none;
+		}
+		
+		.o_form_button_edit {
+			//margin-left: 100px;
+		}
+		
+		.o_dropdown_toggler_btn {
+			border-radius: 5px !important;
+		}
+		
+		.o_button_import {
+			display: none;
+		}
+		
+		.o_list_button_add {
+			display: none;
+		}
 	}
 	
 	.o_cp_right {
 		width: 60%;	
+		
+		.o_pager_next,
+		.o_pager_previous {
+			border: 0px;
+		}
+
+		.o_pager_next:hover,
+		.o_pager_previous:hover {
+			border: 0px;
+		}
+		
+		
 	}
 	
 	.o_cp_searchview {
@@ -569,15 +589,81 @@ INPUT.o_input {
 	}
 }
 
+// Layout
+//------------------------
+.o_main {
+	.o_main_content {
+		.o_content {
+			overflow: visible !important;
+		}
+	}
+}	
 
-// Labels
+
+
+
+// Form and labels
 //------------------------	
 .o_form_view { 
+	
+	> .o_group {
+		margin: 0px !important;
+	}
+	
+	.back_button {
+		//float:left;
+		//position: absolute;
+		//top: -45px;
+		//z-index: 1000;
+		//margin: 0 !important;
+	}
+	
+	.btn {
+		float: right;
+		margin-right: 0px;
+		margin-left: 11px;
+		margin-top: 11px;
+	}
+			
+	BUTTON[name="create_appointment"] {
+		float: left;
+		margin-left: 0px;
+		margin-top: -7px;	
+	}
+	
+	BUTTON[name="close_view"] {
+		margin-top: -7px;
+	}
+	
+	.o_cp_pager {
+		
+	}
+	
+	.oe_button_box {
+		width: 100%;
+		display: block;
+		margin-top: 15px;
+	}
+	
+	.o_form_statusbar {
+		> .o_statusbar_status {
+			> .o_arrow_button.btn-primary {
+				margin-left: 0px;
+				margin-right: 10px;
+			}
+			
+			> .o_arrow_button.btn-secondary {
+				margin-left: -12px;
+			}
+		}
+	}
+	
 	.o_group { 
 		.o_td_label {
 			border-right: none !important;
+			
 			.o_form_label {
-				color: $brand-primary;
+				color: $brand-grey-90;
 				font-size: 16px !important;
 				font-family: 'OpenSans-SemiBold';
 				height: 34px;
@@ -585,8 +671,93 @@ INPUT.o_input {
 			}
 		}
 	}
+	
+	
+	TABLE.o_group {
+
+		TR {
+			display: grid;
+			
+			TD	{
+				display: inline-block;
+				width: 100% !important;
+				padding: 0px 32px 0px 0px;
+				
+				.o_field_char {
+					min-height: 30px;
+				}
+								
+				.o_field_empty {
+					min-height: 25px;
+					display: inline-block !important;
+				}
+				
+				.o_field_empty::after {
+					content: "Information saknas";
+					color: $brand-grey-30;
+				}
+				
+				.o_field_empty.o_form_uri,
+				.o_field_empty.o_address_country,
+				.o_field_empty.o_address_city,
+				.o_field_empty.o_address_zip,
+				.o_field_empty.o_address_street[name="street2"] {
+					display: none !important;
+				}
+				
+			}
+			
+			TD.o_td_label {
+				
+				
+			}
+			
+			.o_td_label + td {
+				padding-left: 0px;
+				font-size: 16px;
+			}
+			
+		}
+	}
+	
+	.af_arbetsokande_installningar {
+		width: 100%;
+		margin-top: 25px;
+		margin-left: 25px;
+		background-color: #eee;
+		
+		TR {
+			margin-bottom: 25px;
+			display: inline-block !important;
+			
+			TD {
+				margin-top: -25px;
+				margin-bottom: 0px;
+			}
+			
+			TD.o_td_label {
+				margin-top: 0px;
+				margin-left: 25px;
+			}
+		}
+	}
+	
+	.af_chatter_position_normal {
+		.o_list_view {
+			border-bottom: 1px solid $brand-grey-70;
+			
+			TFOOT {
+				display: none;
+			}
+		}
+	}
 }
 
+
+.o_form_view .oe_button_box + .oe_title {
+	width: 50%;
+	margin-top: -10px;
+}
 
 
 // TABLE
