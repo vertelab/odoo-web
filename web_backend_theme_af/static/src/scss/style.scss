@@ -446,7 +446,7 @@ HTML {
 	}
 }
 
-//.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle
+
 
 
 
@@ -836,31 +836,7 @@ INPUT.o_input {
 	.af_arbetsokande_installningar {
 		width: 100%;
 	}
-	
-	/*
-	.af_personal_information_group,
-	.af_employment_service_information_group {
 		
-		LABEL {
-			font-family: "OpenSans-Regular" !important;
-			font-weight: normal !important;		
-			font-size: 14px;
-			color: $brand-grey-70;
-			min-width: 125px;
-		}
-		
-		SPAN {
-			font-family: "OpenSans-Bold"  !important;
-			font-weight: normal  !important;	
-			font-size: 18px;
-		}
-		
-		SPAN.o_field_empty {
-			font-family: "OpenSans-Regular" !important;
-		}
-	}
-	*/
-	
 	.af_base_information_group {
 		background-color: $brand-grey-20;
 		
