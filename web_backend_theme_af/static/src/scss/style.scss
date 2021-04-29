@@ -49,6 +49,8 @@ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAEAIAAAB1mz
 .af_column_50 {
 	width: 50%;
 	display: inline-block;
+	padding-right: 150px;
+	vertical-align: top;
 }
 
 
@@ -76,7 +78,7 @@ A {
 //------------------------
 @media (min-width: 992px) {
 	.af_sidebar_type_large .af_apps_sidebar_panel {
-    	min-width: 300px !important;
+    	min-width: 380px !important;
     	
 	}
 }
@@ -158,7 +160,7 @@ HEADER {
 			width: calc(100% - 600px);
 			height: 46px;
 			top: 0px;
-			left: 250px;
+			left: 340px;
 			background-color: transparent !important;
 			overflow-y: unset;
 			position: absolute;
@@ -897,6 +899,31 @@ INPUT.o_input {
 	margin-top: -10px;
 }
 
+
+.o_form_view {
+	.o_list_view {
+		TR {
+			TD {
+				vertical-align: middle;
+				
+				.btn {
+					float: right;
+					margin-right: 0px;
+					margin-left: 11px;
+					margin-top: 5px;
+					margin-bottom: 5px;
+					padding-top: 0;
+				}	
+			}
+		}
+		
+		TR:nth-child(odd) {
+			TD {
+				background-color: $brand-grey-10;
+			}
+		}
+	}
+}
 
 // TABLE
 //------------------------
