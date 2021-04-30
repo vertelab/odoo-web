@@ -6,8 +6,22 @@
 
 .o_required_modifier {
     &.o_input, .o_input {
-        background-color: $af-required-color !important;
+        //background-color: $af-required-color !important;
+        background-color: #fff !important;
+		border-bottom: 3px solid $brand-primary;
     }
+    
+    &.o_input, .o_input:hover {
+	    border-bottom: 3px solid $brand-primary-hover;
+    } 
+}
+
+
+.o_field_invalid {
+	&.o_input, .o_input {
+		border-color: $brand-red;
+		border-bottom: 3px solid $brand-red !important;
+	}	
 }
 
 @include media-breakpoint-down(sm) {
