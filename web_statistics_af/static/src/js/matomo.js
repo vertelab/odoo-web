@@ -4,7 +4,6 @@ odoo.define('web_statistics_af.matomo_tag_src', function(require) {
     "use strict";
     var rpc = require('web.rpc');
 
-    console.log("sdhsjakhfjkshfs");
     var _mtm = _mtm || [];
     if (_mtm) {
       // console.log("Matomo declared.");
