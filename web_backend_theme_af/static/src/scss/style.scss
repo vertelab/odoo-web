@@ -1,23 +1,33 @@
- 
+
+
+
 // Fontes
 // font for regulat text 
 @font-face {
-  font-family: OpenSans-Regular;
+  font-family: "OpenSans-Regular";
   src: url('/web_backend_theme_af/static/src/font/OpenSans/OpenSans-Regular.ttf');
  
 }
 
 @font-face {
-  font-family: OpenSans-SemiBold;
+  font-family: "OpenSans-SemiBold";
    src: url('/web_backend_theme_af/static/src/font/OpenSans/OpenSans-SemiBold.ttf');
 }
 
 
 @font-face {
-  font-family: OpenSans-Bold;
+  font-family: "OpenSans-Bold";
    src: url('/web_backend_theme_af/static/src/font/OpenSans/OpenSans-Bold.ttf');
 }
 
+BODY {
+  font-family: 'OpenSans-Regular', sans-serif, Arial;
+  font-size: 14px;
+}
+
+SELECT {
+  font-family: 'OpenSans-Regular', sans-serif, Arial;	
+}
 
 
 
@@ -32,52 +42,17 @@
 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAEAIAAAB1mzrKAAAACXBIWXMAAAsTAAALEwEAmpwYAAAF92lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDggNzkuMTY0MDM2LCAyMDE5LzA4LzEzLTAxOjA2OjU3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjEuMCAoTWFjaW50b3NoKSIgeG1wOkNyZWF0ZURhdGU9IjIwMjAtMDUtMTBUMTY6MDE6MzIrMDI6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDIwLTA1LTEwVDE4OjIwOjM0KzAyOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIwLTA1LTEwVDE4OjIwOjM0KzAyOjAwIiBkYzpmb3JtYXQ9ImltYWdlL3BuZyIgcGhvdG9zaG9wOkNvbG9yTW9kZT0iMyIgcGhvdG9zaG9wOklDQ1Byb2ZpbGU9InNSR0IgSUVDNjE5NjYtMi4xIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOmI1NDBiOTAwLWQ2YjItNDg5My05MGRlLTA2MzRmMzg5NDBlYSIgeG1wTU06RG9jdW1lbnRJRD0iYWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjdiNDViOWQ5LWJlNzAtYTY0NS04NmU5LTUxYmVmNGJlZTI2NyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOmE4NzdhM2Y1LTFiNjEtNDA2ZS04ZWU1LTUxYjkzMjc1NjMzYiI+IDx4bXBNTTpIaXN0b3J5PiA8cmRmOlNlcT4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNyZWF0ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6YTg3N2EzZjUtMWI2MS00MDZlLThlZTUtNTFiOTMyNzU2MzNiIiBzdEV2dDp3aGVuPSIyMDIwLTA1LTEwVDE2OjAxOjMyKzAyOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjEuMCAoTWFjaW50b3NoKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6YjU0MGI5MDAtZDZiMi00ODkzLTkwZGUtMDYzNGYzODk0MGVhIiBzdEV2dDp3aGVuPSIyMDIwLTA1LTEwVDE4OjIwOjM0KzAyOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjEuMCAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6BSnGQAAAMJElEQVR42u1ca1QT1xaGZBhCCEMIIQR80VapWkW0SpFyfT+KUktVsFgrWMpDraIVVESkCAiISJUqAsuKWlCvrS9qVXyUWnD5oNZSi9ZSoAgBQgjDEJIQQ7hnmHbd3uW9ciYPcN3O94PFj8lMMt85e3/723vG3Axg6VIzBgMEc4YAhgCGAIYAhgCGAAYMAQwBzwMmTJg2TaVe/l5srFyuViuVLBb519ysvUMmYyPNTXWPLZBmaV0dG6mvr6pC0erq+/dR9ImmS23OEGAc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);
 }
 
+
+
+// Laýout
 //------------------------
+.af_column_50 {
+	width: 50%;
+	display: inline-block;
+	padding-right: 150px;
+	vertical-align: top;
+}
 
-// AF Colors
-//------------------------
-
-$brand-primary: #00005a; // Färgytor, infografik, diagram, primär knapp, nyhetspuff, skjutreglage , grafik
-$brand-primary-hover: #1616b2; // hover på primärfärg
-$brand-primary-20: #ccccde;
-$brand-secondary: #b7ee4a; // Viktiga ingångar, endast mot profilblå bakgrund
-$brand-secondary-hover: #caff62;
-$brand-symbol: #95c23e; // Grafik på vit/ljus bakgrund
-$brand-symbol-40: #d5e6b2;
-$brand-symbol-10: #f4f8eb;
-$brand-green-40: #d5e6b2;
-$brand-pink: #d43372; // Kampanjyta, grafiska element
-$brand-pink-40: #eeadc7;
-$brand-white: #ffffff; // Bakgrundsfärg
-$brand-black: #000000;
-$brand-grey-90: #333333; 
-$brand-grey-70: #666666;
-$brand-grey-50: #999999;
-$brand-grey-30: #d1d1d1;
-$brand-grey-20: #efefef; // Hover på dropdown
-$brand-grey-10: #f5f5f5; // Bakgrundsfärg om inte vitt fungerar
-
-$button-primary: #00005a;
-$button-primary-text: #fff;
-$button-primary-hover: #1616b2;
-$button-secondary: #fff;
-$button-secondary-hover: #1616b2;
-$button-secondary-text: #00005a;
-$button-secondary-text-hover: #1616b2;
-
-// Funktionsfärger
-
-$brand-blue: #1616b2; // Viktig information, länkar, länkikoner, primära knappars och e-tjänsteingångars hover
-$brand-blue-hover: #f1f8fe;
-$brand-blue-light: #f1f8fe; // Sekundära knappars och e-tjänsteingångars hover
-$brand-green: #058470; // Kryssruta, checkbox, radiobutton, OK, även komplementfärg
-$brand-green-10: #f4f8eb; // Positiv validering meddelande, bakgrundsplatta
-$brand-yellow: #fddc41; // Varningsmeddelande och status
-$brand-yellow-light: #fff8d9; // Varningsmeddelande
-$brand-red: #e21c50; // Endast felmeddelande
-$brand-red-light: #fdedf3; // Endast felmeddelande
-$brand-link-hover: #424ae0;
-$brand-link-visited: #822998;
 
 //------------------------
 
@@ -92,7 +67,8 @@ A {
 }
 
 .breadcrumb {
-	
+	font-size: 14px;
+	color: $brand-primary;
 	
 }
 
@@ -102,7 +78,8 @@ A {
 //------------------------
 @media (min-width: 992px) {
 	.af_sidebar_type_large .af_apps_sidebar_panel {
-    	min-width: 300px !important;
+    	min-width: 380px !important;
+    	
 	}
 }
 
@@ -114,10 +91,8 @@ A {
 }
 
 
-
-BODY {
-  font-family: 'OpenSans-Regular';
-  font-size: 14px;
+.o_dropdown_menu {
+	min-width: 315px;
 }
 
 
@@ -185,9 +160,10 @@ HEADER {
 			width: calc(100% - 600px);
 			height: 46px;
 			top: 0px;
-			left: 250px;
+			left: 340px;
 			background-color: transparent !important;
 			overflow-y: unset;
+			position: absolute;
 			
 			
 			
@@ -228,7 +204,32 @@ HEADER {
 								border-bottom: 2px solid  white;	
 							}
 						}
+						
 					}
+					
+					> LI:nth-child(8),
+					> LI:nth-child(9),
+					> LI:nth-child(10),
+					> LI:nth-child(11),
+					> LI:nth-child(12),
+					> LI:nth-child(13),
+					> LI:nth-child(14),
+					> LI:nth-child(15),
+					> LI:nth-child(15),
+					> LI:nth-child(17),
+					> LI:nth-child(18),
+					> LI:nth-child(19),
+					> LI:nth-child(20) {
+						max-width: 70px;
+						
+						> A {	
+							white-space: nowrap;
+							overflow: hidden;
+							text-overflow: ellipsis;
+						}
+					}
+					
+					
 					
 					> LI:hover {
 						background-color: transparent !important;
@@ -353,7 +354,20 @@ HEADER {
 			}
 			
 			.o_extra_menu_items {
-				
+				UL {
+					width: 1800px;
+					background-color: #eee !important;
+					padding-top: 20px !important;
+					top: 54px !important;
+					left: 239px !important;
+					z-index: 100 !important;
+					min-height: 300vh;
+					
+					
+					LI {
+						float: left;
+					}
+				}
 			}
 			
 			LI:hover .dropdown-menu {
@@ -375,7 +389,16 @@ H1 {
 	font-size: 32px;
 	color: $brand-grey-90;
 }
-	
+
+
+// Lists
+//--------------------------
+TH {
+	font-family: OpenSans-Bold, sans-serif, Arial;
+	font-weight: normal;	
+}
+
+
 
 // Main content
 //--------------------------
@@ -425,7 +448,7 @@ HTML {
 	}
 }
 
-//.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle
+
 
 
 
@@ -437,6 +460,20 @@ HTML {
 }
 
 
+.btn,
+.btn-secondary {
+	background-color: $button-secondary;
+	color: $button-secondary-text;
+	border: 1px solid $button-secondary-text;
+}
+
+.btn:hover,
+.btn-secondary:hover {
+	background-color: $button-secondary;
+	color: $button-secondary-text-hover;
+	border-color: $button-secondary-text-hover;
+}
+
 .btn-primary {
 	background-color: $button-primary;
 	color: $button-primary-text;
@@ -445,19 +482,10 @@ HTML {
 
 .btn-primary:hover {
 	background-color: $button-primary-hover;
+	color: $button-primary-text;
 }
 
-.btn-secondary {
-	background-color: $button-secondary;
-	color: $button-secondary-text;
-	border: 1px solid $button-secondary-text;
-}
 
-.btn-secondary:hover {
-	background-color: $button-secondary;
-	color: $button-secondary-text-hover;
-	border-color: $button-secondary-text-hover;
-}
 
 
 // Tabs
@@ -499,13 +527,17 @@ HTML {
 
 // INPUT
 //------------------------
+ 
 SELECT.o_input, 
 INPUT.o_input {
-	border: 1px solid $brand-primary;
-	height: 32px;
-	border-radius: 5px;
-	font-size: 16px;
+	border: 1px solid $brand-grey-70;
+	height: 31px !important;
+	border-radius: 0px;
+	font-size: 14px;
 }
+
+
+
 
 
 // Search INPUT
@@ -516,17 +548,51 @@ INPUT.o_input {
 	.breadcrumb {
 		width: 40%;
 		
+		
 		LI {
-			color: white !important;
+			font-size: 16px;
+			//color: $brand-primary;
 		}	
 	}
 	
 	.o_cp_left {
 		width: 40%;	
+		
+		.o_form_button_create {
+			display: none;
+		}
+		
+		.o_form_button_edit {
+			
+		}
+		
+		.o_dropdown_toggler_btn {
+			border-radius: 5px !important;
+		}
+		
+		.o_button_import {
+			display: none;
+		}
+		
+		.o_list_button_add {
+			display: none;
+		}
 	}
 	
 	.o_cp_right {
 		width: 60%;	
+		
+		.o_pager_next,
+		.o_pager_previous {
+			border: 0px;
+		}
+
+		.o_pager_next:hover,
+		.o_pager_previous:hover {
+			border: 0px;
+		}
+		
+		
 	}
 	
 	.o_cp_searchview {
@@ -569,25 +635,295 @@ INPUT.o_input {
 	}
 }
 
+// Layout
+//------------------------
+.o_main {
+	.o_main_content {
+		.o_content {
+			overflow: visible !important;
+		}
+	}
+}	
 
-// Labels
+
+
+
+
+// Form and labels
 //------------------------	
 .o_form_view { 
+	
+	> .o_group {
+		margin: 0px !important;
+	}
+	
+	.o_form_label {
+		font-family: "OpenSans-Bold";
+		font-weight: normal;
+	}
+	
+	.btn {
+		float: right;
+		margin-right: 0px;
+		margin-left: 11px;
+		margin-top: 11px;
+	}
+			
+	BUTTON[name="create_appointment"] {
+		float: left;
+		margin-left: 0px;
+		margin-top: -7px;	
+	}
+	
+	BUTTON[name="close_view"] {
+		margin-top: -7px;
+	}
+	
+	.o_cp_pager {
+		
+	}
+	
+	.oe_button_box {
+		width: 100%;
+		display: block;
+		margin-top: 15px;
+	}
+	
+	.o_form_statusbar {
+		> .o_statusbar_status {
+			> .o_arrow_button.btn-primary {
+				margin-left: 0px;
+				margin-right: 10px;
+			}
+			
+			> .o_arrow_button.btn-secondary {
+				margin-left: -12px;
+			}
+		}
+	}
+	
 	.o_group { 
 		.o_td_label {
 			border-right: none !important;
+			
 			.o_form_label {
-				color: $brand-primary;
+				color: $brand-grey-90;
 				font-size: 16px !important;
 				font-family: 'OpenSans-SemiBold';
+				font-weight: normal;
 				height: 34px;
 				line-height: 36px;
 			}
 		}
 	}
+	
+
+	
+	TABLE.o_group {
+
+		TR {
+			display: grid;
+			
+			TD	{
+				display: inline;
+				width: auto !important;
+				padding: 0px 60px 0px 8px !important;
+				
+				.o_field_char {
+					min-height: 30px;
+				}
+								
+				.o_field_empty {
+					min-height: 25px;
+					display: inline-block !important;
+				}
+				
+				.o_field_empty::after {
+					content: "Information saknas";
+					color: $brand-grey-30;
+				}
+				
+				.o_field_empty.o_form_uri,
+				.o_field_empty.o_address_country,
+				.o_field_empty.o_address_city,
+				.o_field_empty.o_address_zip,
+				.o_field_empty.o_address_street[name="street2"] {
+					display: none !important;
+				}
+								
+			}
+			
+			TD.o_td_label {
+				
+				
+			}
+			
+			.o_td_label + td {
+				padding-left: 0px;
+				font-size: 16px;
+			}
+			
+		}
+	}
+	
+	.af_arbetsokande_installningar {
+		width: 100%;
+		margin-top: 25px;
+		margin-left: 0px;
+		background-color: #eee;
+		
+		TR {
+			margin-bottom: 25px;
+			display: inline-block !important;
+			
+			TD {
+				margin-top: -25px;
+				margin-bottom: 0px;
+			}
+			
+			TD.o_td_label {
+				margin-top: 0px;
+				margin-left: 25px;
+			}
+		}
+	}
+	
+	.af_chatter_position_normal {
+		.o_list_view {
+			border-bottom: 1px solid $brand-grey-70;
+			
+			TFOOT {
+				display: none;
+			}
+		}
+	}
+}
+
+// Lists
+//------------------------
+.o_list_view.TABLE {
+	border-bottom: 1px solid #999999 !important;
+	
+	.btn {
+		margin-top: -6px;
+		padding-top: 0px;
+	}
+	TFOOT {
+		background-color: transparent;
+		
+	}
+	
+	
 }
 
 
+
+// Views
+//------------------------
+
+
+.o_form_view.af_res_partner_form_jobseeker {	
+	
+	.af_personal_information_group {
+		display: inline-block;
+		width: 50%;
+		
+	}
+	
+	.af_employment_service_information_group {
+		display: inline-block;
+		width: 50%;
+	}
+	
+	.af_arbetsokande_installningar {
+		width: 100%;
+	}
+		
+	.af_base_information_group {
+		background-color: $brand-grey-20;
+		
+		LABEL {
+			font-family: "OpenSans-Bold"  !important;
+			font-weight: normal !important;		
+			font-size: 16px;
+		}
+		
+		SPAN {
+			font-family: "OpenSans-Regular" !important;
+			
+			font-weight: normal  !important;	
+			font-size: 16px;
+		}
+	}
+	
+	.af_base_information_group,
+	.af_personal_information_group,
+	.af_employment_service_information_group {
+		vertical-align: top;
+		
+		LABEL {
+			font-family: "OpenSans-Bold"  !important;
+			font-weight: normal !important;		
+			font-size: 16px;
+		}
+		
+		SPAN {
+			font-family: "OpenSans-Regular" !important;
+			font-weight: normal  !important;	
+			font-size: 16px;
+		}
+	
+		.o_field_empty {
+			min-height: 25px;
+			display: inline-block !important;
+		}
+		
+		.o_field_empty::after {
+			content: "Information saknas";
+			color: $brand-grey-30;
+		}
+		
+		.o_field_empty.o_form_uri,
+		.o_field_empty.o_address_country,
+		.o_field_empty.o_address_city,
+		.o_field_empty.o_address_zip,
+		.o_field_empty.o_address_street[name="street2"] {
+			display: none !important;
+		}
+	}
+}
+
+
+.o_form_view .oe_button_box + .oe_title {
+	width: 50%;
+	margin-top: -10px;
+}
+
+
+.o_form_view {
+	.o_list_view {
+		TR {
+			TD {
+				vertical-align: middle;
+				
+				.btn {
+					float: right;
+					margin-right: 0px;
+					margin-left: 11px;
+					margin-top: 5px;
+					margin-bottom: 5px;
+					padding-top: 0;
+				}	
+			}
+		}
+		
+		TR:nth-child(odd) {
+			TD {
+				background-color: $brand-grey-10;
+			}
+		}
+	}
+}
 
 // TABLE
 //------------------------
