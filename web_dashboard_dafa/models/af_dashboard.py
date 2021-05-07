@@ -48,6 +48,14 @@ class GroupBoxes(models.Model):
     action_url = fields.Char("Action URL", compute="_compute_action_url")
     group_id = fields.Many2one('res.groups', "Group")
 
+    @api.depends('action_id')
+    def _compute_action_url(self):
+        base_url = self.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        for box in self:
+            if box.action_id:
+                link = '%s/web#action=%s&model=%s' % (base_url, box.action_id.id, box.action_id.res_model)
+                box.action_url = link
+
     @api.model
     def create(self, vals):
         res = super(GroupBoxes, self).create(vals)
