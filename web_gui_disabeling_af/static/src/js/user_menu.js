@@ -9,11 +9,15 @@ var _t = core._t;
 
 UserMenu.include({
     start: function () {
-        var self = this;
         return this._super.apply(this, arguments).then(function () {
              if (!session.debug){
                  $('li a[data-menu="settings"]').remove();
                  $('li a[data-menu="logout"]').remove();
+                 $('li.o_user_menu > div.dropdown-menu').remove();
+                 let a = $('li.o_user_menu > a');
+                 a.removeAttr('role');
+                 a.removeAttr('data-toggle');
+                 a.removeAttr('class');
             }
         });
     },
