@@ -1,10 +1,12 @@
 {
     "name": " Web Dashboard Dafa",
-    "version": "12.0.0.2",
+    "version": "12.0.1.0.3",
     "description": """
+    This module is maintained from https://github.com/vertelab/odoo-web \n
      This module shows the dashbord of an employee´s daily work. \n
      12.0.0.1 - This update Adds an instruction page\n
      12.0.0.2 - Corrected typo in module-name\n
+     12.0.1.0.3 - AFC-2144 added fix for sync-error
 """,
     "summary": "This module shows the dashbord of a users daily work.",
     "author": "Vertel AB",
