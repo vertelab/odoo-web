@@ -14,7 +14,7 @@
     "license": "LGPL-3",
     "installable": True,
     "depends": [
-        'web'
+        'web_editor'
     ],
     "qweb": [
         "static/src/xml/*.xml",
