@@ -36,12 +36,17 @@ $brand-grey-20: #efefef; // Hover på dropdown
 $brand-grey-10: #f5f5f5; // Bakgrundsfärg om inte vitt fungerar
 
 $button-primary: #00005a;
-$button-primary-text: #fff;
-$button-primary-hover: #1616b2;
-$button-secondary: #fff;
+$button-primary-text: #ffffff;
+$button-primary-hover: #f1f8fe;
+$button-primary-text-hover: #00005a;
+$button-primary-disabled: #f5f5f5;
+$button-primary-text-disabled: #707070;
+$button-secondary: #ffffff;
 $button-secondary-hover: #1616b2;
 $button-secondary-text: #00005a;
-$button-secondary-text-hover: #1616b2;
+$button-secondary-text-hover: #ffffff;
+$button-disabled: #f5f5f5;
+$button-text-disabled: #707070;
 
 // Funktionsfärger
 
