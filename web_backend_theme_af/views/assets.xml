@@ -19,6 +19,7 @@
         </xpath>
     </template>
 
+
     <template id="assets_common" name="Common Assets" inherit_id="web_editor.assets_common">
         <xpath expr="//link[last()]" position="after">
             <link rel="stylesheet" type="text/scss" href="/web_backend_theme_af/static/src/scss/fonts.scss"/>
@@ -30,8 +31,9 @@
 
     <template id="assets_backend" name="Backend Assets" inherit_id="web.assets_backend">
         <xpath expr="//link[last()]" position="after">
-     		<link rel="stylesheet" type="text/css" href="/web_backend_theme_af/static/src/libs/simplebar/simplebar.css"/>
-<!--     		<script type="text/javascript" src="/web_backend_theme_af/static/src/js/lib/scrollbar.js" />-->
+            <link rel="stylesheet" type="text/css"
+                  href="/web_backend_theme_af/static/src/libs/simplebar/simplebar.css"/>
+            <!--     		<script type="text/javascript" src="/web_backend_theme_af/static/src/js/lib/scrollbar.js" />-->
             <link rel="stylesheet" href="/web_backend_theme_af/static/src/scss/style.scss"/>
             <link rel="stylesheet" type="text/scss" href="/web_backend_theme_af/static/src/scss/layout.scss"/>
             <link rel="stylesheet" type="text/scss" href="/web_backend_theme_af/static/src/scss/navbar.scss"/>
@@ -47,7 +49,7 @@
             <link rel="stylesheet" type="text/scss" href="/web_backend_theme_af/static/src/scss/settings.scss"/>
         </xpath>
         <xpath expr="//script[last()]" position="after">
-            <script type="text/javascript" src="/web_backend_theme_af/static/src/libs/simplebar/scrollbar.js" />
+            <script type="text/javascript" src="/web_backend_theme_af/static/src/libs/simplebar/scrollbar.js"/>
             <script type="text/javascript" src="/web_backend_theme_af/static/src/js/chrome/actions.js"/>
             <script type="text/javascript" src="/web_backend_theme_af/static/src/js/chrome/menu.js"/>
             <script type="text/javascript" src="/web_backend_theme_af/static/src/js/chrome/apps.js"/>

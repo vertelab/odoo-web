@@ -6,9 +6,6 @@
     "summary": "Web Backend Theme AF V12	",
     "version": "12.0.0.7",
     "category": "Theme/Backend",
-    "description": """
-		Web Backend tema AF för Odoo 12.0 community edition. With New CSS
-    """,
     "author": "Vertel AB",
     "license": "LGPL-3",
     "installable": True,

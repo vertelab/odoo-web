@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="create_buttons_assets_backend" name="Backend Assets for Create button" inherit_id="web.assets_backend">
+    <template id="create_buttons_assets_backend" name="Backend Assets for Create button"
+              inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/web_a11y_create-buttons/static/src/js/relational_fields.js"/>
         </xpath>
