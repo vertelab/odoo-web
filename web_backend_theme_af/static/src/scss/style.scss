@@ -164,34 +164,43 @@ HEADER {
 			background-color: transparent !important;
 			overflow-y: unset;
 			position: absolute;
-			
-			
-			
+
+
+
 			.af_apps_sidebar {
 				height: 46px;
 				
 				.af_apps_sidebar_menu {
 					margin-top: 0px;
 					height: 46px;
-					
-					
-					
+
+
+
 					> LI {
 						display: inline-block;
 						width: auto;
 						height: 46px;
-						
+
+						.selected_app{
+							background-color: transparent !important;
+							border-bottom: 6px solid #b7ee4a;
+							> A {
+								background-color: transparent !important;
+								color: #58ff00 !important;
+							}
+						}
+
 						> A {
-							padding-left: 0px;
+							padding-left: 10px;
 							padding-top: 14px;
 							height: 46px;
-							
-							font-size: 14px;	
+
+							font-size: 14px;
 							color: white;
 							//line-height: 16px;
-							
+
 							SPAN {
-								
+
 							}
 						}
 						
@@ -200,13 +209,12 @@ HEADER {
 							background-color: transparent;
 							
 							SPAN {
-								color: white;
-								border-bottom: 2px solid  white;	
+								color: #ffffff;
 							}
 						}
 						
 					}
-					
+
 					> LI:nth-child(8),
 					> LI:nth-child(9),
 					> LI:nth-child(10),
@@ -233,12 +241,12 @@ HEADER {
 					
 					> LI:hover {
 						background-color: transparent !important;
-						
+						border-bottom: 6px solid #b7ee4a;
 						> A {
 							background-color: transparent !important;
-							color: white !important;
+							color: #ffffff !important;
 						}
-					}					
+					}
 				}
 			}
 		}
