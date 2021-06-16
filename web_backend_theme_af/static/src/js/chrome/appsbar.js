@@ -59,6 +59,8 @@ var AppsBar = Widget.extend({
     },
     _onAppsMenuItemClicked: function (ev) {
         var $target = $(ev.currentTarget);
+        $('.selected_app').removeClass('selected_app');
+        $target.addClass('selected_app');
         var actionID = $target.data('action-id');
         var menuID = $target.data('menu-id');
         var app = _.findWhere(this._apps, {
