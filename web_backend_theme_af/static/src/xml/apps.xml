@@ -8,16 +8,16 @@
         </t>
         <t t-jquery=".full" t-operation="replace">
 <!--            <span class="full" data-toggle="dropdown" data-display="static" href="#">-->
-                <i style="position: relative;width: 46px;font-size: 18px;text-align: center;height: 46px;
+            <i style="position: relative;width: 46px;font-size: 18px;text-align: center;height: 46px;
                 padding: 0 10px;color:white;line-height: 46px;display: block;" class="full fa fa-th-large"/>
-<!--            </span>-->
+            <!--            </span>-->
         </t>
-<!--        <t t-jquery=".full" t-operation="attributes">-->
-<!--            <attribute name="accesskey">h</attribute>-->
-<!--        </t>-->
-<!--        <t t-jquery=".full &gt; i" t-operation="attributes">-->
-<!--            <attribute name="class">fa fa-th</attribute>-->
-<!--        </t>-->
+        <!--        <t t-jquery=".full" t-operation="attributes">-->
+        <!--            <attribute name="accesskey">h</attribute>-->
+        <!--        </t>-->
+        <!--        <t t-jquery=".full &gt; i" t-operation="attributes">-->
+        <!--            <attribute name="class">fa fa-th</attribute>-->
+        <!--        </t>-->
         <t t-jquery="[t-as=app]" t-operation="before">
             <div class="af_search_container form-row align-items-center mb-4 col-12">
                 <div class="af_search_input col-md-10 ml-auto mr-auto mb-2">
@@ -49,12 +49,12 @@
         <t t-foreach="results" t-as="result">
             <t t-set="menu" t-value="widget._menuInfo(result.original)"/>
             <a t-attf-class="af_menu_search_result dropdown-item col-12 ml-auto mr-auto #{result_first ? 'active' : ''}"
-                 t-attf-style="background-image: #{menu.web_icon_data ? 'url(data:image/png;base64,' + menu.web_icon_data + ')' : 'none'}"
-                 t-attf-href="#menu_id=#{menu.id}&amp;action_id=#{menu.action_id}"
-                 t-att-data-menu-id="menu.id"
-                 t-att-data-action-id="menu.action_id"
-                 t-att-data-parent-id="menu.parent_id[0]"
-                 t-raw="result.string"/>
+               t-attf-style="background-image: #{menu.web_icon_data ? 'url(data:image/png;base64,' + menu.web_icon_data + ')' : 'none'}"
+               t-attf-href="#menu_id=#{menu.id}&amp;action_id=#{menu.action_id}"
+               t-att-data-menu-id="menu.id"
+               t-att-data-action-id="menu.action_id"
+               t-att-data-parent-id="menu.parent_id[0]"
+               t-raw="result.string"/>
         </t>
     </t>
 

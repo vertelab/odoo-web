@@ -3,10 +3,6 @@
     "summary": "Adds model-name to buttons for A11y",
     "version": "12.0.1.0.4",
     "category": "Theme/Backend",
-    "description": """
-		Adds model-description to Create and Edit buttons.\n
-		Changed name and version-number of module in manifest.\n
-    """,
     "author": "Vertel AB",
     "license": "LGPL-3",
     "installable": True,

@@ -9,13 +9,13 @@
         </t>
     </t>
 
-     <t t-name="FormView.buttons" t-extend="FormView.buttons">
+    <t t-name="FormView.buttons" t-extend="FormView.buttons">
         <t t-jquery="button.o_form_button_create" t-operation="replace">
             <button type="button" class="btn btn-primary o_form_button_create" accesskey="c">
                 Create <t t-esc="widget.displayName"/>
             </button>
         </t>
-          <t t-jquery="button.o_form_button_edit" t-operation="replace">
+        <t t-jquery="button.o_form_button_edit" t-operation="replace">
             <button type="button" class="btn btn-primary o_form_button_edit" accesskey="c">
                 Edit <t t-esc="widget.displayName"/>
             </button>
