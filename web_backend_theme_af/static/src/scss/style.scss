@@ -184,10 +184,7 @@ HEADER {
 						.selected_app{
 							background-color: transparent !important;
 							border-bottom: 6px solid #b7ee4a;
-							> A {
-								background-color: transparent !important;
-								color: #58ff00 !important;
-							}
+							font-weight: bold;
 						}
 
 						> A {
