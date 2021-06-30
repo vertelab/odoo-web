@@ -4,7 +4,7 @@
 {
     "name": "Web Backend Tema AF V12",
     "summary": "Web Backend Theme AF V12	",
-    "version": "12.0.1.1.1",
+    "version": "12.0.1.1.2",
     "category": "Theme/Backend",
     "description": """
 		Web Backend tema AF för Odoo 12.0 community edition. With New CSS \n
@@ -12,6 +12,7 @@
 		v 12.0.1.0.9 Added hoover and selected css to menu item  \n 
 		v 12.0.1.1.0 changed css for primary and secondary buttons \n
 		v 12.0.1.1.1 Added css weight bold on selected app. Removed unnecessary code\n
+		v 12.0.1.1.2 Changed colors of navlinks\n
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
