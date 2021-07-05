@@ -38,6 +38,7 @@ class ResGroups(models.Model):
 
 class GroupBoxes(models.Model):
     _name = 'group.dashboard.boxes'
+    _description = "Group Dashboard Boxes"
 
     name = fields.Html("Title")
     sub_title = fields.Html("Sub title")
