@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+         <record model="ir.ui.view" id="form_search_view_1">
+            <field name="model">res.partner</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <form_search display_contacts="1" >
+                </form_search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="form_search_view_2">
+            <field name="model">res.partner</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <form_search js_class="form_search_evolution" display_contacts="1" >
+                </form_search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="first_form_search_view">
+            <field name="name">Hello World</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">form_search</field>
+            <field name="view_id" ref="form_search_view_1"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="second_form_search_view">
+            <field name="name">Hello World</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">form_search</field>
+            <field name="view_id" ref="form_search_view_2"/>
+        </record>
+
+        <menuitem id="main_form_search_menu" name="Hello World App"/>
+
+        <menuitem id="form_search_submenu" name="Hello World Menu"
+                  parent="main_form_search_menu"/>
+
+        <menuitem id="open_view" name="Open Hello World View" parent="form_search_submenu"
+                  action="first_form_search_view"/>
+        <menuitem id="open_view_2" name="Open Hello World View Evolution" parent="form_search_submenu"
+                  action="second_form_search_view"/>
+
+</odoo>
