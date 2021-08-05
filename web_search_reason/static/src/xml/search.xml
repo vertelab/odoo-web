@@ -1,7 +1,6 @@
 <templates>
     <t t-extend="ControlPanel">
         <t t-jquery="div.o_cp_searchview" t-operation="before">
-<!--            <div class="o_search_reason_view"/>-->
             <div class="o_search_reason_view">
                 <select id="search_reason" name="search_reason" class="o_search_reason_input">
                     <option value="">Select Reason</option>
@@ -12,8 +11,4 @@
             </div>
         </t>
     </t>
-
-    <div t-name="SearchReasonView" class="o_search_reason">
-        <p>Hello</p>
-    </div>
 </templates>
