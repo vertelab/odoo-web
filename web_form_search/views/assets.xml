@@ -2,8 +2,10 @@
 <odoo>
     <template id="assets_backend" name="Form Search Assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/web_form_search/static/src/js/form_search_view.js"/>
-            <link rel="stylesheet" type="text/scss" href="/web_form_search/static/src/scss/form_search_view.scss"/>
+            <!-- Form Search -->
+            <script type="text/javascript" src="/web_form_search/static/src/js/views/form_search/form_search_controller.js"/>
+            <script type="text/javascript" src="/web_form_search/static/src/js/views/form_search/form_search_renderer.js"/>
+            <script type="text/javascript" src="/web_form_search/static/src/js/views/form_search/form_search_view.js"/>
         </xpath>
     </template>
 </odoo>
