@@ -22,5 +22,4 @@
     'qweb': ['static/src/xml/search.xml'],
     "installable": True,
     "application": True,
-    'auto_install': True,
 }
