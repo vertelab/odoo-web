@@ -13,7 +13,7 @@
 		v 12.0.1.1.0 changed css for primary and secondary buttons \n
 		v 12.0.1.1.1 Added css weight bold on selected app. Removed unnecessary code\n
 		v 12.0.1.1.2 Changed colors of navlinks\n
-		v 12.0.1.1.3 decreased the width of the label as it ended up under buttons\n
+		v 12.0.1.1.3 changed the padding of label that ended up under buttons\n
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
