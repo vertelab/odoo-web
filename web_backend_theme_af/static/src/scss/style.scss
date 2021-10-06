@@ -678,10 +678,13 @@ INPUT.o_input {
 			overflow: visible !important;
 		}
 	}
-}	
+}
 
-
-
+.o_domain_node.o_domain_leaf > .o_domain_leaf_edition {
+	display: flex;
+	width: 100%;
+	padding: 4px 63px 4px 0;
+}
 
 
 // Form and labels
