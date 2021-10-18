@@ -15,6 +15,7 @@
 		v 12.0.1.1.2 Changed colors of navlinks\n
 		v 12.0.1.1.3 AFC-2836 changed the padding of label that ended up under buttons\n
 		v 12.0.1.1.4 AFC-2860 fixed overlapping problem with div af_apps_sidebar_panel\n  
+		v 12.0.1.1.5 AFC-2714 Split the text into a customer image for better readability\n  
     """,
     "author": "Vertel AB",
     "license": "LGPL-3",
