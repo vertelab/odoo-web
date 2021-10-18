@@ -44,7 +44,7 @@ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAEAIAAAB1mz
 
 
 
-// Laýout
+// Layout
 //------------------------
 .af_column_50 {
 	width: 50%;
@@ -58,7 +58,7 @@ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAEAIAAAB1mz
 
 
 
-// Disablling elements
+// Disabling elements
 //--------------------------------
 A {
 	STRONG {
@@ -860,26 +860,35 @@ INPUT.o_input {
 //------------------------
 
 
-.o_form_view.af_res_partner_form_jobseeker {	
-	
+.o_form_view.af_res_partner_form_jobseeker {
+
+	.af-three-column {
+		columns: 300px 3;
+		width: 100%;
+	}
+
+	.af_field_group {
+		break-inside: avoid-column;
+	}
+
 	.af_personal_information_group {
 		display: inline-block;
-		width: 50%;
-		
+		width: 30%;
+		columns: 300px 1;
 	}
-	
+
 	.af_employment_service_information_group {
 		display: inline-block;
-		width: 50%;
+		width: 70%;
+		columns: 300px 2;
 	}
-	
+
 	.af_arbetsokande_installningar {
 		width: 100%;
 	}
 		
 	.af_base_information_group {
 		background-color: $brand-grey-20;
-		
 		LABEL {
 			font-family: "OpenSans-Bold"  !important;
 			font-weight: normal !important;		
@@ -972,16 +981,3 @@ INPUT.o_input {
 .table-striped > tbody > tr:nth-of-type(2n+1) {
 	background-color: transparent !important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
