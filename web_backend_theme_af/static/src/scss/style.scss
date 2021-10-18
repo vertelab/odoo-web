@@ -1,8 +1,8 @@
 
 
 
-// Fontes
-// font for regulat text 
+// Fonts
+// font for regular text
 @font-face {
   font-family: "OpenSans-Regular";
   src: url('/web_backend_theme_af/static/src/font/OpenSans/OpenSans-Regular.ttf');
@@ -69,12 +69,12 @@ A {
 .breadcrumb {
 	font-size: 14px;
 	color: $brand-primary;
-	
+
 }
 
 
 
-// Adjusting left menu 
+// Adjusting left menu
 //------------------------
 @media (min-width: 992px) {
 	.af_sidebar_type_large .af_apps_sidebar_panel {
@@ -150,7 +150,7 @@ HEADER {
 		}
 		
 		LI.dropdown:hover {
-			background-color: none;
+			background-color: transparent;
 		}
 
 
@@ -333,7 +333,7 @@ HEADER {
 					
 					.dropdown-header {
 						margin-left: 80px;
-						padding-left: 0px;		
+						padding-left: 0px;
 					}
 					
 					.o_menu_entry_lvl_1 {
@@ -434,7 +434,7 @@ HTML {
 }
 
 .btn:last-child {
-	margin-right: 0px;	
+	margin-right: 0px;
 }
 
 .fa {
@@ -653,7 +653,7 @@ INPUT.o_input {
 					border: 0px solid $brand-primary !important;
 					border-radius: 0px;
 					border-top-left-radius: 5px;
-					border-bottom-left-radius: 5px;	
+					border-bottom-left-radius: 5px;
 				}
 			}
 			
@@ -825,7 +825,11 @@ INPUT.o_input {
 			}
 		}
 	}
-	
+
+	.af_arbetsokande_installningar {
+		margin-left: 0;
+	}
+
 	.af_chatter_position_normal {
 		.o_list_view {
 			border-bottom: 1px solid $brand-grey-70;
@@ -865,6 +869,10 @@ INPUT.o_input {
 	.af-three-column {
 		columns: 300px 3;
 		width: 100%;
+		display: inline-block;
+		padding-right: 150px;
+		vertical-align: top;
+		font-size: 16px;
 	}
 
 	.af_field_group {
@@ -888,7 +896,6 @@ INPUT.o_input {
 	}
 		
 	.af_base_information_group {
-		background-color: $brand-grey-20;
 		LABEL {
 			font-family: "OpenSans-Bold"  !important;
 			font-weight: normal !important;		
@@ -900,6 +907,7 @@ INPUT.o_input {
 			
 			font-weight: normal  !important;	
 			font-size: 16px;
+			margin-bottom: 20px;
 		}
 	}
 	
