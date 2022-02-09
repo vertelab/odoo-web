@@ -4,7 +4,7 @@
 {
     "name": "AF Statistics",
     "summary": "AF Statistics for Matomo",
-    "version": "12.0.1.0.3",
+    "version": "12.0.1.0.4",
     "category": "TBD",
     "description": """AF Statistics for Matomo
     After module installation Go to Setting >> Technical >> Parameters >> System Parameters. \n
@@ -14,13 +14,11 @@
 // Test CRM: https://af-staging.analytics.elx.cloud/js/container_ew8X7e8B.js \n
 // DAFA PROD https://af.analytics.elx.cloud/js/container _t72Scj0c.js \n
 // Test DAFA: https://af-staging.analytics.elx.cloud/js/container_n7teu7kr.js \n
-
-
 """,
     "author": "AF",
     "license": "AGPL-3",
     "installable": True,
     "depends": ["web"],
-    "data": [ "views/assets.xml",
-              "data/ir.config_parameter.csv"]
+    "data": ["views/assets.xml",
+             "data/ir.config_parameter.csv",]
 }
