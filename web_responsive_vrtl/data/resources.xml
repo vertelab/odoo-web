@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="web_responsive_vrtl" name="Vertel Theme for Backend Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/web_responsive_vrtl/static/src/scss/styles.scss"/>
+            </xpath>
+       </template>
+
+        <template id="vrtl_theme_web_backend_community_assets_common" name="Vertel Theme Assets Common" inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/scss" href="/web_responsive_vrtl/static/src/scss/datetime_widget.scss"/>
+                <link rel="stylesheet" type="text/scss" href="/web_responsive_vrtl/static/src/scss/common_styles.scss"/>
+            </xpath>
+        </template>
+
+        <template id="gs_theme" name="Variables of Vertel Theme for Backend" inherit_id="web._assets_primary_variables">
+            <xpath expr="//link[1]" position="after">
+                <link rel="stylesheet" type="text/scss" href="/web_responsive_vrtl/static/src/scss/theme.scss"/>
+            </xpath>
+       </template>
+    </data>
+</odoo>
