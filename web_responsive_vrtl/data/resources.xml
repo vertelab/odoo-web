@@ -17,6 +17,7 @@
         <template id="gs_theme" name="Variables of Vertel Theme for Backend" inherit_id="web._assets_primary_variables">
             <xpath expr="//link[1]" position="after">
                 <link rel="stylesheet" type="text/scss" href="/web_responsive_vrtl/static/src/scss/theme.scss"/>
+
             </xpath>
        </template>
     </data>

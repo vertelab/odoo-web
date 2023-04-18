@@ -36,6 +36,7 @@
     "data": [
     "data/resources.xml",
     "views/assets.xml",
+    "views/res_users.xml",
     "views/web.xml",  
     ],
     "qweb": [

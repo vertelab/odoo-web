@@ -11,6 +11,18 @@ a {
     }
 }
 
+.btn-fill-info, .btn-info {
+    background-color: #175db8;
+    border-color: #1252a6;
+
+}
+
+.btn-fill-info:hover, .btn-info:hover{
+    background-color: #0f4182;
+    border-color: #0c366c;
+
+}
+
 .btn-secondary {
     color: black;
 }
