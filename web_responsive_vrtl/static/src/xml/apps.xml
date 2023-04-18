@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+
+    <t t-name="AppsMenu" t-extend="AppsMenu">
+        <t t-jquery="i.fa" t-operation="replace">
+            <i class="fa fa-bars"/>
+        </t>
+        <t t-jquery="div.dropdown-menu" t-operation="replace">
+            <div class="dropdown-menu" role="menu">
+                <div class="sm_menu_app_summary">
+                    <img src="/web/binary/company_logo"/>
+                </div>
+                <div class="sm_menu_container">
+                    <t t-foreach="widget.getApps()" t-as="app">
+                        <div class="search-container align-items-center col-12">
+                            <a role="menuitem"
+                            class="dropdown-item o_app"
+                            t-att-data-menu-id="app.menuID"
+                            t-att-data-menu-xmlid="app.xmlID"
+                            t-att-data-action-id="app.actionID">
+                                <t t-jquery=".o_app &gt; t" t-operation="replace">
+                                    <t t-call="web_responsive.AppIcon" />
+                                </t>
+                            </a>
+                        </div>
+                    </t>
+                </div>
+
+            </div>
+        </t>
+    </t>
+
+    <!-- Separate app icon template, for easier inheritance -->
+    <t t-name="web_responsive.AppIcon">
+        <img
+            class="o-app-icon"
+            draggable="false"
+            t-attf-src="data:image/png;base64,#{app.web_icon_data}"
+        />
+        <span class="o-app-name">
+            <t t-esc="app.name" />
+        </span>
+    </t>
+    <!-- A search result -->
+    <t t-name="web_responsive.MenuSearchResults">
+        <t t-foreach="results" t-as="result">
+            <t t-set="menu" t-value="widget._menuInfo(result.original)" />
+            <a
+                t-attf-class="o-menu-search-result dropdown-item col-12 ml-auto mr-auto #{result_first ? 'active' : ''}"
+                t-attf-style="background-image:url('data:image/png;base64,#{menu.web_icon_data}')"
+                t-attf-href="#menu_id=#{menu.id}&amp;action_id=#{menu.action_id}"
+                t-att-data-menu-id="menu.id"
+                t-att-data-action-id="menu.action_id"
+                t-att-data-parent-id="menu.parent_id[0]"
+                draggable="false"
+                t-raw="result.string"
+            />
+        </t>
+    </t>
+</template>

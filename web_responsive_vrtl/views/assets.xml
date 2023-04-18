@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2016 LasLabs Inc.
+    @author Dave Lasley <dave@laslabs.com>
+    License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <template
+        id="assets_backend"
+        name="Open Mobile Assets"
+        inherit_id="web.assets_backend"
+    >
+        <xpath expr="//link[last()]" position="after">
+            <link
+                type="text/css"
+                rel="stylesheet"
+                href="/web_responsive_vrtl/static/src/scss/web_responsive.scss"
+            />
+            <link
+                type="text/css"
+                rel="stylesheet"
+                href="/web_responsive_vrtl/static/src/scss/search_view_mobile.scss"
+            />
+            <link
+                type="text/css"
+                rel="stylesheet"
+                href="/web_responsive_vrtl/static/src/scss/kanban_view_mobile.scss"
+            />
+        </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script
+                type="application/javascript"
+                src="/web_responsive_vrtl/static/src/js/web_responsive.js"
+            />
+            <script
+                type="application/javascript"
+                src="/web_responsive_vrtl/static/src/js/kanban_renderer_mobile.js"
+            />
+        </xpath>
+    </template>
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+
+        <xpath expr="//t[@t-set='head']" position="after">
+            <t t-set="head_web_mobile">
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+            </t>
+            <t t-set="head" t-value="head_web_mobile + (head or '')"/>
+        </xpath>
+    </template>
+</odoo>
