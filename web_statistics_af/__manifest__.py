@@ -4,7 +4,7 @@
 {
     "name": "AF Statistics",
     "summary": "AF Statistics for Matomo",
-    "version": "12.0.1.0.3",
+    "version": "18.0.1.0.3",
     "category": "TBD",
     "description": """AF Statistics for Matomo
     After module installation Go to Setting >> Technical >> Parameters >> System Parameters. \n

@@ -22,7 +22,7 @@
 {
     "name": "Web Responsive Vrtl",
     "summary": "A responsive theme for the Odoo backend",
-    "version": "14.0.1.2.2",
+    "version": "18.0.1.2.2",
     "category": "Themes/Backend",
     "website": "https://github.com/vertelab",
     'description': """

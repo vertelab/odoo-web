@@ -1,6 +1,6 @@
 {
     "name": " Web Dashboard Dafa",
-    "version": "12.0.0.2",
+    "version": "18.0.0.2",
     "description": """
      This module shows the dashbord of an employee´s daily work. \n
      12.0.0.1 - This update Adds an instruction page\n

@@ -3,7 +3,7 @@
     'name': "Web Form Search",
     'summary': "Web Form Search",
     'description': """Search Record from the Form View""",
-    'version': '12.0.1',
+    'version': '18.0.0.1',
     'depends': ['web', 'contacts'],
     'data': [
         "views/assets.xml",

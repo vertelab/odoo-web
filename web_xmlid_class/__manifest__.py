@@ -22,7 +22,7 @@
 # Version format OdooMajor.OdooMinor.Major.Minor.Patch
 {
     'name': 'Web XMLID Class',
-    'version': '12.0.1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Web',
     'description': """
 Web XMLID Class

@@ -1,7 +1,7 @@
 {
     "name": "Accessibility Report",
     "summary": "Accessibility Report",
-    "version": "12.0.4",
+    "version": "18.0.0.1",
     "description": """
     	This module adds a section in the global settings for Accessibility Report to display a report of the 
     	backoffice adherance to the Accessibility rules.\n
