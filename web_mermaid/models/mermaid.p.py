@@ -18,6 +18,16 @@ class MermaidMixin(models.AbstractModel):
 
     _mermaid_keywords = r"^(graph|sequenceDiagram|classDiagram|stateDiagram|erDiagram|flowchart|pie|journey|gantt|gitGraph)\b"
 
+    diagram_type = fields.Selection([
+        ('flowchart LR', 'flowchart LR'), ('flowchart TD', 'flowchart TD'), ('sequenceDiagram', 'sequenceDiagram'),
+        ('classDiagram', 'classDiagram'), ('stateDiagram', 'stateDiagram'), ('erDiagram', 'erDiagram'),
+        ('quadrantChart', 'quadrantChart'), ('gitGraph', 'gitGraph'), ('mindmap', 'mindmap'), ('kanban', 'kanban'),
+        ('pie', 'pie'), ('journey', 'journey'), ('gantt', 'gantt'), ('timeline', 'timeline'),
+        ('architecture-beta', 'architecture-beta'),
+    ], string="Diagram Type")
+
+    prompt = fields.Text(string="Prompt")
+
     mermaid_editor = fields.Html(string="Editor", copy=False)
     mermaid_diagram = fields.Text(string="Diagram", compute='_compute_mermaid_editor', copy=False)
 
@@ -114,3 +124,6 @@ class MermaidMixin(models.AbstractModel):
             wrapped_content = self.wrap_mermaid_in_pre(rec.mermaid_editor)
             if wrapped_content != rec.mermaid_editor:
                 rec.mermaid_editor = wrapped_content
+
+    def action_build_mermaid(self):
+        pass
