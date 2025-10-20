@@ -1,0 +1,187 @@
+.swot-container {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.swot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.swot-matrix {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    grid-template-rows: 50px 1fr 50px 1fr;
+    gap: 10px;
+    flex: 1;
+    min-height: 600px;
+}
+
+.swot-positive {
+    grid-column: 2 / 4;
+    grid-row: 1;
+    background: linear-gradient(45deg, #e8f5e8, #d4edda);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #155724;
+}
+
+.swot-negative {
+    grid-column: 2 / 4;
+    grid-row: 3;
+    background: linear-gradient(45deg, #f8d7da, #f5c6cb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #721c24;
+}
+
+.swot-internal-header {
+    grid-column: 1;
+    grid-row: 2;
+    background: linear-gradient(45deg, #d1ecf1, #bee5eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-weight: bold;
+    color: #0c5460;
+}
+
+.swot-external-header {
+    grid-column: 1;
+    grid-row: 4;
+    background: linear-gradient(45deg, #fff3cd, #ffeeba);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-weight: bold;
+    color: #856404;
+}
+
+.swot-quadrant {
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.swot-q1 {
+    grid-column: 2;
+    grid-row: 2;
+    background: linear-gradient(135deg, #d4edda, #c3e6cb);
+    border-left: 4px solid #28a745;
+}
+
+.swot-q2 {
+    grid-column: 3;
+    grid-row: 2;
+    background: linear-gradient(135deg, #f5c6cb, #f1b0b7);
+    border-left: 4px solid #dc3545;
+}
+
+.swot-q3 {
+    grid-column: 2;
+    grid-row: 4;
+    background: linear-gradient(135deg, #bee5eb, #a6d9e1);
+    border-left: 4px solid #17a2b8;
+}
+
+.swot-q4 {
+    grid-column: 3;
+    grid-row: 4;
+    background: linear-gradient(135deg, #ffeeba, #ffe8a1);
+    border-left: 4px solid #ffc107;
+}
+
+.quadrant-header {
+    margin-bottom: 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quadrant-header h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.quadrant-content {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+.swot-record-item {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.swot-record-item:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.swot-empty {
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    background-color: #6c757d;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .swot-matrix {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    
+    .swot-positive, .swot-negative,
+    .swot-internal-header, .swot-external-header {
+        grid-column: 1;
+    }
+    
+    .swot-internal-header, .swot-external-header {
+        writing-mode: initial;
+        text-orientation: initial;
+    }
+    
+    .swot-q1, .swot-q2, .swot-q3, .swot-q4 {
+        grid-column: 1;
+    }
+}
