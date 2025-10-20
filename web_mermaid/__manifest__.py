@@ -13,7 +13,7 @@
         Base module to add mermaid in any model""",
     "depends": [
         "web",
-        "web_widget_mermaid_field" # https://github.com/VictorHachard/odoo-modules/tree/17.0/web_widget_mermaid_field,
+        'web_widget_mermaid_field' # https://github.com/VictorHachard/odoo-modules/tree/17.0/web_widget_mermaid_field,
     ],
     "data": [
     ],
