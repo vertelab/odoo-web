@@ -18,6 +18,16 @@ class MermaidMixin(models.AbstractModel):
 
     _mermaid_keywords = r"^(graph|sequenceDiagram|classDiagram|stateDiagram|erDiagram|flowchart|pie|journey|gantt|gitGraph)\b"
 
+    diagram_type = fields.Selection([
+        ('flowchart LR', 'flowchart LR'), ('flowchart TD', 'flowchart TD'), ('sequenceDiagram', 'sequenceDiagram'),
+        ('classDiagram', 'classDiagram'), ('stateDiagram', 'stateDiagram'), ('erDiagram', 'erDiagram'),
+        ('quadrantChart', 'quadrantChart'), ('gitGraph', 'gitGraph'), ('mindmap', 'mindmap'), ('kanban', 'kanban'),
+        ('pie', 'pie'), ('journey', 'journey'), ('gantt', 'gantt'), ('timeline', 'timeline'),
+        ('architecture-beta', 'architecture-beta'),
+    ], string="Diagram Type")
+
+    prompt = fields.Text(string="Prompt")
+
     mermaid_editor = fields.Html(string="Editor", copy=False)
     mermaid_diagram = fields.Text(string="Diagram", compute='_compute_mermaid_editor', copy=False)
 
@@ -114,3 +124,36 @@ class MermaidMixin(models.AbstractModel):
             wrapped_content = self.wrap_mermaid_in_pre(rec.mermaid_editor)
             if wrapped_content != rec.mermaid_editor:
                 rec.mermaid_editor = wrapped_content
+
+    def _mermaid_prompt(self):
+        return f"""
+mermaid_type: {self.diagram_type}
+
+{self.prompt}
+        """
+
+    def _process_mermaid_prompt(self):
+        pass
+
+
+    def action_process_mermaid_syntax(self):
+        self.ensure_one()
+
+        if not self.prompt:
+            raise UserError(_("Please enter a prompt first."))
+
+        try:
+            quest_id = self.env['ai.quest'].browse(42).exists()
+            result = quest_id.run(prompt=self._mermaid_prompt(), record=self)
+
+            if result:
+                ai_messages = quest_id._get_last_ai_message(result.get('result', {}).get('messages', False))
+                print(ai_messages.content)
+                if not ai_messages:
+                    raise UserError(_("OBS: An error occurred, you should contact administrator to look into the quest"))
+
+                self.write({'mermaid_editor': ai_messages.content})
+                self.env.cr.commit()
+        except Exception as e:
+            _logger.warning(f"Error: {e}")
+
