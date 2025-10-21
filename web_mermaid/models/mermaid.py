@@ -133,7 +133,7 @@ mermaid_type: {self.diagram_type}
         """
 
     def _process_mermaid_prompt(self):
-        pass
+        return False
 
 
     def action_process_mermaid_syntax(self):
@@ -142,18 +142,7 @@ mermaid_type: {self.diagram_type}
         if not self.prompt:
             raise UserError(_("Please enter a prompt first."))
 
-        try:
-            quest_id = self.env['ai.quest'].browse(42).exists()
-            result = quest_id.run(prompt=self._mermaid_prompt(), record=self)
+        if mermaid_syntax := self._process_mermaid_prompt():
+            self.write({'mermaid_editor': f"<pre>{mermaid_syntax}</pre>"})
 
-            if result:
-                ai_messages = quest_id._get_last_ai_message(result.get('result', {}).get('messages', False))
-                print(ai_messages.content)
-                if not ai_messages:
-                    raise UserError(_("OBS: An error occurred, you should contact administrator to look into the quest"))
-
-                self.write({'mermaid_editor': ai_messages.content})
-                self.env.cr.commit()
-        except Exception as e:
-            _logger.warning(f"Error: {e}")
 
