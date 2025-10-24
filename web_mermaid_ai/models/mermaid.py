@@ -26,24 +26,7 @@ mermaid_type: {self.diagram_type}
         """
 
     def _process_mermaid_prompt(self):
-        try:
-            quest_id = self.env.ref('web_mermaid_ai.mermaid_ai_quest')
-
-            if quest_id and quest_id.status != "active":
-                raise f"{quest_id.name} is not active. Activate the quest or contact support."
-
-            result = quest_id.run(prompt=self._mermaid_prompt(), records=self)
-
-            if result:
-                ai_messages = quest_id._get_last_ai_message(result.get('result', {}).get('messages', False))
-                if not ai_messages:
-                    raise UserError(
-                        _("OBS: An error occurred, you should contact administrator to look into the quest"))
-
-                return ai_messages.content
-        except Exception as e:
-            _logger.warning(f"Error: {e}")
-            raise UserError(e)
+        return False
 
 
     def action_process_mermaid_syntax(self):
