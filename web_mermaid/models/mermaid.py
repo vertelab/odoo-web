@@ -124,25 +124,3 @@ class MermaidMixin(models.AbstractModel):
             wrapped_content = self.wrap_mermaid_in_pre(rec.mermaid_editor)
             if wrapped_content != rec.mermaid_editor:
                 rec.mermaid_editor = wrapped_content
-
-    def _mermaid_prompt(self):
-        return f"""
-mermaid_type: {self.diagram_type}
-
-{self.prompt}
-        """
-
-    def _process_mermaid_prompt(self):
-        return False
-
-
-    def action_process_mermaid_syntax(self):
-        self.ensure_one()
-
-        if not self.prompt:
-            raise UserError(_("Please enter a prompt first."))
-
-        if mermaid_syntax := self._process_mermaid_prompt():
-            self.write({'mermaid_editor': f"<pre>{mermaid_syntax}</pre>"})
-
-
