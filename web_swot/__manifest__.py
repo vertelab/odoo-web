@@ -45,7 +45,7 @@
     ],
     'data': [
         'views/swot_template.xml',
-        'views/example_views.xml',  # Exempel på användning
+        #### 2025-11-12 'views/example_views.xml',  # Exempel på användning
     ],
     'assets': {
         'web.assets_backend': [
