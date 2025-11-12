@@ -1,6 +1,6 @@
 {
-    'name': 'Generic SWOT View',
-    'version': '18.0.1.0.0',
+    'name': 'Web: Generic SWOT View',
+    'version': '1.0.0',
     'category': 'Tools',
     'summary': 'Generisk SWOT-vy för alla Odoo-modeller med domänbaserade kvadranter',
     'description': '''
