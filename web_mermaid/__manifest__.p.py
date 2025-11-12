@@ -2,8 +2,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    "name": "Web Mermaid",
-    "version": "18.0.1.0.1",
+    "name": "Web: Mermaid",
+    "version": "1.0.1",
     "license": "AGPL-3",
     "sequence": 6,
     "author": "Vertel AB",
