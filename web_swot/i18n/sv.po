@@ -1,0 +1,98 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* web_swot
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20251205\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-08 13:22+0000\n"
+"PO-Revision-Date: 2025-12-08 14:33+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Externa faktorer"
+msgstr "Externa faktorer"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Hot (Threats)"
+msgstr "Hot (Threats)"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Interna faktorer"
+msgstr "Interna faktorer"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Möjligheter (Opportunities)"
+msgstr "Möjligheter (Opportunities)"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Negativa faktorer"
+msgstr "Negativa faktorer"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Positiva faktorer"
+msgstr "Positiva faktorer"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "SWOT-analys"
+msgstr "SWOT-analys"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Spara"
+msgstr "Spara"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Styrkor (Strengths)"
+msgstr "Styrkor (Strengths)"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Svagheter (Weaknesses)"
+msgstr "Svagheter (Weaknesses)"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid "Vad gör ni bra? Vilka unika resurser finns? Vilka fördelar har ni?"
+msgstr "Vad gör ni bra? Vilka unika resurser finns? Vilka fördelar har ni?"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid ""
+"Vad kan förbättras? Vilka resurser saknas? Vad gör konkurrenter bättre?"
+msgstr ""
+"Vad kan förbättras? Vilka resurser saknas? Vad gör konkurrenter bättre?"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid ""
+"Vilka externa faktorer kan skada? Vad gör konkurrenterna? Vilka "
+"regulatoriska risker finns?"
+msgstr ""
+"Vilka externa faktorer kan skada? Vad gör konkurrenterna? Vilka "
+"regulatoriska risker finns?"
+
+#. module: web_swot
+#: model_terms:ir.ui.view,arch_db:web_swot.SwotView
+msgid ""
+"Vilka trender kan utnyttjas? Vilka nya marknader finns? Vilka teknologier "
+"utvecklas?"
+msgstr ""
+"Vilka trender kan utnyttjas? Vilka nya marknader finns? Vilka teknologier "
+"utvecklas?"
