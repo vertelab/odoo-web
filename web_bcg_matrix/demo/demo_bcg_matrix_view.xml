@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Demo: BCG Matrix for product templates (market share vs growth) -->
     <record id="view_product_bcg_matrix" model="ir.ui.view">
-        <field name="name">product.template.bcg.demo</field>
-        <field name="model">product.template</field>
+        <field name="name">res.partner.bcg.demo</field>
+        <field name="model">res.partner</field>
         <field name="type">bcg_matrix</field>
         <field name="arch" type="xml">
-            <bcg_matrix string="Product Portfolio (BCG)"
-                        x_field="list_price" y_field="standard_price"
-                        x_label="Price (SEK)" y_label="Cost (SEK)"
+            <bcg_matrix string="Partner Portfolio (BCG)"
+                        x_field="partner_latitude" y_field="partner_longitude"
+                        x_label="Latitude" y_label="Longitude"
                         label_field="name"
-                        x_midpoint="500" y_midpoint="300"
-                        quadrant_labels="Stars,Cash Cows,Question Marks,Dogs"/>
+                        x_midpoint="59" y_midpoint="18"
+                        quadrant_labels="NE,NV,SO,SV"/>
         </field>
     </record>
 
     <record id="action_product_bcg_matrix" model="ir.actions.act_window">
         <field name="name">BCG Portfolio</field>
-        <field name="res_model">product.template</field>
+        <field name="res_model">res.partner</field>
         <field name="view_mode">bcg_matrix,kanban,list,form</field>
         <field name="view_id" ref="view_product_bcg_matrix"/>
     </record>
 
-    <menuitem id="menu_product_bcg_matrix"
-              name="BCG Portfolio"
-              action="action_product_bcg_matrix"
-              parent="base.menu_reporting"
-              sequence="30"/>
-</odoo>

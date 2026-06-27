@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 _bcg_validator = None
 
 
-@view_validation.validate('bcg_matrix')
+# @view_validation.validate('bcg_matrix')
 def schema_bcg_matrix(arch, **kwargs):
     global _bcg_validator
     if _bcg_validator is None:

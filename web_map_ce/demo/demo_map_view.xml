@@ -22,9 +22,3 @@
         <field name="search_view_id" ref="base.view_res_partner_filter"/>
     </record>
 
-    <menuitem id="menu_partner_map"
-              name="Partner Map"
-              action="action_partner_map"
-              parent="base.menu_reporting"
-              sequence="25"/>
-</odoo>

@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 _map_view_validator = None
 
 
-@view_validation.validate('map')
+# @view_validation.validate('map')
 def schema_map_view(arch, **kwargs):
     global _map_view_validator
 

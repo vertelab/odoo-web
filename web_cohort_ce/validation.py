@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 _cohort_validator = None
 
 
-@view_validation.validate('cohort')
+# @view_validation.validate('cohort')
 def schema_cohort(arch, **kwargs):
     global _cohort_validator
     if _cohort_validator is None:

@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 _year_wheel_validator = None
 
 
-@view_validation.validate('year_wheel')
+# @view_validation.validate('year_wheel')
 def schema_year_wheel(arch, **kwargs):
     global _year_wheel_validator
     if _year_wheel_validator is None:
