@@ -13,6 +13,9 @@
         # 'views/res_config_settings.xml',  # TODO: uncomment when base partner form is stable
         # 'views/res_partner_views.xml',  # TODO: uncomment when base partner form is stable
     ],
+    'demo': [
+        'demo/demo_map_view.xml',
+    ],
     'auto_install': True,
     'author': 'Vertel AB',
     'license': 'LGPL-3',

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Demo: Cohort view for CRM leads showing retention -->
+    <record id="view_crm_lead_cohort" model="ir.ui.view">
+        <field name="name">crm.lead.cohort.demo</field>
+        <field name="model">crm.lead</field>
+        <field name="type">cohort</field>
+        <field name="arch" type="xml">
+            <cohort string="Lead Retention" date_start="create_date" date_stop="date_closed"
+                    interval="month" mode="retention" timeline="forward" measure="__count">
+                <field name="name" string="Lead"/>
+                <field name="stage_id" string="Stage"/>
+            </cohort>
+        </field>
+    </record>
+
+    <record id="action_crm_lead_cohort" model="ir.actions.act_window">
+        <field name="name">Lead Cohort</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">cohort,kanban,list,form</field>
+        <field name="view_id" ref="view_crm_lead_cohort"/>
+    </record>
+
+    <menuitem id="menu_crm_lead_cohort"
+              name="Lead Cohort"
+              action="action_crm_lead_cohort"
+              parent="base.menu_reporting"
+              sequence="15"/>
+</odoo>

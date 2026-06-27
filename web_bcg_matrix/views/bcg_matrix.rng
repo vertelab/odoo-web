@@ -1,15 +1,12 @@
-<grammar xmlns="http://relaxng.org/ns/structure/1.0"
-    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
-    <start>
-        <ref name="bcg_matrix"/>
-    </start>
+    <start><ref name="bcg_matrix"/></start>
 
     <define name="bcg_matrix">
         <element name="bcg_matrix">
             <optional><attribute name="string"/></optional>
-            <attribute name="x_field"/>
-            <attribute name="y_field"/>
+            <optional><attribute name="x_field"/></optional>
+            <optional><attribute name="y_field"/></optional>
             <optional><attribute name="x_label"/></optional>
             <optional><attribute name="y_label"/></optional>
             <optional><attribute name="label_field"/></optional>
@@ -19,6 +16,7 @@
             <optional><attribute name="y_midpoint"/></optional>
             <optional><attribute name="quadrant_labels"/></optional>
             <optional><attribute name="js_class"/></optional>
+            <optional><attribute name="__validate__"/></optional>
         </element>
     </define>
 </grammar>

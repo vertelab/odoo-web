@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Demo: Map view for res.partner -->
+    <record id="view_partner_map" model="ir.ui.view">
+        <field name="name">res.partner.map.demo</field>
+        <field name="model">res.partner</field>
+        <field name="type">map</field>
+        <field name="arch" type="xml">
+            <map string="Partners Map" res_partner="id" limit="80" hide_title="0" panel_title="Partners">
+                <field name="display_name" string="Partner"/>
+                <field name="email" string="Email"/>
+                <field name="phone" string="Phone"/>
+            </map>
+        </field>
+    </record>
+
+    <record id="action_partner_map" model="ir.actions.act_window">
+        <field name="name">Partner Map</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">map,kanban,list,form</field>
+        <field name="view_id" ref="view_partner_map"/>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+    </record>
+
+    <menuitem id="menu_partner_map"
+              name="Partner Map"
+              action="action_partner_map"
+              parent="base.menu_reporting"
+              sequence="25"/>
+</odoo>

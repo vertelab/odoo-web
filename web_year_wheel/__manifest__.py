@@ -15,6 +15,9 @@
             'web_year_wheel/static/src/**/*',
         ],
     },
+    'demo': [
+        'demo/demo_year_wheel_view.xml',
+    ],
     'auto_install': False,
     'author': 'Vertel AB',
     'license': 'LGPL-3',

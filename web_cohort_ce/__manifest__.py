@@ -16,6 +16,9 @@
             'web_cohort_ce/static/tests/**/*.js',
         ],
     },
+    'demo': [
+        'demo/demo_cohort_view.xml',
+    ],
     'auto_install': True,
     'author': 'Vertel AB',
     'license': 'LGPL-3',

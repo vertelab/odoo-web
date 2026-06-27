@@ -15,6 +15,9 @@
             'web_bcg_matrix/static/src/**/*',
         ],
     },
+    'demo': [
+        'demo/demo_bcg_matrix_view.xml',
+    ],
     'auto_install': False,
     'author': 'Vertel AB',
     'license': 'LGPL-3',
