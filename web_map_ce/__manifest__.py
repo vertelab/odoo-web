@@ -10,8 +10,8 @@
     'version': '18.0.1.0.0',
     'depends': ['web', 'base_setup'],
     'data': [
-        'views/res_config_settings.xml',
-        'views/res_partner_views.xml',
+        # 'views/res_config_settings.xml',  # TODO: uncomment when base partner form is stable
+        # 'views/res_partner_views.xml',  # TODO: uncomment when base partner form is stable
     ],
     'auto_install': True,
     'author': 'Vertel AB',
