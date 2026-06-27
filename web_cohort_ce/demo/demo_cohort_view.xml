@@ -17,3 +17,4 @@
         <field name="view_id" ref="view_crm_lead_cohort"/>
     </record>
 
+</odoo>

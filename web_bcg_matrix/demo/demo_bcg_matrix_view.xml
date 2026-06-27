@@ -21,3 +21,4 @@
         <field name="view_id" ref="view_product_bcg_matrix"/>
     </record>
 
+</odoo>

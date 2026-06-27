@@ -22,3 +22,4 @@
         <field name="search_view_id" ref="base.view_res_partner_filter"/>
     </record>
 
+</odoo>

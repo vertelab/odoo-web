@@ -18,3 +18,4 @@
         <field name="view_id" ref="view_calendar_event_year_wheel"/>
     </record>
 
+</odoo>
