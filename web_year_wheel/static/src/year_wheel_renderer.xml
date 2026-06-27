@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="web_year_wheel.YearWheelRenderer">
+        <div class="o-year-wheel-renderer d-flex flex-column align-items-center p-4">
+            <h4 class="o-year-wheel-title mb-4" t-esc="props.archInfo.title"/>
+            <svg t-ref="svg" class="o-year-wheel-svg" width="500" height="500" viewBox="0 0 500 500">
+                <!-- Inner circle -->
+                <circle cx="250" cy="250" r="30" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                <text x="250" y="255" text-anchor="middle" font-size="12" fill="#6c757d">Year</text>
+                <!-- Segments rendered dynamically -->
+            </svg>
+            <div class="o-year-wheel-legend mt-3 d-flex flex-wrap gap-3 justify-content-center"/>
+        </div>
+    </t>
+</templates>

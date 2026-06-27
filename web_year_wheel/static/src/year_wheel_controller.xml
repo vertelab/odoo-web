@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="web_year_wheel.YearWheelView">
+        <Layout display="props.display">
+            <t t-set-slot="control-panel-additional-actions">
+                <CogMenu/>
+            </t>
+            <t t-set-slot="layout-buttons">
+                <t t-call="{{ props.buttonTemplate }}"/>
+            </t>
+            <t t-set-slot="layout-actions">
+                <SearchBar toggler="searchBarToggler"/>
+            </t>
+            <t t-set-slot="control-panel-navigation-additional">
+                <t t-component="searchBarToggler.component" t-props="searchBarToggler.props"/>
+            </t>
+            <t t-component="props.Renderer" t-props="rendererProps"/>
+        </Layout>
+    </t>
+    <t t-name="web_year_wheel.YearWheelView.Buttons"/>
+</templates>

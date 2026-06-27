@@ -1,0 +1,20 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+    <start>
+        <ref name="year_wheel"/>
+    </start>
+
+    <define name="year_wheel">
+        <element name="year_wheel">
+            <optional><attribute name="string"/></optional>
+            <attribute name="date_field"/>
+            <optional><attribute name="color_field"/></optional>
+            <optional><attribute name="label_field"/></optional>
+            <optional><attribute name="size_field"/></optional>
+            <optional><attribute name="start_month"/></optional>
+            <optional><attribute name="segments"/></optional>
+            <optional><attribute name="js_class"/></optional>
+        </element>
+    </define>
+</grammar>

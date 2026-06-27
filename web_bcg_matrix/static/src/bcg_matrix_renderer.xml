@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="web_bcg_matrix.BcgMatrixRenderer">
+        <div class="o-bcg-matrix-renderer d-flex flex-column p-4">
+            <h4 class="o-bcg-matrix-title mb-4 text-center" t-esc="props.archInfo.title"/>
+            <div class="o-bcg-matrix-grid position-relative mx-auto" style="width:500px;height:500px">
+                <t t-foreach="quadrants" t-as="label" t-key="label_index">
+                    <div t-attf-class="o-bcg-quadrant position-absolute d-flex align-items-center justify-content-center"
+                         t-att-style="'left:' + ((label_index % 2) * 50) + '%; top:' + (Math.floor(label_index / 2) * 50) + '%; width:50%; height:50%; background-color:' + (['#e8f5e9','#fff3e0','#e3f2fd','#fce4ec'][label_index] || '#f8f9fa') + '; border: 1px solid #dee2e6'"
+                         t-esc="label"/>
+                </t>
+                <!-- Axes -->
+                <div style="position:absolute;left:0;top:50%;width:100%;height:2px;background:#333;z-index:2"/>
+                <div style="position:absolute;left:50%;top:0;width:2px;height:100%;background:#333;z-index:2"/>
+                <!-- Axis labels -->
+                <div class="position-absolute text-center text-muted small" style="bottom:4px;left:50%;transform:translateX(-50%)" t-esc="xLabel"/>
+                <div class="position-absolute text-muted small" style="left:4px;top:50%;transform:translateY(-50%) rotate(-90deg)" t-esc="yLabel"/>
+            </div>
+        </div>
+    </t>
+</templates>
