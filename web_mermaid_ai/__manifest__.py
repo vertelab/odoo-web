@@ -14,10 +14,10 @@
     """,
     "depends": [
         'web_mermaid',
-        'ai_agent',
+        'ai_agent_core',
     ],
     "data": [
-        'data/ai_agent_data.xml'
+        'data/ai_coworker_data.xml'
     ],
     "installable": True,
     "application": True,

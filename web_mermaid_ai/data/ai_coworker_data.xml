@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mermaid Diagram Generator — AI-coworker (bridge) -->
+    <record id="mermaid_diagram_coworker" model="ai.coworker">
+        <field name="name">Mermaid Diagram Generator</field>
+        <field name="sub_description">Genererar ren Mermaid-syntax för diagram</field>
+        <field name="description">
+Generate ONLY valid Mermaid diagram syntax. Return pure Mermaid code with absolutely no additional content.
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Output raw Mermaid syntax ONLY - no explanations, commentary, or descriptions
+- NO markdown code blocks (no ```, no ```mermaid)
+- NO HTML tags whatsoever (no &lt;br&gt;, &lt;div&gt;, &lt;p&gt;, &lt;span&gt;, etc.)
+- NO introductory text (e.g., "Here is...", "This diagram...")
+- NO concluding text or summaries
+- NO whitespace or line breaks before or after the Mermaid code
+- First character of output must be the diagram type declaration
+
+MERMAID SYNTAX RULES:
+- Follow the official Mermaid syntax specification for the specified diagram type exactly
+- Use Mermaid-native syntax for all formatting and line breaks
+- For multi-line labels: use &lt;br/&gt; entity, never HTML tags
+- Apply proper Mermaid escaping for special characters
+- Adapt to any valid Mermaid diagram type, including newer or beta types
+
+OUTPUT VALIDATION:
+The output must be directly parseable by a Mermaid renderer without any preprocessing, string manipulation, or cleaning. Test your output mentally against the official Mermaid parser before returning it.
+        </field>
+        <field name="status">active</field>
+        <field name="init_type" eval="'manual'"/>
+        <field name="model_ids" eval="[(6, 0, [
+            ref('web_mermaid.model_mermaid_mixin'),
+        ])]"/>
+        <field name="filter_domain">[]</field>
+        <field name="injection_level">summary_and_key</field>
+        <field name="hitl_threshold">always</field>
+        <field name="budget_kr_monthly">0</field>
+        <field name="max_actions_per_day">20</field>
+        <field name="orchestration_mode">single</field>
+        <field name="example_prompts">
+- "Generera ett sekvensdiagram för orderflödet"
+- "Skapa ett flowchart för supportprocessen"
+        </field>
+    </record>
+</odoo>
