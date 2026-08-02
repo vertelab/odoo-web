@@ -6,13 +6,14 @@ import { useSetupAction } from "@web/search/action_hook";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
 import { Widget } from "@web/views/widgets/widget";
-import { ActionHelper } from "@web/views/action_helper";
+import { ViewButton } from "@web/views/view_button/view_button";
+import { useViewButtons } from "@web/views/view_button/view_button_hook";
 
 import { Component, toRaw, useRef } from "@odoo/owl";
 
 export class CohortController extends Component {
     static template = "web_cohort_ce.CohortView";
-    static components = { Layout, SearchBar, CogMenu, Widget, ActionHelper };
+    static components = { Layout, SearchBar, CogMenu, Widget, ViewButton };
     static props = {
         ...standardViewProps,
         Model: Function,
@@ -25,12 +26,16 @@ export class CohortController extends Component {
         this.actionService = useService("action");
         this.model = useModelWithSampleData(this.props.Model, toRaw(this.props.modelParams));
 
+        const rootRef = useRef("root");
         useSetupAction({
-            rootRef: useRef("root"),
+            rootRef,
             getLocalState: () => {
                 return { metaData: this.model.metaData };
             },
             getContext: () => this.getContext(),
+        });
+        useViewButtons(rootRef, {
+            reload: () => this.model.load(this.model.searchParams),
         });
     }
 

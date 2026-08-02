@@ -14,14 +14,15 @@ import { SearchBar } from "@web/search/search_bar/search_bar";
 import { useSearchBarToggler } from "@web/search/search_bar/search_bar_toggler";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
 import { CallbackRecorder, useSetupAction } from "@web/search/action_hook";
-import { ActionHelper } from "@web/views/action_helper";
+import { ViewButton } from "@web/views/view_button/view_button";
+import { useViewButtons } from "@web/views/view_button/view_button_hook";
 
 export class GanttController extends Component {
     static components = {
         CogMenu,
         Layout,
         SearchBar,
-        ActionHelper,
+        ViewButton,
     };
     static props = {
         ...standardViewProps,
@@ -53,6 +54,10 @@ export class GanttController extends Component {
                 metaData: this.model.metaData,
                 displayParams: this.model.displayParams,
             }),
+        });
+
+        useViewButtons(rootRef, {
+            reload: () => this.model.fetchData(),
         });
 
         onWillUnmount(() => this.closeDialog?.());

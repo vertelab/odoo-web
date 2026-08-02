@@ -13,9 +13,13 @@ import {
 } from "@odoo/owl";
 import { hasTouch, isMobileOS } from "@web/core/browser/feature_detection";
 import { Domain } from "@web/core/domain";
-import { serializeDate, serializeDateTime, toLocaleDateTimeString } from "@web/core/l10n/dates";
+import {
+    is24HourFormat,
+    serializeDate,
+    serializeDateTime,
+    toLocaleDateTimeString,
+} from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
-import { is24HourFormat } from "@web/core/l10n/time";
 import { _t } from "@web/core/l10n/translation";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { evaluateBooleanExpr } from "@web/core/py_js/py";
@@ -52,7 +56,6 @@ import {
     useGanttUndraggable,
     useMultiHover,
 } from "./gantt_helpers";
-import { GanttMultiSelectionButtons } from "./gantt_multi_selection_buttons";
 import { GanttPopover } from "./gantt_popover";
 import { GanttRendererControls } from "./gantt_renderer_controls";
 import { GanttRowProgressBar } from "./gantt_row_progress_bar";
@@ -176,7 +179,6 @@ export class GanttRenderer extends Component {
         GanttTimeDisplayBadge,
         GanttRowProgressBar,
         Popover: GanttPopover,
-        MultiSelectionButtons: GanttMultiSelectionButtons,
     };
     static props = [
         "model",

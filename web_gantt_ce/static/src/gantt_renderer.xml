@@ -2,11 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-name="web_gantt_ce.GanttRenderer">
-        <GanttRendererControls t-props="this.controlsProps">
-            <t t-set-slot="multi_selection_buttons">
-                <MultiSelectionButtons reactive="this.multiSelectionButtonsReactive" />
-            </t>
-        </GanttRendererControls>
+        <GanttRendererControls t-props="this.controlsProps"/>
         <div t-ref="grid"
             class="o_gantt_renderer o_renderer bg-view"
             t-att-class="{ o_has_row_headers: hasRowHeaders, 'pe-auto': isDragging }"
