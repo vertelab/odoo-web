@@ -941,7 +941,11 @@ export class GanttModel extends Model {
      * @returns {string[]}
      */
     _getGroupedBy(metaData, searchParams) {
-        let groupedBy = [...searchParams.groupBy];
+        // Use the arch's ``default_group_by`` when the user did not explicitly
+        // group the view.
+        let groupedBy = searchParams.groupBy.length
+            ? [...searchParams.groupBy]
+            : (metaData.defaultGroupBy ? [metaData.defaultGroupBy] : []);
         groupedBy = groupedBy.filter((gb) => {
             const [fieldName] = gb.split(".");
             const field = metaData.fields[fieldName];

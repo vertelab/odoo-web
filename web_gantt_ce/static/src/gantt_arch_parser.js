@@ -337,6 +337,7 @@ function getInfoFromRootNode(rootNode) {
         createAction: attrs.on_create || null,
         dateStartField: attrs.date_start,
         dateStopField: attrs.date_stop,
+        defaultGroupBy: attrs.default_group_by || null,
         defaultRange,
         dependencyEnabled,
         dependencyField,
