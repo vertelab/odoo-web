@@ -42,10 +42,44 @@ The output must be directly parseable by a Mermaid renderer without any preproce
         </field>
     </record>
 
-    <!-- Init-type: manual (anropas via powerbox/knapp) -->
+
+    <!-- Skill: mermaid.generator -->
+    <record id="skill_mermaid_generator" model="ai.skill">
+        <field name="name">mermaid.generator</field>
+        <field name="description">Generera ren, giltig Mermaid-syntax för diagram. Använd när användaren vill skapa/ändra ett diagram.</field>
+        <field name="category">development</field>
+        <field name="trigger_keywords">mermaid, diagram, flowchart, sekvensdiagram, use case, grafik</field>
+        <field name="recipe_text">
+# Mermaid Generator
+
+Generera ENDAST giltig Mermaid-syntax.
+
+## Kritiska regler
+- Svara med rå Mermaid-syntax — inga förklaringar, ingen markdown (```-block), inga HTML-taggar
+- Första tecknet ska vara diagramtypens deklaration (t.ex. `flowchart TD`)
+- Använd Mermaid-native syntax; för flerradiga etiketter: `&lt;br/&gt;` (aldrig HTML-taggar)
+- Escapa Mermaid-specialtecken korrekt
+
+## Diagramtyper
+- flowchart, sequenceDiagram, classDiagram, stateDiagram-v2, erDiagram, gantt, journey, pie
+- Anpassa till önskad typ (inkl. nyare/beta-typer)
+
+## Output
+Måste vara direkt tolkningsbar av en Mermaid-renderare utan förbehandling.
+        </field>
+    </record>
+
+    <!-- Koppla skill till coworkern -->
+    <record id="mermaid_diagram_coworker_skill" model="ai.coworker.skill">
+        <field name="coworker_id" ref="mermaid_diagram_coworker"/>
+        <field name="skill_id" ref="skill_mermaid_generator"/>
+    </record>
+
+    <!-- Init-type: powerbox — trigger via "/" i prompt-fältet på modeller
+         som ärver mermaid.mixin (model_ids tom = tillgänglig på alla). -->
     <record id="mermaid_diagram_coworker_init" model="ai.coworker.init_type">
         <field name="coworker_id" ref="mermaid_diagram_coworker"/>
-        <field name="init_type">manual</field>
+        <field name="init_type">powerbox</field>
         <field name="enabled">True</field>
         <field name="sequence">10</field>
     </record>
