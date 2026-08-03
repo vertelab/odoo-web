@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_swot" model="ir.ui.view">
+        <field name="name">res.partner.swot.demo</field>
+        <field name="model">res.partner</field>
+        <field name="type">swot</field>
+        <field name="arch" type="xml">
+            <swot
+                q1="[('is_company','=',True),('customer_rank','&gt;',0)]"
+                q1_title="Strong customers"
+                q2="[('is_company','=',True),('credit_limit','&gt;',0)]"
+                q2_title="Customers with credit"
+                q3="[('is_company','=',False),('country_id','!=',False)]"
+                q3_title="International individuals"
+                q4="[('active','=',False)]"
+                q4_title="Inactive partners"/>
+        </field>
+    </record>
+
+    <record id="action_partner_swot" model="ir.actions.act_window">
+        <field name="name">Partner SWOT</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">swot,kanban,list,form</field>
+        <field name="view_id" ref="view_partner_swot"/>
+    </record>
+</odoo>

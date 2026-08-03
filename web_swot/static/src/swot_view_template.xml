@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Domain-based SWOT view used by the ``swot`` view type (swot_view.js). -->
+    <t t-name="swot_analysis.SwotView">
+        <div class="o_swot_view">
+            <div class="o_swot_title px-3 py-2 border-bottom">
+                <h4 class="mb-0">SWOT</h4>
+            </div>
+            <div class="o_swot_matrix d-grid p-3" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="card mb-0">
+                    <div class="card-header bg-success text-white" t-esc="state.q1_title || 'Strengths'"/>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li t-foreach="state.q1 || []" t-as="rec" t-key="rec.id" class="py-1 border-bottom">
+                                <a href="#" class="o_swot_record" t-on-click.prevent="() => this.onRecordClick(rec)" t-esc="rec.name"/>
+                            </li>
+                            <li t-if="!state.q1 || !state.q1.length" class="text-muted">
+                                <i class="fa fa-fw fa-inbox"/> No records
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card mb-0">
+                    <div class="card-header bg-danger text-white" t-esc="state.q2_title || 'Weaknesses'"/>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li t-foreach="state.q2 || []" t-as="rec" t-key="rec.id" class="py-1 border-bottom">
+                                <a href="#" class="o_swot_record" t-on-click.prevent="() => this.onRecordClick(rec)" t-esc="rec.name"/>
+                            </li>
+                            <li t-if="!state.q2 || !state.q2.length" class="text-muted">
+                                <i class="fa fa-fw fa-inbox"/> No records
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card mb-0">
+                    <div class="card-header bg-info text-white" t-esc="state.q3_title || 'Opportunities'"/>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li t-foreach="state.q3 || []" t-as="rec" t-key="rec.id" class="py-1 border-bottom">
+                                <a href="#" class="o_swot_record" t-on-click.prevent="() => this.onRecordClick(rec)" t-esc="rec.name"/>
+                            </li>
+                            <li t-if="!state.q3 || !state.q3.length" class="text-muted">
+                                <i class="fa fa-fw fa-inbox"/> No records
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card mb-0">
+                    <div class="card-header bg-warning text-white" t-esc="state.q4_title || 'Threats'"/>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li t-foreach="state.q4 || []" t-as="rec" t-key="rec.id" class="py-1 border-bottom">
+                                <a href="#" class="o_swot_record" t-on-click.prevent="() => this.onRecordClick(rec)" t-esc="rec.name"/>
+                            </li>
+                            <li t-if="!state.q4 || !state.q4.length" class="text-muted">
+                                <i class="fa fa-fw fa-inbox"/> No records
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

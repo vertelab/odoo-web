@@ -1,14 +1,23 @@
 import { registry } from "@web/core/registry";
 
 function _mockGetGanttData(params) {
-    let groups = this._mockFormattedReadGroup({ ...params, aggregates: ["id:array_agg"] });
+    let groups = this._mockReadGroup({
+        model: params.model,
+        groupBy: params.groupby || [],
+        fields: ["id:array_agg"],
+        lazy: false,
+    });
     if (params.limit) {
         // we don't care about pager feature in sample mode
         // but we want to present something coherent
         groups = groups.slice(0, params.limit);
     }
     const length = groups.length;
-    groups.forEach((g) => (g["id:array_agg"] = g.id)); // the sample server does not use the key id:array_agg
+    for (const group of groups) {
+        // the sample server does not use the key id:array_agg
+        group.__record_ids = group.id || [];
+        delete group.id;
+    }
 
     const unavailabilities = {};
     for (const fieldName of params.unavailability_fields || []) {

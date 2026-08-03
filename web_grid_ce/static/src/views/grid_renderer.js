@@ -68,7 +68,12 @@ export class GridRenderer extends Component {
         });
         this.hoveredElement = null;
         const measureFieldName = this.props.model.measureFieldName;
-        const fieldInfo = this.props.model.fieldsInfo[measureFieldName];
+        const fieldInfo =
+            this.props.model.fieldsInfo[measureFieldName] || {
+                name: measureFieldName,
+                type: "float",
+                string: measureFieldName,
+            };
         const measureFieldWidget = this.props.widgetPerFieldName[measureFieldName];
         const widgetName = measureFieldWidget || fieldInfo.type;
         this.gridCell = registry.category("grid_components").get(widgetName);

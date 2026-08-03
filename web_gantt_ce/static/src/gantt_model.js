@@ -680,6 +680,7 @@ export class GanttModel extends Model {
                 stop_date: serializeDateTime(globalStop),
                 unavailability_fields: this._getUnavailabilityFields(metaData),
                 progress_bar_fields: this._getProgressBarFields(metaData),
+                progress_field: metaData.progressField,
                 context,
                 limit: pagerLimit,
                 offset: pagerOffset,

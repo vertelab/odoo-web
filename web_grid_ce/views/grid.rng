@@ -1,0 +1,70 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+    <start><ref name="grid"/></start>
+
+    <define name="grid">
+        <element name="grid">
+            <optional><attribute name="string"/></optional>
+            <optional><attribute name="hide_line_total"/></optional>
+            <optional><attribute name="hide_column_total"/></optional>
+            <optional><attribute name="barchart_total"/></optional>
+            <optional><attribute name="create_inline"/></optional>
+            <optional><attribute name="display_empty"/></optional>
+            <optional><attribute name="action"/></optional>
+            <optional><attribute name="type"/></optional>
+            <optional><attribute name="editable"/></optional>
+            <optional><attribute name="form_view_id"/></optional>
+            <optional><attribute name="js_class"/></optional>
+            <optional><attribute name="__validate__"/></optional>
+            <zeroOrMore>
+                <ref name="field"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="button"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="field">
+        <element name="field">
+            <attribute name="name"/>
+            <attribute name="type">
+                <choice>
+                    <value>row</value>
+                    <value>col</value>
+                    <value>measure</value>
+                    <value>readonly</value>
+                </choice>
+            </attribute>
+            <optional><attribute name="string"/></optional>
+            <optional><attribute name="invisible"/></optional>
+            <optional><attribute name="section"/></optional>
+            <optional><attribute name="widget"/></optional>
+            <optional><attribute name="operator"/></optional>
+            <optional><attribute name="readonly"/></optional>
+            <zeroOrMore>
+                <element name="range">
+                    <attribute name="name"/>
+                    <optional><attribute name="string"/></optional>
+                    <optional><attribute name="span"/></optional>
+                    <optional><attribute name="step"/></optional>
+                    <optional><attribute name="hotkey"/></optional>
+                    <optional><attribute name="default"/></optional>
+                </element>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="button">
+        <element name="button">
+            <attribute name="name"/>
+            <optional><attribute name="string"/></optional>
+            <optional><attribute name="icon"/></optional>
+            <optional><attribute name="class"/></optional>
+            <optional><attribute name="invisible"/></optional>
+            <optional><attribute name="type"/></optional>
+            <optional><attribute name="confirm"/></optional>
+            <optional><attribute name="context"/></optional>
+        </element>
+    </define>
+</grammar>

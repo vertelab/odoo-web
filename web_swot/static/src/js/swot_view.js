@@ -9,7 +9,7 @@ export class SwotView extends Component {
     static template = "swot_analysis.SwotView";
     
     setup() {
-        this.rpc = useService("rpc");
+        this.http = useService("http");
         this.state = useState({
             q1_data: [],
             q2_data: [],
@@ -43,7 +43,7 @@ export class SwotView extends Component {
         this.state.q3_title = arch.getAttribute('q3_title') || 'Möjligheter';
         this.state.q4_title = arch.getAttribute('q4_title') || 'Hot';
         
-        const data = await this.rpc("/web/view/swot/data", {
+        const data = await this.http.post("/web/view/swot/data", {
             model: this.props.resModel,
             q1_domain: q1_domain,
             q2_domain: q2_domain,

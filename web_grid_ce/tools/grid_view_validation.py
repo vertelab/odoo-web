@@ -20,7 +20,7 @@ def schema_grid(arch, **kwargs):
     global _grid_validator
 
     if _grid_validator is None:
-        with misc.file_open(os.path.join('web_grid', 'views', 'grid.rng')) as f:
+        with misc.file_open(os.path.join('web_grid_ce', 'views', 'grid.rng')) as f:
             _grid_validator = etree.RelaxNG(etree.parse(f))
 
     if _grid_validator.validate(arch):

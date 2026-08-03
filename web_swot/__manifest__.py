@@ -44,13 +44,14 @@
         'web'
     ],
     'data': [
-        'views/swot_template.xml',
         #### 2025-11-12 'views/example_views.xml',  # Exempel på användning
+    ],
+    'demo': [
+        'demo/demo_swot_view.xml',
     ],
     'assets': {
         'web.assets_backend': [
-            'swot_view/static/src/css/swot_view.css',
-            'swot_view/static/src/js/swot_view.js',
+            'web_swot/static/src/**/*',
         ],
     },
     'installable': True,

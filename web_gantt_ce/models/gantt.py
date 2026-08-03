@@ -20,13 +20,15 @@ class GanttMixin(models.AbstractModel):
     @api.model
     def get_gantt_data(self, domain, groupby, read_specification, limit=None, offset=0,
                        unavailability_fields=None, progress_bar_fields=None,
-                       start_date=None, stop_date=None, scale=None):
+                       start_date=None, stop_date=None, scale=None, progress_field=None):
         """Compute the data required by the gantt view.
 
         :param list domain: search domain (already restricted to the visible
             time range by the view)
         :param list groupby: list of group-by field names
         :param dict read_specification: fields to read, ``{name: spec}``
+        :param str progress_field: name of the field used to determine whether
+            a record is "done" (arch ``progress`` attribute)
         :returns: dict with ``groups`` or ``records``, ``length``,
             ``progress_bars`` and ``unavailabilities``
         """
@@ -60,8 +62,12 @@ class GanttMixin(models.AbstractModel):
             'groups': groups,
             'records': records,
             'length': self.search_count(domain),
-            'progress_bars': self._get_progress_bars(domain, progress_bar_fields),
-            'unavailabilities': self._get_unavailabilities(domain, unavailability_fields),
+            'progress_bars': self._get_progress_bars(
+                domain, progress_bar_fields, progress_field,
+            ),
+            'unavailabilities': self._get_unavailabilities(
+                domain, unavailability_fields, start_date, stop_date,
+            ),
         }
 
     def _get_gantt_records(self, domain, read_specification, limit=None, offset=0):
@@ -161,21 +167,88 @@ class GanttMixin(models.AbstractModel):
             return [(groupby_field, '=', value.id if value else False)]
         return [(groupby_field, '=', value)]
 
-    def _get_progress_bars(self, domain, progress_bar_fields):
-        """Return the progress bar data per record.
+    def _get_progress_bars(self, domain, progress_bar_fields, progress_field=None):
+        """Compute the progress bar data per group.
 
-        Override this method in concrete models to provide
-        ``{field: {res_id: {'value': ..., 'max_value': ...}}}``.
+        For each group-by field listed in ``progress_bar_fields`` (a m2o/m2m
+        field), returns ``{field: {res_id: {'value': ..., 'max_value': ...}}}``
+        where ``max_value`` is the number of records in the group and
+        ``value`` is the number of records whose ``progress_field`` is set.
         """
-        return {field_name: {} for field_name in progress_bar_fields or []}
+        progress_bars = {}
+        for field_name in progress_bar_fields or []:
+            progress_bars[field_name] = {'warning': False}
+            field = self._fields.get(field_name)
+            if not field or field.type not in ('many2one', 'many2many'):
+                continue
+            for record in self.search(domain):
+                if field.type == 'many2one':
+                    values = [record[field_name].id] if record[field_name] else []
+                else:
+                    values = record[field_name].ids
+                for res_id in values:
+                    info = progress_bars[field_name].setdefault(
+                        res_id, {'value': 0, 'max_value': 0}
+                    )
+                    info['max_value'] += 1
+                    if progress_field and record[progress_field]:
+                        info['value'] += 1
+        return progress_bars
 
-    def _get_unavailabilities(self, domain, unavailability_fields):
-        """Return the unavailability data per record.
+    def _get_unavailabilities(self, domain, unavailability_fields, start_date=None, stop_date=None):
+        """Compute the unavailability periods per group.
 
-        Override this method in concrete models to provide
-        ``{field: {res_id: [{'start': ..., 'stop': ...}]}}``.
+        For each group-by field (m2o/m2m) the related records are resolved to
+        a resource (``resource.resource`` via ``resource_id`` when present) and
+        their calendar unavailability intervals in the visible range are
+        returned as ``{field: {res_id: [{'start': ..., 'stop': ...}]}}``.
         """
-        return {field_name: {} for field_name in unavailability_fields or []}
+        unavailabilities = {}
+        if not start_date or not stop_date:
+            return {field_name: {} for field_name in unavailability_fields or []}
+        for field_name in unavailability_fields or []:
+            unavailabilities[field_name] = {}
+            field = self._fields.get(field_name)
+            if not field or field.type not in ('many2one', 'many2many'):
+                continue
+            related = self.env[field.comodel_name]
+            for record in self.search(domain):
+                related |= record[field_name]
+            unavailabilities[field_name] = self._get_resource_unavailabilities(
+                related, start_date, stop_date,
+            )
+        return unavailabilities
+
+    def _get_resource_unavailabilities(self, related, start_date, stop_date):
+        """Return ``{res_id: [{'start': ..., 'stop': ...}]}`` for the resources
+        linked to the given records (through ``resource_id``)."""
+        result = {}
+        if not related or 'resource_id' not in related._fields:
+            return result
+        resources = related.resource_id
+        if not resources or not hasattr(resources, '_get_unavailable_intervals'):
+            return result
+        try:
+            start = fields.Datetime.from_string(start_date)
+            stop = fields.Datetime.from_string(stop_date)
+            mapping = resources._get_unavailable_intervals(start, stop)
+        except Exception:
+            return result
+        for record in related:
+            intervals = mapping.get(record.resource_id.id)
+            if intervals:
+                result[record.id] = [{
+                    'start': self._gantt_serialize_datetime(interval[0]),
+                    'stop': self._gantt_serialize_datetime(interval[1]),
+                } for interval in intervals]
+        return result
+
+    @staticmethod
+    def _gantt_serialize_datetime(dt):
+        from datetime import timezone
+        if dt.tzinfo:
+            dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
+        return dt.strftime('%Y-%m-%d %H:%M:%S')
 
     @api.model
     def web_gantt_reschedule(self, data, reschedule_method, ids, dependency_field,

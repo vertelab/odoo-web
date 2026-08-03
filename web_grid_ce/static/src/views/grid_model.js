@@ -473,6 +473,11 @@ export class GridModel extends Model {
     }
 
     get measureGroupByFieldName() {
+        if (this.measureField.name === "__count") {
+            // default count measure: ``__count:sum`` is not a valid aggregate
+            // on the server, the plain ``__count`` aggregate is the one to use
+            return "__count";
+        }
         if (this.measureField.aggregator) {
             return `${this.measureFieldName}:${this.measureField.aggregator}`;
         }
@@ -910,11 +915,12 @@ export class GridModel extends Model {
 
     async fetchData(metaData) {
         const { searchParams } = metaData;
-        let dataFetched = await this.orm.formattedReadGroup(
+        let dataFetched = await this.orm.readGroup(
             this.resModel,
             Domain.and([searchParams.domain, this.generateNavigationDomain()]).toList({}),
-            this._getGroupByFields(metaData),
             this.aggregates,
+            this._getGroupByFields(metaData),
+            { lazy: false },
         );
         if (this.orm.isSample) {
             dataFetched = dataFetched.filter((group) => {
@@ -1076,7 +1082,11 @@ export class GridModel extends Model {
         let section;
         for (const readGroupResult of readGroupResults) {
             if (!this.orm.isSample) {
-                record.resIds.push(...readGroupResult['id:array_agg']);
+                // read_group returns the ``id:array_agg`` aggregate under the
+                // ``id`` key on this Odoo version; support both forms
+                const recordIds =
+                    readGroupResult["id:array_agg"] ?? readGroupResult["id"] ?? [];
+                record.resIds.push(...recordIds);
             }
             const rowKey = this._generateRowKey(readGroupResult, metaData);
             if (sectionField) {
@@ -1123,7 +1133,12 @@ export class GridModel extends Model {
             }
             if (data.columnsKeyToIdMapping[columnKey] in data.columns) {
                 const column = data.columns[data.columnsKeyToIdMapping[columnKey]];
-                row.updateCell(column, readGroupResult[this.measureGroupByFieldName], data);
+                // read_group returns the aggregates under the field name (e.g.
+                // ``credit_limit`` for ``credit_limit:sum``); support both forms
+                const measureValue = this.measureGroupByFieldName in readGroupResult
+                    ? readGroupResult[this.measureGroupByFieldName]
+                    : readGroupResult[this.measureFieldName];
+                row.updateCell(column, measureValue, data);
                 const readonlyFieldAggregator = this.readonlyField && `${this.readonlyField.name}:${this.readonlyField.aggregator}`;
                 if (readonlyFieldAggregator && readonlyFieldAggregator in readGroupResult) {
                     row.setReadonlyCell(column, readGroupResult[readonlyFieldAggregator], data);
