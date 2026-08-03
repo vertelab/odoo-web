@@ -72,7 +72,7 @@ Måste vara direkt tolkningsbar av en Mermaid-renderare utan förbehandling.
     <!-- Koppla skill till coworkern -->
     <record id="mermaid_diagram_coworker_skill" model="ai.coworker.skill">
         <field name="coworker_id" ref="mermaid_diagram_coworker"/>
-        <field name="skill_id" ref="skill_mermaid_generator"/>
+        <field name="source_skill_id" ref="skill_mermaid_generator"/>
     </record>
 
     <!-- Init-type: powerbox — trigger via "/" i prompt-fältet på modeller
