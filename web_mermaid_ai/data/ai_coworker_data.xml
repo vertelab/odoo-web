@@ -27,7 +27,6 @@ OUTPUT VALIDATION:
 The output must be directly parseable by a Mermaid renderer without any preprocessing, string manipulation, or cleaning. Test your output mentally against the official Mermaid parser before returning it.
         </field>
         <field name="status">active</field>
-        <field name="init_type" eval="'manual'"/>
         <field name="model_ids" eval="[(6, 0, [
             ref('web_mermaid.model_mermaid_mixin'),
         ])]"/>
@@ -41,5 +40,13 @@ The output must be directly parseable by a Mermaid renderer without any preproce
 - "Generera ett sekvensdiagram för orderflödet"
 - "Skapa ett flowchart för supportprocessen"
         </field>
+    </record>
+
+    <!-- Init-type: manual (anropas via powerbox/knapp) -->
+    <record id="mermaid_diagram_coworker_init" model="ai.coworker.init_type">
+        <field name="coworker_id" ref="mermaid_diagram_coworker"/>
+        <field name="init_type">manual</field>
+        <field name="enabled">True</field>
+        <field name="sequence">10</field>
     </record>
 </odoo>
