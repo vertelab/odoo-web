@@ -17,9 +17,6 @@
             'web_grid_ce/static/tests/**/*.test.js',
         ],
     },
-    'demo': [
-        'demo/demo_grid_view.xml',
-    ],
     'auto_install': True,
     'author': 'Vertel AB',
     'license': 'LGPL-3',
