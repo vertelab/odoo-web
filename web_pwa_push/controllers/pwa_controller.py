@@ -132,7 +132,7 @@ class PwaController(http.Controller):
     # ------------------------------------------------------------------
     @http.route('/pwa/vapid-public-key', type='http', auth='public', methods=['GET'], sitemap=False)
     def pwa_vapid_public_key(self):
-        key = self.env['mail.push.device'].sudo().get_web_push_vapid_public_key()
+        key = request.env['mail.push.device'].sudo().get_web_push_vapid_public_key()
         return request.make_json_response({'vapid_public_key': key})
 
     # ------------------------------------------------------------------
