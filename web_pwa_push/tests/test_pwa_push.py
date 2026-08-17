@@ -89,6 +89,26 @@ class TestWebPwaPushSettings(TransactionCase):
         icp.set_param('web_pwa_push.pwa_app_name', 'Min App')
         self.assertEqual(company.pwa_app_name('chat'), 'Min App')
 
+    def test_logo_fallback_generates_attachments(self):
+        """Utan uppladdad ikon men med företagslogga → attachments genereras
+        från loggan (inkl. apple-touch 180)."""
+        import base64
+        from odoo.tools import file_open
+        with file_open('web_pwa_push/static/description/icon.png', 'rb') as f:
+            png = f.read()
+        company = self.env['res.company'].create({
+            'name': 'ACME AB',
+            'logo': base64.b64encode(png),
+        })
+        settings = self.env['res.config.settings'].create({})
+        settings.company_id = company
+        settings.set_values()
+        attachments = self.env['ir.attachment'].sudo().search(
+            [('url', 'like', '/web_pwa_push/icon')])
+        urls = attachments.mapped('url')
+        self.assertIn('/web_pwa_push/icon180x180.png', urls)
+        self.assertIn('/web_pwa_push/icon512x512.png', urls)
+
 
 @tagged('-at_install', 'post_install')
 class TestWebPwaPushInbox(TransactionCase):
