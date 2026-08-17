@@ -15,11 +15,6 @@
         'views/res_config_settings_views.xml',
         'views/webclient_templates.xml',
     ],
-    'assets': {
-        'web.assets_unit_tests': [
-            'web_pwa_push/static/tests/**/*',
-        ],
-    },
     'author': 'Vertel AB',
     'license': 'LGPL-3',
 }
