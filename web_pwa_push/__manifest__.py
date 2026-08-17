@@ -13,6 +13,7 @@
     'depends': ['web_pwa_customize', 'web', 'mail'],
     'data': [
         'views/res_config_settings_views.xml',
+        'views/webclient_templates.xml',
     ],
     'assets': {
         'web.assets_unit_tests': [

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2026 Vertel AB
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <data>
+        <!-- PWA: kundens apple-touch-icon även i backend (iOS "Lägg till på
+             hemskärmen" för /odoo-appen) -->
+        <template id="webclient_bootstrap_pwa_icon"
+                  inherit_id="web.webclient_bootstrap">
+            <xpath expr="//link[@rel='apple-touch-icon']" position="attributes">
+                <attribute name="href">/web_pwa_push/icon180x180.png</attribute>
+            </xpath>
+        </template>
+    </data>
+</odoo>

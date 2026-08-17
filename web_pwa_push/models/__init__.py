@@ -5,3 +5,4 @@
 from . import res_config_settings
 from . import res_company
 from . import mail_notification
+from . import web_pwa_push
