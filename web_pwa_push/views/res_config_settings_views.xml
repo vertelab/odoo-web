@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2026 Vertel AB
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.pwa.push</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <block id="pwa_settings" position="inside">
+                <setting string="App-namn">
+                    <field name="pwa_app_name" placeholder="AI &lt;företagsnamn&gt;" />
+                </setting>
+                <setting string="Web Push (VAPID-nycklar)">
+                    <div class="w-50">
+                        <label for="pwa_vapid_private_key" string="Privat nyckel"/>
+                        <field name="pwa_vapid_private_key" widget="password" readonly="1"/>
+                    </div>
+                    <div class="w-50 mt-1">
+                        <label for="pwa_vapid_public_key" string="Publik nyckel"/>
+                        <field name="pwa_vapid_public_key" readonly="1"/>
+                    </div>
+                    <div class="mt-1">
+                        <button name="generate_vapid_keys" type="object"
+                                string="Generera nyckelpar" icon="fa-key"
+                                class="btn-primary"/>
+                        <span class="text-muted">Nycklarna skickas med varje push.
+                            Rotera bara vid kompromiss — alla enheter måste
+                            prenumerera om.</span>
+                    </div>
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>
