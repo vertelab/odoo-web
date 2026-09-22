@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "sequence": 6,
     "author": "Vertel AB",
-    "website": "https://www.vertel.se",
+    "website": "https://vertel.se/apps/odoo-web/web_mermaid",
     "summary": 'Base module to add mermaid in any model',
     "description": """
         Base module to add mermaid in any model""",

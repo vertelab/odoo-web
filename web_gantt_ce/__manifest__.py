@@ -22,5 +22,6 @@
     ],
     'auto_install': True,
     'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-web/web_gantt_ce',
     'license': 'LGPL-3',
 }

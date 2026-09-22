@@ -37,7 +37,7 @@
         </record>
     ''',
     'author': 'Ditt företag',
-    'website': 'https://www.example.com',
+    'website': 'https://vertel.se/apps/odoo-web/web_swot',
     'license': 'LGPL-3',
     'depends': [
         'base',

@@ -18,6 +18,7 @@
     ],
     'auto_install': True,
     'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-web/web_map_ce',
     'license': 'LGPL-3',
     'assets': {
         'web.assets_backend_lazy': [

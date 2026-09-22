@@ -20,5 +20,6 @@
     ],
     'auto_install': False,
     'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-web/web_bcg_matrix',
     'license': 'LGPL-3',
 }

@@ -19,5 +19,6 @@
     },
     'auto_install': True,
     'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-web/web_grid_ce',
     'license': 'LGPL-3',
 }

@@ -16,5 +16,6 @@
         'views/webclient_templates.xml',
     ],
     'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-web/web_pwa_push',
     'license': 'LGPL-3',
 }
