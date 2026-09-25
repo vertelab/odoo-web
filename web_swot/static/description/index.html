@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Web: Mermaid &mdash; Vertel for Odoo</title>
+  <title>Web: Generic SWOT View &mdash; Vertel for Odoo</title>
   <style>
     :root { --navy:#0F172A; --darkBg:#1E293B; --white:#F8FAFC; --gray:#94A3B8;
              --lightGray:#E2E8F0; --brand:#930a57; --brand2:#8105a7; }
@@ -43,46 +43,48 @@
 </head>
 <body>
 <div class="hero">
-  <h1>Web: Mermaid</h1>
-  <p class="subtitle">Base module to add mermaid in any model.</p>
+  <h1>Web: Generic SWOT View</h1>
+  <p class="subtitle">Adds SWOT analysis views.</p>
   <div class="meta">
     <span>Odoo 18.0</span><span>&middot;</span>
-    <span>Uncategorized</span><span>&middot;</span>
+    <span>Tools</span><span>&middot;</span>
     <span>by Vertel Sverige AB</span>
   </div>
 </div>
 <div class="container">
   <section id="overview">
     <h2>Overview</h2>
-    <p>Base module to add mermaid in any model.</p>
+    <p>Adds SWOT analysis views.</p>
+    <p>It introduces the model(s) <code>IrActionsActWindowView</code>, <code>SwotAnalysis</code> to handle this workflow.</p>
   </section>
   <section id="features">
     <h2>Key Features</h2>
     <div class="feature-grid">
-      <div class="feature-card"><h4>Focused improvement</h4><p>A small, targeted improvement to standard Odoo behaviour.</p></div>
+      <div class="feature-card"><h4>Dedicated data model</h4><p>Adds its own models: IrActionsActWindowView, SwotAnalysis.</p></div>
+      <div class="feature-card"><h4>API integration</h4><p>Exposes HTTP endpoints for external systems.</p></div>
     </div>
   </section>
   <section id="screenshots">
     <h2>Module Graphics</h2>
     <div class="screenshots">
       <figure>
-        <img src="icon.png" alt="Web: Mermaid icon" width="140" height="140">
+        <img src="icon.png" alt="Web: Generic SWOT View icon" width="140" height="140">
         <figcaption>Icon &mdash; 140 &times; 140 px</figcaption>
       </figure>
       <figure>
-        <img src="banner.png" alt="Web: Mermaid banner" width="560" height="280">
+        <img src="banner.png" alt="Web: Generic SWOT View banner" width="560" height="280">
         <figcaption>Banner &mdash; 560 &times; 280 px</figcaption>
       </figure>
     </div>
   </section>
   <section id="dependencies">
     <h2>Dependencies</h2>
-    <ul><li><code>web</code></li><li><code>web_widget_mermaid_field</code></li></ul>
+    <ul><li><code>base</code></li><li><code>web</code></li></ul>
     <p><small>Requires <strong>Odoo 18.0</strong> or later.</small></p>
   </section>
   <section id="installation">
     <h2>Installation</h2>
-    <p>Install the module <code>web_mermaid</code> from the Odoo Apps menu,
+    <p>Install the module <code>web_swot</code> from the Odoo Apps menu,
        or deploy it via the Vertel SaltStack pipeline.</p>
   </section>
   <section id="support">
@@ -92,7 +94,7 @@
   </section>
 </div>
 <footer>
-  <p><strong>Web: Mermaid</strong> &mdash; by <a href="https://vertel.se">Vertel Sverige AB</a></p>
+  <p><strong>Web: Generic SWOT View</strong> &mdash; by <a href="https://vertel.se">Vertel Sverige AB</a></p>
   <p><a href="https://vertel.se">vertel.se</a> &middot;
      <a href="mailto:info@vertel.se">info@vertel.se</a></p>
 </footer>

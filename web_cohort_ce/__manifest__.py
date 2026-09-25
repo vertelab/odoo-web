@@ -4,7 +4,18 @@
 
 {
     'name': 'Web: Cohort View CE',
-    'summary': 'Cohort view for Odoo Community Edition',
+    'summary': 'Cohort view for Odoo Community Edition.',
+    'description': '''
+Cohort View CE
+==============
+
+    Cohort view for Odoo Community Edition.
+
+    Features:
+
+        - Web integration: Exposes HTTP endpoints for external systems.
+        - Extends Odoo: Builds on cohort.mixin, web.cohort.view.model.
+    ''',
     'category': 'Hidden',
     'version': '18.0.1.0.0',
     'depends': ['web'],

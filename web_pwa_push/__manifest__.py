@@ -4,7 +4,19 @@
 
 {
     'name': 'Web: PWA Push',
-    'summary': 'PWA installability and web push notifications',
+    'summary': 'PWA installability and web push notifications.',
+    'description': '''
+PWA Push
+========
+
+    PWA installability and web push notifications.
+
+    Features:
+
+        - Web integration: Exposes HTTP endpoints for external systems.
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on mail.notification, web.pwa.push.
+    ''',
     'description': 'Serves PWA service worker and manifests under /pwa/, per-customer '
                    'branding (inherits web_pwa_customize), VAPID key management, and '
                    'pushes inbox notifications to registered devices.',

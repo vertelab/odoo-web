@@ -4,7 +4,17 @@
 
 {
     'name': 'Web: BCG Matrix View',
-    'summary': 'Boston Consulting Group matrix view (4-quadrant scatter plot)',
+    'summary': 'Boston Consulting Group matrix view (4-quadrant scatter plot).',
+    'description': '''
+BCG Matrix View
+===============
+
+    Boston Consulting Group matrix view (4-quadrant scatter plot).
+
+    Features:
+
+        - Extends Odoo: Builds on existing Odoo models.
+    ''',
     'description': 'Visualizes records in a 2x2 matrix based on two numeric fields. '
                    'Useful for portfolio analysis, risk assessment, and customer segmentation.',
     'category': 'Hidden',

@@ -4,7 +4,18 @@
 
 {
     'name': 'Web: Map View CE',
-    'summary': 'Map view for Odoo Community Edition (OpenStreetMap-based)',
+    'summary': 'Map view for Odoo Community Edition (OpenStreetMap-based).',
+    'description': '''
+Map View CE
+===========
+
+    Map view for Odoo Community Edition (OpenStreetMap-based).
+
+    Features:
+
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on web.map.view.model.
+    ''',
     'description': 'Allows viewing records on a map using Leaflet and OpenStreetMap/Nominatim.',
     'category': 'Hidden',
     'version': '18.0.1.0.0',

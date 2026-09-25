@@ -4,7 +4,17 @@
 
 {
     'name': 'Web: Grid View CE',
-    'summary': 'Editable 2D grid view for Odoo Community Edition',
+    'summary': 'Editable 2D grid view for Odoo Community Edition.',
+    'description': '''
+Grid View CE
+============
+
+    Editable 2D grid view for Odoo Community Edition.
+
+    Features:
+
+        - Extends Odoo: Builds on grid.mixin.
+    ''',
     'description': 'Provides a read/write 2D grid view for pivoting data.',
     'category': 'Hidden',
     'version': '18.0.1.0.0',

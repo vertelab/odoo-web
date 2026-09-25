@@ -1,40 +1,24 @@
 {
     'name': 'Web: Generic SWOT View',
-    'version': '1.0.0',
+    'version': '18.0.1.0.0',
     'category': 'Tools',
-    'summary': 'Generisk SWOT-vy för alla Odoo-modeller med domänbaserade kvadranter',
+    'summary': "Adds SWOT analysis views.",
     'description': '''
-        Denna modul lägger till en ny generisk vytyp för SWOT-analys som kan användas 
-        med vilken Odoo-modell som helst. Varje kvadrant kan konfigureras med egna 
-        domäner för att filtrera och kategorisera data.
-        
-        Funktioner:
-        - Generisk SWOT-vytyp som fungerar med alla modeller
-        - Konfigurerbar domän per kvadrant
-        - Visuell 2x2 matris layout
-        - Klickbara records som öppnar detaljvy
-        - Responsiv design
-        - Anpassningsbara titlar per kvadrant
-        
-        Användning:
-        Definiera en SWOT-vy i XML:
-        <record id="view_model_swot" model="ir.ui.view">
-            <field name="name">model.swot</field>
-            <field name="model">din.modell</field>
-            <field name="type">swot</field>
-            <field name="arch" type="xml">
-                <swot 
-                    q1="[('field','=','value')]"
-                    q1_title="Kvadrant 1"
-                    q2="[('other_field','>',100)]"
-                    q2_title="Kvadrant 2"
-                    q3="[('status','=','active')]"
-                    q3_title="Kvadrant 3"
-                    q4="[('date','<',context_today())]"
-                    q4_title="Kvadrant 4">
-                </swot>
-            </field>
-        </record>
+Generic SWOT View
+=================
+
+    This module adds a new generic view type for SWOT analysis that can be used
+with any Odoo model. Each quadrant can be configured with its own domain to
+filter and categorise data.
+
+Features:
+
+    - Generic SWOT view type that works with all models.
+    - Configurable domain per quadrant.
+    - Visual 2x2 matrix layout.
+    - Clickable records that open the detail view.
+    - Responsive design.
+    - Customisable titles per quadrant.
     ''',
     'author': 'Ditt företag',
     'website': 'https://vertel.se/apps/odoo-web/web_swot',

@@ -4,7 +4,17 @@
 
 {
     'name': 'Web: Year Wheel View',
-    'summary': 'Circular year calendar view showing records on a year wheel',
+    'summary': 'Circular year calendar view showing records on a year wheel.',
+    'description': '''
+Year Wheel View
+===============
+
+    Circular year calendar view showing records on a year wheel.
+
+    Features:
+
+        - Extends Odoo: Builds on existing Odoo models.
+    ''',
     'description': 'Visualizes records on a circular year calendar. '
                    'Useful for seasonal planning, fiscal periods, and yearly overviews.',
     'category': 'Hidden',

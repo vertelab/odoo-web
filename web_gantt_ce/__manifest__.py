@@ -4,7 +4,17 @@
 
 {
     'name': 'Web: Gantt View CE',
-    'summary': 'Gantt chart view for Odoo Community Edition',
+    'summary': 'Gantt chart view for Odoo Community Edition.',
+    'description': '''
+Gantt View CE
+=============
+
+    Gantt chart view for Odoo Community Edition.
+
+    Features:
+
+        - Extends Odoo: Builds on gantt.mixin.
+    ''',
     'description': 'Provides a Gantt chart view for project planning and scheduling.',
     'category': 'Hidden',
     'version': '18.0.1.0.0',
