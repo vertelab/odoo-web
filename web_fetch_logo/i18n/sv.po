@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* web_fetch_logo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20260701\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-19 11:28+0000\n"
+"PO-Revision-Date: 2026-08-19 11:28+0000\n"
+"Last-Translator: Vertel AB\n"
+"Language-Team: Vertel\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: web_fetch_logo
+#: model:ir.model.fields,help:web_fetch_logo.field_res_config_settings__web_fetch_logo_logo_dev_api_key
+msgid ""
+"API-nyckel för logo.dev (https://logo.dev, gratis nivå). När nyckeln är satt"
+" används logo.dev som första källa i logo-hämtningskedjan (logo.dev -> "
+"icon.horse -> Google -> scraping); utan nyckel startar kedjan på icon.horse."
+msgstr ""
+"API-nyckel för logo.dev (https://logo.dev, gratis nivå). När nyckeln är satt"
+" används logo.dev som första källa i logo-hämtningskedjan (logo.dev -> "
+"icon.horse -> Google -> scraping); utan nyckel startar kedjan på icon.horse."
+
+#. module: web_fetch_logo
+#: model_terms:ir.ui.view,arch_db:web_fetch_logo.res_config_settings_view_form
+msgid ""
+"Används som första källa när en företagslogo hämtas\n"
+"                        (t.ex. \"Fetch Logo\" i keykeep/bifrost, som sparar på\n"
+"                        res.partner). Utan nyckel startar kedjan på\n"
+"                        icon.horse → Google → egen scraping."
+msgstr ""
+"Används som första källa när en företagslogo hämtas\n"
+"                        (t.ex. \"Fetch Logo\" i keykeep/bifrost, som sparar på\n"
+"                        res.partner). Utan nyckel startar kedjan på\n"
+"                        icon.horse → Google → egen scraping."
+
+#. module: web_fetch_logo
+#: model:ir.model,name:web_fetch_logo.model_res_config_settings
+msgid "Config Settings"
+msgstr "Inställningar"
+
+#. module: web_fetch_logo
+#: model_terms:ir.ui.view,arch_db:web_fetch_logo.res_config_settings_view_form
+msgid "Logo-hämtning (logo.dev)"
+msgstr "Logo-hämtning (logo.dev)"
+
+#. module: web_fetch_logo
+#: model:ir.model,name:web_fetch_logo.model_web_fetch_logo_mixin
+msgid "Web Fetch Logo Mixin"
+msgstr "Web Fetch Logo Mixin"
+
+#. module: web_fetch_logo
+#: model:ir.model.fields,field_description:web_fetch_logo.field_res_config_settings__web_fetch_logo_logo_dev_api_key
+#: model_terms:ir.ui.view,arch_db:web_fetch_logo.res_config_settings_view_form
+msgid "logo.dev API-nyckel"
+msgstr "logo.dev API-nyckel"
