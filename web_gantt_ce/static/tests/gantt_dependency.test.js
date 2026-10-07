@@ -776,3 +776,37 @@ test("move a pill in the same row (Maintain Buffer Reschedule)", async () => {
     );
 });
 
+
+test("the view refetches the data after a reschedule", async () => {
+    let fetchCount = 0;
+    onRpc("get_gantt_data", () => {
+        fetchCount++;
+    });
+    onRpc(({ method }) => {
+        if (method === "web_gantt_reschedule") {
+            return {
+                type: "success",
+                message: "Tasks rescheduled",
+                old_vals_per_pill_id: {},
+            };
+        }
+    });
+
+    await mountGanttView({
+        ...ganttViewParams,
+        context: {
+            default_start_date: "2021-10-01",
+            default_stop_date: "2021-11-30",
+        },
+    });
+    const before = fetchCount;
+
+    const { moveTo, drop } = await dragPill("Task 7");
+    await moveTo({ columnHeader: "21", groupHeader: "October 2021", part: 2 });
+    await drop();
+    await animationFrame();
+
+    expect(fetchCount).toBeGreaterThan(before, {
+        message: "the gantt data must be refetched after a reschedule",
+    });
+});

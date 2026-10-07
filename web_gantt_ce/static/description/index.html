@@ -61,6 +61,10 @@
     <h2>Key Features</h2>
     <div class="feature-grid">
       <div class="feature-card"><h4>Dedicated data model</h4><p>Adds its own models: ResPartner, IrActionsActWindowView.</p></div>
+      <div class="feature-card"><h4>Specialised views via <code>js_class</code></h4><p>Point an arch at your own view key and inherit the base gantt view, replacing only the renderer you need.</p></div>
+      <div class="feature-card"><h4>Dependency-aware rescheduling</h4><p>Drag a pill and let its dependencies follow. Four hooks on <code>gantt.mixin</code> decide what moves and where it lands.</p></div>
+      <div class="feature-card"><h4>Atomic moves with Undo</h4><p>All dates are computed before anything is written, so a failure changes nothing. A completed move reports the previous values, so it can be undone.</p></div>
+      <div class="feature-card"><h4>Cycle detection</h4><p>A circular dependency aborts the move and names the record responsible, instead of writing half a schedule.</p></div>
     </div>
   </section>
   <section id="screenshots">
