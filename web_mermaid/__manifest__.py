@@ -3,11 +3,11 @@
 
 {
     "name": "Web: Mermaid",
-    'version': '18.0.1.0.1',
+    "version": "1.0.1",
     "license": "AGPL-3",
     "sequence": 6,
-    "author": "Vertel AB",
-    "website": "https://vertel.se/apps/odoo-web/web_mermaid",
+    "author": "Vertel Sverige AB",
+    "website": "https://www.vertel.se",
     "summary": 'Base module to add mermaid in any model',
     "description": """
         Base module to add mermaid in any model""",
