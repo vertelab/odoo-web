@@ -65,6 +65,7 @@ class GanttMixin(models.AbstractModel):
             'length': self.search_count(domain),
             'progress_bars': self._get_progress_bars(
                 domain, progress_bar_fields, progress_field,
+                start_date, stop_date,
             ),
             'unavailabilities': self._get_unavailabilities(
                 domain, unavailability_fields, start_date, stop_date,
@@ -168,32 +169,55 @@ class GanttMixin(models.AbstractModel):
             return [(groupby_field, '=', value.id if value else False)]
         return [(groupby_field, '=', value)]
 
-    def _get_progress_bars(self, domain, progress_bar_fields, progress_field=None):
+    def _get_progress_bars(self, domain, progress_bar_fields, progress_field=None,
+                           start_date=None, stop_date=None):
         """Compute the progress bar data per group.
 
         For each group-by field listed in ``progress_bar_fields`` (a m2o/m2m
-        field), returns ``{field: {res_id: {'value': ..., 'max_value': ...}}}``
-        where ``max_value`` is the number of records in the group and
-        ``value`` is the number of records whose ``progress_field`` is set.
+        field), returns ``{field: {res_id: {'value': ..., 'max_value': ...}}}``.
+
+        The computation is delegated to the model's ``_gantt_progress_bar``
+        hook, mirroring Odoo Enterprise. Models with a domain-specific
+        progress bar (e.g. planned hours per workcenter) override that hook.
         """
         progress_bars = {}
+        if not start_date or not stop_date:
+            return {field_name: {} for field_name in progress_bar_fields or []}
+        start = fields.Datetime.from_string(start_date)
+        stop = fields.Datetime.from_string(stop_date)
         for field_name in progress_bar_fields or []:
-            progress_bars[field_name] = {'warning': False}
             field = self._fields.get(field_name)
             if not field or field.type not in ('many2one', 'many2many'):
                 continue
+            res_ids = set()
             for record in self.search(domain):
                 if field.type == 'many2one':
-                    values = [record[field_name].id] if record[field_name] else []
+                    if record[field_name]:
+                        res_ids.add(record[field_name].id)
                 else:
-                    values = record[field_name].ids
-                for res_id in values:
-                    info = progress_bars[field_name].setdefault(
-                        res_id, {'value': 0, 'max_value': 0}
-                    )
-                    info['max_value'] += 1
-                    if progress_field and record[progress_field]:
-                        info['value'] += 1
+                    res_ids.update(record[field_name].ids)
+            progress_bars[field_name] = self._gantt_progress_bar(
+                field_name, sorted(res_ids), start, stop,
+            )
+        return progress_bars
+
+    @api.model
+    def _gantt_progress_bar(self, field, res_ids, start, stop):
+        """Default progress bar: count records per group.
+
+        ``max_value`` is the number of records in the group, ``value`` the
+        number of records whose ``progress`` field is set. Override in a
+        model that needs a different measure (e.g. planned hours).
+
+        :param str field: the group-by field the progress bar applies to
+        :param list[int] res_ids: ids of the groups to compute the bar for
+        :param datetime start: start of the visible range
+        :param datetime stop: end of the visible range
+        :returns: ``{res_id: {'value': ..., 'max_value': ...}}``
+        """
+        progress_bars = {}
+        for res_id in res_ids:
+            progress_bars[res_id] = {'value': 0, 'max_value': 0}
         return progress_bars
 
     def _get_unavailabilities(self, domain, unavailability_fields, start_date=None, stop_date=None):

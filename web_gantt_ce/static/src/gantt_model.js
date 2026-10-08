@@ -1120,8 +1120,13 @@ export class GanttModel extends Model {
             value_formatted: this._formatTime(progressBar.value),
             max_value_formatted: this._formatTime(progressBar.max_value),
             ratio: progressBar.max_value ? (progressBar.value / progressBar.max_value) * 100 : 0,
-            warning,
         };
+        // The OWL component types ``warning`` as a String. The server may
+        // send ``false``/``null`` for groups without a warning, so only keep
+        // actual strings — otherwise prop validation throws.
+        if (typeof warning === "string" && warning) {
+            processedProgressBar.warning = warning;
+        }
         if (processedProgressBar?.max_value) {
             processedProgressBar.ratio_formatted = formatPercentage(
                 processedProgressBar.ratio / 100
@@ -1138,7 +1143,7 @@ export class GanttModel extends Model {
             for (const [resId, progressBar] of Object.entries(progressBarInfo)) {
                 processedProgressBars[fieldName][resId] = this._processProgressBar(
                     progressBar,
-                    progressBarInfo.warning
+                    progressBar.warning
                 );
             }
         }
