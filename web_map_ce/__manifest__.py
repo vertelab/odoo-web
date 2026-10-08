@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB
+# Copyright (C) 2026 Vertel Sverige AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -28,7 +28,7 @@ Map View CE
         'demo/demo_map_view.xml',
     ],
     'auto_install': True,
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-web/web_map_ce',
     'license': 'LGPL-3',
     'assets': {

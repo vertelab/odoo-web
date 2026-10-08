@@ -9,7 +9,7 @@
     "category": "Web",
     "version": "18.0.1.0.0",
     "license": "LGPL-3",
-    "author": "Modoolar, CorporateHub, Odoo Community Association (OCA), Vertel AB",
+    "author": "Modoolar, CorporateHub, Odoo Community Association (OCA), Vertel Sverige AB",
     "website": "https://github.com/vertelab/odoo-web",
     "depends": ["web"],
     "data": [

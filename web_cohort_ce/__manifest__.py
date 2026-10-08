@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB
+# Copyright (C) 2026 Vertel Sverige AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -28,7 +28,7 @@ Cohort View CE
         ],
     },
     'auto_install': True,
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-web/web_cohort_ce',
     'license': 'LGPL-3',
 }

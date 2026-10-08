@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB
+# Copyright (C) 2026 Vertel Sverige AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -29,7 +29,7 @@ BCG Matrix View
         'demo/demo_bcg_matrix_view.xml',
     ],
     'auto_install': False,
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-web/web_bcg_matrix',
     'license': 'LGPL-3',
 }
