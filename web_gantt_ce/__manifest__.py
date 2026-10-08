@@ -17,9 +17,20 @@ Gantt View CE
     ''',
     'description': 'Provides a Gantt chart view for project planning and scheduling.',
     'category': 'Hidden',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.1',
     'depends': ['web'],
     'assets': {
+        # SCSS variables must be compiled before the stylesheets that use
+        # them. A bare ``static/src/**/*`` glob sorts alphabetically, which
+        # puts ``gantt_view.scss`` before ``gantt_view.variables.scss`` and
+        # breaks the whole lazy bundle with:
+        #   Undefined variable: "$gantt-highlight-today-bg"
+        # Odoo core solves this by collecting every ``*.variables.scss`` into
+        # ``web._assets_primary_variables``, which ``web._assets_helpers``
+        # includes first in every bundle. Mirror that here.
+        'web._assets_primary_variables': [
+            'web_gantt_ce/static/src/**/*.variables.scss',
+        ],
         'web.assets_backend_lazy': [
             'web_gantt_ce/static/src/**/*',
         ],
