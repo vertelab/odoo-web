@@ -62,10 +62,18 @@ export class GanttPopover extends Component {
                 fields,
                 activeFields,
                 mode: "readonly",
+                onRecordSaved: this.props.reloadOnClose,
             };
             this.kanbanViewParams = kanbanViewParams;
             this.archInfo = archInfo;
             this.fields = fields;
+            // Odoo 18 reads the kanban templates from ``archInfo.templateDocs``
+            // and requires a ``list`` prop (used for the group-by state).
+            this.kanbanRecordProps = {
+                archInfo,
+                templates: archInfo.templateDocs,
+                list: { isGrouped: false },
+            };
         }
     }
 
