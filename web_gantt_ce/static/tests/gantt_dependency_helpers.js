@@ -6,9 +6,9 @@ import { SELECTORS } from "./web_gantt_test_helpers";
 /**
  * @typedef {import("@odoo/hoot-dom").Target} Target
  *
- * @typedef {import("@web_gantt/gantt_renderer").ConnectorId} ConnectorId
- * @typedef {import("@web_gantt/gantt_renderer").GanttRenderer} GanttRenderer
- * @typedef {import("@web_gantt/gantt_renderer").PillId} PillId
+ * @typedef {import("@web_gantt_ce/gantt_renderer").ConnectorId} ConnectorId
+ * @typedef {import("@web_gantt_ce/gantt_renderer").GanttRenderer} GanttRenderer
+ * @typedef {import("@web_gantt_ce/gantt_renderer").PillId} PillId
  */
 
 /**

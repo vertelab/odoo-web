@@ -33,6 +33,12 @@ Gantt View CE
         ],
         'web.assets_backend_lazy': [
             'web_gantt_ce/static/src/**/*',
+
+            # Don't include dark mode files in light mode
+            ('remove', 'web_gantt_ce/static/src/**/*.dark.scss'),
+        ],
+        'web.assets_backend_lazy_dark': [
+            'web_gantt_ce/static/src/**/*.dark.scss',
         ],
         'web.assets_unit_tests': [
             'web_gantt_ce/static/tests/**/*',

@@ -731,8 +731,13 @@ export class GanttModel extends Model {
     _filterDateIngroupedBy(metaData, groupedBy) {
         return groupedBy.filter((gb) => {
             const [fieldName] = gb.split(":");
-            const { type } = metaData.fields[fieldName];
-            return !["date", "datetime"].includes(type);
+            const field = metaData.fields[fieldName];
+            // A group-by naming an unknown field cannot be rendered; skip it
+            // rather than crashing the whole view.
+            if (!field) {
+                return false;
+            }
+            return !["date", "datetime"].includes(field.type);
         });
     }
 
@@ -943,10 +948,13 @@ export class GanttModel extends Model {
      */
     _getGroupedBy(metaData, searchParams) {
         // Use the arch's ``default_group_by`` when the user did not explicitly
-        // group the view.
+        // group the view. The attribute is a comma-separated list of fields,
+        // not a single field name.
         let groupedBy = searchParams.groupBy.length
             ? [...searchParams.groupBy]
-            : (metaData.defaultGroupBy ? [metaData.defaultGroupBy] : []);
+            : (metaData.defaultGroupBy
+                ? metaData.defaultGroupBy.split(",").map((gb) => gb.trim()).filter(Boolean)
+                : []);
         groupedBy = groupedBy.filter((gb) => {
             const [fieldName] = gb.split(".");
             const field = metaData.fields[fieldName];

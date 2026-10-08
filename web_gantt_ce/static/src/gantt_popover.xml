@@ -17,7 +17,15 @@
                 </t>
                 <t t-else="">
                     <Record t-props="recordProps" t-slot-scope="data">
-                        <t t-component="props.KanbanRecord" t-props="kanbanRecordProps" record="data.record"/>
+                        <ul class="list-group list-group-flush">
+                            <t t-foreach="archInfo.fieldNodes" t-as="fieldInfo" t-key="fieldInfo.name or fieldInfo_index">
+                                <li t-if="fieldInfo.name and fields[fieldInfo.name]"
+                                    class="list-group-item d-flex text-nowrap align-items-center">
+                                    <span class="fw-bold me-2" t-esc="fields[fieldInfo.name].string" />
+                                    <Field name="fieldInfo.name" record="data.record" />
+                                </li>
+                            </t>
+                        </ul>
                     </Record>
                 </t>
             </div>

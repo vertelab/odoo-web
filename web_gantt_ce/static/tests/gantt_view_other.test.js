@@ -29,9 +29,9 @@ import {
 
 import { Domain } from "@web/core/domain";
 import { WebClient } from "@web/webclient/webclient";
-import { GanttController } from "@web_gantt/gantt_controller";
-import { GanttRenderer } from "@web_gantt/gantt_renderer";
-import { GanttRowProgressBar } from "@web_gantt/gantt_row_progress_bar";
+import { GanttController } from "@web_gantt_ce/gantt_controller";
+import { GanttRenderer } from "@web_gantt_ce/gantt_renderer";
+import { GanttRowProgressBar } from "@web_gantt_ce/gantt_row_progress_bar";
 
 // Hard-coded daylight saving dates from 2019
 const DST_DATES = {

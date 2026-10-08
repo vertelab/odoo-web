@@ -15,8 +15,8 @@ import {
     getConnector,
     getConnectorMap,
     getConnectorStroke,
-} from "@web_gantt/../tests/gantt_dependency_helpers";
-import { COLORS } from "@web_gantt/gantt_connector";
+} from "./gantt_dependency_helpers";
+import { COLORS } from "@web_gantt_ce/gantt_connector";
 import {
     CLASSES,
     SELECTORS,
@@ -26,10 +26,10 @@ import {
     dragPill,
 } from "./web_gantt_test_helpers";
 
-import { GanttRenderer } from "@web_gantt/gantt_renderer";
+import { GanttRenderer } from "@web_gantt_ce/gantt_renderer";
 
-/** @typedef {import("@web_gantt/gantt_renderer").ConnectorProps} ConnectorProps */
-/** @typedef {import("@web_gantt/gantt_renderer").PillId} PillId */
+/** @typedef {import("@web_gantt_ce/gantt_renderer").ConnectorProps} ConnectorProps */
+/** @typedef {import("@web_gantt_ce/gantt_renderer").PillId} PillId */
 
 /**
  * @typedef {`[${ResId},${ResId},${ResId},${ResId}]`} ConnectorTaskIds

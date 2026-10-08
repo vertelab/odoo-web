@@ -9,7 +9,7 @@ import {
     toggleSearchBarMenu,
 } from "@web/../tests/web_test_helpers";
 
-import { GanttRenderer } from "@web_gantt/gantt_renderer";
+import { GanttRenderer } from "@web_gantt_ce/gantt_renderer";
 import { Tasks, defineGanttModels } from "./gantt_mock_models";
 import {
     SELECTORS,

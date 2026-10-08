@@ -1,4 +1,4 @@
-import { getLocalYearAndWeek, today } from "@web/core/l10n/dates";
+import { getLocalYearAndWeek, getStartOfLocalWeek, today } from "@web/core/l10n/dates";
 import { _t } from "@web/core/l10n/translation";
 import { evaluateExpr } from "@web/core/py_js/py";
 import { omit } from "@web/core/utils/objects";
@@ -93,7 +93,11 @@ const RESCHEDULE_METHODS = {
  * @returns {string}
  */
 function formatLocalWeekYear(date) {
-    const { year, week, startDate } = getLocalYearAndWeek(date);
+    const { year, week } = getLocalYearAndWeek(date);
+    // Odoo 18 dropped `startDate` from getLocalYearAndWeek's return value;
+    // it now only reports { year, week }. Derive the week's first day from
+    // the date itself, honouring the user's week start.
+    const startDate = getStartOfLocalWeek(date);
     let result = _t(`Week %(week)s, %(startDate)s - %(endDate)s`, {
         week,
         startDate: startDate.toLocaleString({ month: "short", day: "numeric" }),

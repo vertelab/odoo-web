@@ -14,10 +14,10 @@ import {
 import { hasTouch, isMobileOS } from "@web/core/browser/feature_detection";
 import { Domain } from "@web/core/domain";
 import {
+    formatDateTime,
     is24HourFormat,
     serializeDate,
     serializeDateTime,
-    toLocaleDateTimeString,
 } from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
 import { _t } from "@web/core/l10n/translation";
@@ -1828,9 +1828,13 @@ export class GanttRenderer extends Component {
         // Start & End Times
         if (record.allocated_hours && !spanAccrossDays && ["week", "month"].includes(scaleId)) {
             const durationStr = this.getDurationStr(record);
+            // Odoo 18 replaced toLocaleDateTimeString with formatDateTime;
+            // showDate: false is expressed by formatting with the time format
+            // only.
+            const timeOnly = { format: localization.shortTimeFormat };
             labels.push(
-                toLocaleDateTimeString(startDate, { showDate: false }),
-                `${toLocaleDateTimeString(stopDate, { showDate: false })}${durationStr}`
+                formatDateTime(startDate, timeOnly),
+                `${formatDateTime(stopDate, timeOnly)}${durationStr}`
             );
         }
 

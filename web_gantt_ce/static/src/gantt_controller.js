@@ -163,8 +163,9 @@ export class GanttController extends Component {
             viewId,
             resId: props.resId,
             size: props.size,
-            canExpand: props.canExpand,
-            readonly: !canEdit,
+            // Odoo 18's FormViewDialog has no `canExpand`/`readonly` props;
+            // read-only is expressed through `mode`.
+            mode: canEdit ? "edit" : "readonly",
             context: props.context,
             removeRecord,
         };
