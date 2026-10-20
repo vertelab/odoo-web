@@ -1,0 +1,97 @@
+// Time Picker Field — OWL-based time picker widget (ported from Elevata)
+// Touch-friendly: minimum 44×44px targets per WCAG 2.5.5
+
+.o_timepicker_field_wrap {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.o_timepicker_field_popup {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 10px 12px;
+    z-index: 1060;
+    min-width: 240px;
+
+    .o_tp_column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .o_tp_btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        background: #f8f9fa;
+        color: #6c757d;
+        cursor: pointer;
+        transition: background-color 0.15s, color 0.15s;
+        font-size: 16px;
+        -webkit-tap-highlight-color: transparent;
+
+        &:hover, &:active {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    .o_tp_select {
+        width: 64px;
+        height: 44px;
+        min-height: 44px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 500;
+        border: 1px solid #ced4da;
+        border-radius: 6px;
+        background: #fff;
+        color: #212529;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+        padding: 0 4px;
+    }
+
+    .o_tp_separator {
+        font-size: 24px;
+        font-weight: 600;
+        color: #495057;
+        padding: 0 2px;
+        align-self: center;
+    }
+
+    .o_tp_apply_col {
+        display: flex;
+        align-items: center;
+        margin-left: 4px;
+    }
+
+    .o_tp_apply {
+        min-width: 52px;
+        min-height: 44px;
+        height: 44px;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 6px;
+        -webkit-tap-highlight-color: transparent;
+    }
+}

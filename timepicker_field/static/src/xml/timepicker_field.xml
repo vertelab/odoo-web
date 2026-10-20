@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="timepicker_field.TimepickerField">
+        <t t-if="props.readonly">
+            <span t-esc="formattedValue"/>
+        </t>
+        <t t-else="">
+            <div class="o_timepicker_field_wrap">
+                <input t-att-id="props.id"
+                       t-att-type="props.inputType"
+                       t-ref="numpadDecimal"
+                       t-att-placeholder="props.placeholder"
+                       class="o_input"
+                       autocomplete="off"
+                       t-on-click="onInputClick"/>
+                <TimepickerPopup t-if="state.showPopup" t-props="popupProps"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="timepicker_field.TimepickerPopup">
+        <div class="o_timepicker_field_popup" t-ref="popup"
+             t-att-style="state.popupStyle"
+             t-on-mousedown.stop="onPopupMousedown">
+            <div class="o_tp_column">
+                <button class="o_tp_btn o_tp_up" t-on-click="() => this.adjustHour(1)"
+                        type="button" aria-label="Increase hour">
+                    <i class="fa fa-chevron-up"/>
+                </button>
+                <select class="o_tp_select" t-on-change="onHourChange"
+                        t-ref="hourSelect">
+                    <t t-foreach="hours" t-as="h" t-key="h.value">
+                        <option t-att-value="h.value"
+                                t-att-selected="h.value === state.hour">
+                            <t t-esc="h.label"/>
+                        </option>
+                    </t>
+                </select>
+                <button class="o_tp_btn o_tp_down" t-on-click="() => this.adjustHour(-1)"
+                        type="button" aria-label="Decrease hour">
+                    <i class="fa fa-chevron-down"/>
+                </button>
+            </div>
+
+            <span class="o_tp_separator">:</span>
+
+            <div class="o_tp_column">
+                <button class="o_tp_btn o_tp_up" t-on-click="() => this.adjustMinute(1)"
+                        type="button" aria-label="Increase minute">
+                    <i class="fa fa-chevron-up"/>
+                </button>
+                <select class="o_tp_select" t-on-change="onMinuteChange"
+                        t-ref="minuteSelect">
+                    <t t-foreach="minutes" t-as="m" t-key="m.value">
+                        <option t-att-value="m.value"
+                                t-att-selected="m.value === state.minute">
+                            <t t-esc="m.label"/>
+                        </option>
+                    </t>
+                </select>
+                <button class="o_tp_btn o_tp_down" t-on-click="() => this.adjustMinute(-1)"
+                        type="button" aria-label="Decrease minute">
+                    <i class="fa fa-chevron-down"/>
+                </button>
+            </div>
+
+            <div class="o_tp_apply_col">
+                <button class="o_tp_apply btn btn-primary btn-sm"
+                        t-on-click="onApply" type="button">
+                    OK <i class="fa fa-check"/>
+                </button>
+            </div>
+        </div>
+    </t>
+
+</templates>
