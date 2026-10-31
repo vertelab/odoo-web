@@ -21,14 +21,25 @@ class ResCompany(models.Model):
         """Resolve the PWA app name per branding chain.
 
         Konfigurerat (ir.config_parameter web_pwa_push.pwa_app_name) →
-        default per app: 'AI <företagsnamn>' för chatten, företagsnamnet
-        för backend (respekterar web.web_app_name om det satts explicit).
+        registrerad web.pwa.app (dess name) → default per app:
+        'AI <företagsnamn>' för chatten, företagsnamnet för backend
+        (respekterar web.web_app_name om det satts explicit).
+
+        Registret konsulteras före de hårdkodade fallen så en ny app får sitt
+        namn utan att den här metoden ändras. 'chat' och 'backend' behåller
+        sina defaults när ingen app-post finns, så /ai/chat och /odoo beter sig
+        exakt som förut.
         """
         self.ensure_one()
         icp = self.env['ir.config_parameter'].sudo()
         configured = (icp.get_param('web_pwa_push.pwa_app_name', '') or '').strip()
         if configured:
             return configured
+        # Registrerade appar äger sitt namn.
+        if 'web.pwa.app' in self.env:
+            registered = self.env['web.pwa.app'].sudo()._get_app(app)
+            if registered and registered.name:
+                return registered.name
         if app == 'backend':
             if icp.search_count([('key', '=', 'web.web_app_name')]):
                 return icp.get_param('web.web_app_name', 'Odoo')

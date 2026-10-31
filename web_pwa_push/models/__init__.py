@@ -2,6 +2,7 @@
 # Copyright (C) 2026 Vertel Sverige AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
+from . import web_pwa_app
 from . import res_config_settings
 from . import res_company
 from . import mail_notification
