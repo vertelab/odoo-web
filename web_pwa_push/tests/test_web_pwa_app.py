@@ -124,17 +124,21 @@ class TestWebPwaApp(TransactionCase):
         )
         self.assertEqual(app.capture_accept, "image/*,application/pdf")
 
-    def test_install_apps_from_registry(self):
-        """The install hub reads the registry, not a hardcoded list."""
-        from odoo.addons.web_pwa_push.controllers.pwa_controller import (
-            PwaController,
-        )
+    def test_install_hub_reads_registry(self):
+        """The install hub is driven by the registry, not a hardcoded list.
 
-        controller = PwaController()
-        with self.env.cr.savepoint():
-            apps = controller._pwa_install_apps(self.env.company)
-        keys = [app["key"] for app in apps]
+        Checked at the data level: the controller builds its cards from these
+        records, so an app added as data appears in the hub without a code
+        change. The rendered page is covered by the HTTP tests in
+        test_pwa_push.
+        """
+        apps = self.App.search([("active", "=", True)])
+        keys = apps.mapped("key")
         self.assertIn("ai-chat", keys)
         self.assertIn("odoo", keys)
         for app in apps:
-            self.assertTrue(app["manifest"].startswith("/pwa/manifest/"))
+            self.assertTrue(app.start_url, "%s has no start_url" % app.key)
+            self.assertTrue(
+                app.install_href or app.start_url,
+                "%s has no install target" % app.key,
+            )

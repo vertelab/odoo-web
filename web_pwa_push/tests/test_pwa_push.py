@@ -41,16 +41,33 @@ class TestWebPwaPushRoutes(HttpCaseWithUserDemo):
         self.assertIn('512x512', sizes)
 
     def test_sw_headers_and_push_listener(self):
+        """The service worker must stay pass-through and origin-wide.
+
+        Service-Worker-Allowed was '/ai/', which scoped the worker to the chat
+        and locked every other app out of push. It is '/' now: one worker per
+        origin. The pass-through invariant is unchanged - no cache, because
+        pages such as /ai/chat send Cache-Control: no-store.
+        """
         response = self.url_open('/pwa/sw.js')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers['Content-Type'], 'text/javascript')
-        self.assertEqual(response.headers.get('Service-Worker-Allowed'), '/ai/')
+        self.assertEqual(response.headers.get('Service-Worker-Allowed'), '/')
         body = response.text
         self.assertIn("addEventListener('push'", body)
         self.assertIn("addEventListener('pushsubscriptionchange'", body)
         # pass-through: ingen cache
         self.assertIn("addEventListener('fetch'", body)
         self.assertNotIn('caches.open', body)
+
+    def test_notificationclick_fallback_is_root(self):
+        """A notification without data.url opens the origin, not the chat.
+
+        The old fallback was '/ai/chat', which sent a DMS notification into
+        the chat. '/' is neutral for every app.
+        """
+        body = self.url_open('/pwa/sw.js').text
+        self.assertIn("notification.data.url) || '/'", body)
+        self.assertNotIn("|| '/ai/chat'", body)
 
     def test_vapid_public_key_route(self):
         response = self.url_open('/pwa/vapid-public-key')
