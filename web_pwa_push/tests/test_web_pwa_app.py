@@ -49,8 +49,10 @@ class TestWebPwaApp(TransactionCase):
         """A module can add an app as data and get a manifest for free."""
         app = self.App.create(
             {
-                "key": "dms-capture",
-                "name": "DMS Capture",
+                # Neutral key: dms_mobile registers "dms-capture" as real
+                # data, and this test must not depend on that module.
+                "key": "probe-capture",
+                "name": "Probe Capture",
                 "start_url": "/dms/capture",
                 "scope": "/dms/",
                 "capture_enabled": True,
@@ -59,7 +61,7 @@ class TestWebPwaApp(TransactionCase):
             }
         )
         manifest = app.get_manifest()
-        self.assertEqual(manifest["name"], "DMS Capture")
+        self.assertEqual(manifest["name"], "Probe Capture")
         self.assertEqual(manifest["start_url"], "/dms/capture")
         self.assertEqual(manifest["scope"], "/dms/")
 

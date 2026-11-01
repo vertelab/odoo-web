@@ -155,7 +155,8 @@ class TestWebPwaPushInbox(TransactionCase):
         })
         before = self.env['mail.push'].sudo().search_count([])
         self.env['mail.notification'].create({
-            'message_id': message.id,
+            # Odoo 18 renamed message_id to mail_message_id.
+            'mail_message_id': message.id,
             'res_partner_id': self.partner.id,
             'notification_type': 'inbox',
             'is_read': False,
@@ -163,8 +164,11 @@ class TestWebPwaPushInbox(TransactionCase):
         return self.env['mail.push'].sudo().search_count([]) - before
 
     def test_non_native_message_queues_push(self):
-        # message_type 'log' ligger utanför _NATIVE_WEB_PUSH_MESSAGE_TYPES
-        self.assertGreater(self._make_notification('log'), 0)
+        # 'sms' ligger utanför _NATIVE_WEB_PUSH_MESSAGE_TYPES. 'log' fanns
+        # inte som message_type i Odoo 18 (bara email, comment, email_outgoing,
+        # notification, auto_comment, user_notification, sms, snailmail), så
+        # testet föll i create() innan det mätte något.
+        self.assertGreater(self._make_notification('sms'), 0)
 
     def test_native_message_type_skipped(self):
         # 'comment' hanteras av Odoos nativa web push → ingen dubbel-push
@@ -175,4 +179,4 @@ class TestWebPwaPushInbox(TransactionCase):
         icp.set_param('mail.web_push_vapid_private_key', '')
         icp.set_param('mail.web_push_vapid_public_key', '')
         # ska inte kasta, inte könas
-        self.assertEqual(self._make_notification('log'), 0)
+        self.assertEqual(self._make_notification('sms'), 0)

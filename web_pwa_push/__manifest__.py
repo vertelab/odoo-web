@@ -9,7 +9,7 @@
                    'branding (inherits web_pwa_customize), VAPID key management, and '
                    'pushes inbox notifications to registered devices.',
     'category': 'Hidden',
-    'version': '18.0.1.1.0',
+    'version': '18.0.1.1.1',
     'depends': ['web_pwa_customize', 'web', 'mail'],
     'data': [
         'security/ir.model.access.csv',

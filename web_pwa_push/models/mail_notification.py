@@ -49,7 +49,8 @@ class Notification(models.Model):
 
         push_vals = []
         for notif in inbox:
-            message = notif.message_id.sudo()
+            # Odoo 18 renamed the field: message_id -> mail_message_id.
+            message = notif.mail_message_id.sudo()
             if not message:
                 continue
             if message.message_type in _NATIVE_WEB_PUSH_MESSAGE_TYPES:
