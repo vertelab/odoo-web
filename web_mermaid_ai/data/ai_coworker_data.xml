@@ -31,7 +31,6 @@ The output must be directly parseable by a Mermaid renderer without any preproce
             ref('web_mermaid.model_mermaid_mixin'),
         ])]"/>
         <field name="filter_domain">[]</field>
-        <field name="injection_level">summary_and_key</field>
         <field name="hitl_threshold">always</field>
         <field name="orchestration_mode">single</field>
         <field name="example_prompts">
