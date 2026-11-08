@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ntfy_message_user,ntfy.message user,model_ntfy_message,base.group_user,1,0,0,0
+access_ntfy_message_system,ntfy.message system,model_ntfy_message,base.group_system,1,1,1,1
+access_ntfy_token_system,ntfy.token system,model_ntfy_token,base.group_system,1,1,1,1

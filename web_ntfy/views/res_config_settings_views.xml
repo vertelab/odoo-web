@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2026 Vertel Sverige AB
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <record id="res_config_settings_view_form_ntfy" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.ntfy</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="pwa_settings" position="after">
+                <block id="ntfy_settings" title="Ntfy">
+                    <setting string="Ntfy-transport"
+                             help="Serve the ntfy protocol under /ntfy/ and deliver
+                                   notifications through it. This is a server
+                                   decision — a user cannot know whether the server
+                                   has ntfy turned on.">
+                        <field name="ntfy_enabled"/>
+                    </setting>
+                    <setting string="Leverera via web push"
+                             help="Keep delivering through Odoo web push
+                                   (mail.push.device).">
+                        <field name="ntfy_transport_web_push"/>
+                    </setting>
+                    <setting string="Leverera via ntfy"
+                             help="Also deliver through the user's ntfy topic."
+                             invisible="not ntfy_enabled">
+                        <field name="ntfy_transport_ntfy"/>
+                    </setting>
+                    <setting string="Behåll ntfy-meddelanden (dagar)"
+                             help="Messages older than this are deleted by the
+                                   daily cron. Undelivered messages are never
+                                   deleted."
+                             invisible="not ntfy_enabled">
+                        <div class="d-flex align-items-center">
+                            <field name="ntfy_retention_days" class="oe_inline"/>
+                            <span class="ms-2">dagar</span>
+                        </div>
+                    </setting>
+                    <setting string="Högsta tillåtna prioritet"
+                             help="Messages asking for a higher priority are
+                                   capped to this."
+                             invisible="not ntfy_enabled">
+                        <field name="ntfy_max_priority"/>
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>
