@@ -18,7 +18,7 @@
         får ingen BlogPosting-emitter och inget fel.
     """,
     'category': 'Website',
-    'version': '18.0.1.0.1',
+    'version': '1.0.1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
     'license': 'LGPL-3',

@@ -18,7 +18,7 @@ Year Wheel View
     'description': 'Visualizes records on a circular year calendar. '
                    'Useful for seasonal planning, fiscal periods, and yearly overviews.',
     'category': 'Hidden',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'depends': ['web'],
     'assets': {
         'web.assets_backend_lazy': [

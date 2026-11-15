@@ -18,7 +18,7 @@ Map View CE
     ''',
     'description': 'Allows viewing records on a map using Leaflet and OpenStreetMap/Nominatim.',
     'category': 'Hidden',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'depends': ['web', 'base_setup'],
     'data': [
         # 'views/res_config_settings.xml',  # TODO: uncomment when base partner form is stable
