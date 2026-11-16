@@ -18,7 +18,7 @@ BCG Matrix View
     'description': 'Visualizes records in a 2x2 matrix based on two numeric fields. '
                    'Useful for portfolio analysis, risk assessment, and customer segmentation.',
     'category': 'Hidden',
-    'version': '20.0.1.0.0',
+    'version': '1.0.0',
     'depends': ['web'],
     'assets': {
         'web.assets_backend_lazy': [

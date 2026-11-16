@@ -14,7 +14,7 @@
                    'active content. The logo.dev API key is managed in '
                    'General Settings, near Contacts.',
     'category': 'Hidden',
-    'version': '20.0.1.0.1',
+    'version': '1.0.1',
     'depends': ['web', 'base_setup'],
     'data': [
         'views/res_config_settings_views.xml',

@@ -1,6 +1,6 @@
 {
     'name': 'Web: Generic SWOT View',
-    'version': '20.0.1.0.0',
+    'version': '1.0.0',
     'category': 'Tools',
     'summary': "Adds SWOT analysis views.",
     'description': '''

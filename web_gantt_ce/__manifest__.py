@@ -17,7 +17,7 @@ Gantt View CE
     ''',
     'description': 'Provides a Gantt chart view for project planning and scheduling.',
     'category': 'Hidden',
-    'version': '20.0.1.0.0',
+    'version': '1.0.0',
     'depends': ['web'],
     'assets': {
         'web.assets_backend_lazy': [
