@@ -7,13 +7,13 @@
     "name": "Web Actions View Reload",
     "summary": "Enables reload of the current view via ActionManager",
     "category": "Web",
-    "version": "1.0.0",
+    "version": "20.0.1.0.0",
     "license": "LGPL-3",
     "author": "Modoolar, CorporateHub, Odoo Community Association (OCA), Vertel AB",
     "website": "https://github.com/vertelab/odoo-web",
     "depends": ["web"],
     "data": [
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
     ],
     "assets": {
         "web.assets_backend": [

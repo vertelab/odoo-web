@@ -61,7 +61,7 @@
 
     <!-- Lägg till SWOT-vy till befintliga actions -->
     <record id="base.action_partner_form" model="ir.actions.act_window">
-        <field name="view_mode">kanban,tree,form,swot</field>
+        <field name="view_mode">kanban,list,form,swot</field>
     </record>
 </odoo>
 """# -*- coding: utf-8 -*-
@@ -246,12 +246,12 @@ FÖRDELAR MED DENNA APPROACH:
         <field name="name">swot.analysis.tree</field>
         <field name="model">swot.analysis</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="user_id"/>
                 <field name="create_date"/>
                 <field name="write_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -320,7 +320,7 @@ FÖRDELAR MED DENNA APPROACH:
     <record id="action_swot_analysis" model="ir.actions.act_window">
         <field name="name">SWOT-analyser</field>
         <field name="res_model">swot.analysis</field>
-        <field name="view_mode">tree,form,swot</field>
+        <field name="view_mode">list,form,swot</field>
         <field name="view_id" ref="view_swot_analysis_tree"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

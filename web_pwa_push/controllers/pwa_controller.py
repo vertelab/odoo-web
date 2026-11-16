@@ -8,7 +8,7 @@ from html import escape
 
 from odoo import http
 from odoo.http import request, Response
-from odoo.tools import ustr
+
 
 # ---------------------------------------------------------------------------
 # Ärvd backend-manifest-override. Vi ärver OCA:s WebManifest-klass (som i sin
@@ -218,7 +218,7 @@ if OcaWebManifest is not None:
                 [('url', 'like', _PWA_ICON_URL_BASE + '.')], limit=1)
             if pwa_icon:
                 manifest['icons'] = self._get_pwa_manifest_icons(pwa_icon)
-            body = json.dumps(manifest, default=ustr)
+            body = json.dumps(manifest, default=str)
             return request.make_response(body, [
                 ('Content-Type', 'application/manifest+json')])
 

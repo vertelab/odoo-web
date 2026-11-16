@@ -17,7 +17,7 @@ Cohort View CE
         - Extends Odoo: Builds on cohort.mixin, web.cohort.view.model.
     ''',
     'category': 'Hidden',
-    'version': '1.0.0',
+    'version': '20.0.1.0.0',
     'depends': ['web'],
     'assets': {
         'web.assets_backend_lazy': [
