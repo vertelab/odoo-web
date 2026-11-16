@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, models
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 class GanttMixin(models.AbstractModel):
@@ -122,9 +122,9 @@ class GanttMixin(models.AbstractModel):
         for key, group in grouped.items():
             value = group.pop('_value')
             group[groupby_field] = self._gantt_format_group_value(field, value)
-            group['__domain'] = expression.AND([
-                domain,
-                self._gantt_group_domain(groupby_field, field, value),
+            group['__domain'] = Domain.AND([
+                Domain(domain),
+                Domain(self._gantt_group_domain(groupby_field, field, value)),
             ])
             groups.append(group)
 

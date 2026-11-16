@@ -67,7 +67,6 @@
 """# -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.http import request, Controller, route
-from odoo.osv import expression
 
 
 # 1. Generisk SWOT View Helper
