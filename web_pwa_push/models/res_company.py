@@ -26,12 +26,12 @@ class ResCompany(models.Model):
         """
         self.ensure_one()
         icp = self.env['ir.config_parameter'].sudo()
-        configured = (icp.get_param('web_pwa_push.pwa_app_name', '') or '').strip()
+        configured = (icp.get_str('web_pwa_push.pwa_app_name', '') or '').strip()
         if configured:
             return configured
         if app == 'backend':
             if icp.search_count([('key', '=', 'web.web_app_name')]):
-                return icp.get_param('web.web_app_name', 'Odoo')
+                return icp.get_str('web.web_app_name', 'Odoo')
             return self.name or 'Odoo'
         return ('AI ' + (self.name or '')).strip() or 'AI Chat'
 

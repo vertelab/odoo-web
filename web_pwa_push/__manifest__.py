@@ -22,7 +22,13 @@ PWA Push
                    'pushes inbox notifications to registered devices.',
     'category': 'Hidden',
     'version': '1.0.0',
-    'depends': ['web_pwa_customize', 'web', 'mail'],
+    # DOCUMENTED FUNCTION LOSS in 20.0: web_pwa_customize is not ported in
+    # OCA/web, so the dependency is dropped. The controller already handles it —
+    # the import is in try/except and the WebManifest override is defined only
+    # when the import succeeds. Consequence: the customer-branded backend
+    # webmanifest is not applied in 20.0; push notifications and the service
+    # worker are unaffected.
+    'depends': ['web', 'mail'],
     'data': [
         'views/res_config_settings_views.xml',
         'views/webclient_templates.xml',

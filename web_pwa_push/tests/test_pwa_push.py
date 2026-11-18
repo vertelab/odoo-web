@@ -24,7 +24,7 @@ class TestWebPwaPushRoutes(HttpCaseWithUserDemo):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env['ir.config_parameter'].sudo().set_param(
+        cls.env['ir.config_parameter'].sudo().set_str(
             'web_pwa_push.pwa_app_name', 'AI ACME AB')
 
     def test_manifest_ai_chat(self):
@@ -58,7 +58,7 @@ class TestWebPwaPushRoutes(HttpCaseWithUserDemo):
         key = response.json().get('vapid_public_key')
         self.assertTrue(key)
         icp = self.env['ir.config_parameter'].sudo()
-        self.assertEqual(icp.get_param('mail.web_push_vapid_public_key'), key)
+        self.assertEqual(icp.get_str('mail.web_push_vapid_public_key'), key)
 
 
 @tagged('-at_install', 'post_install')
@@ -74,19 +74,19 @@ class TestWebPwaPushSettings(TransactionCase):
         settings.execute()
         icp = self.env['ir.config_parameter'].sudo()
         self.assertEqual(
-            icp.get_param('mail.web_push_vapid_private_key'),
+            icp.get_str('mail.web_push_vapid_private_key'),
             settings.pwa_vapid_private_key)
         self.assertEqual(
-            icp.get_param('mail.web_push_vapid_public_key'),
+            icp.get_str('mail.web_push_vapid_public_key'),
             settings.pwa_vapid_public_key)
 
     def test_default_name_chain(self):
         company = self.env['res.company'].create({'name': 'ACME AB'})
         icp = self.env['ir.config_parameter'].sudo()
-        icp.set_param('web_pwa_push.pwa_app_name', '')
+        icp.set_str('web_pwa_push.pwa_app_name', '')
         self.assertEqual(company.pwa_app_name('chat'), 'AI ACME AB')
         self.assertEqual(company.pwa_app_name('backend'), 'ACME AB')
-        icp.set_param('web_pwa_push.pwa_app_name', 'Min App')
+        icp.set_str('web_pwa_push.pwa_app_name', 'Min App')
         self.assertEqual(company.pwa_app_name('chat'), 'Min App')
 
     def test_logo_fallback_generates_attachments(self):
@@ -118,8 +118,8 @@ class TestWebPwaPushInbox(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         icp = cls.env['ir.config_parameter'].sudo()
-        icp.set_param('mail.web_push_vapid_private_key', 'priv')
-        icp.set_param('mail.web_push_vapid_public_key', 'pub')
+        icp.set_str('mail.web_push_vapid_private_key', 'priv')
+        icp.set_str('mail.web_push_vapid_public_key', 'pub')
         cls.partner = cls.env['res.partner'].create({'name': 'Bob'})
         cls.device = cls.env['mail.push.device'].create({
             'partner_id': cls.partner.id,
@@ -155,7 +155,7 @@ class TestWebPwaPushInbox(TransactionCase):
 
     def test_missing_vapid_keys_no_crash(self):
         icp = self.env['ir.config_parameter'].sudo()
-        icp.set_param('mail.web_push_vapid_private_key', '')
-        icp.set_param('mail.web_push_vapid_public_key', '')
+        icp.set_str('mail.web_push_vapid_private_key', '')
+        icp.set_str('mail.web_push_vapid_public_key', '')
         # ska inte kasta, inte könas
         self.assertEqual(self._make_notification('log'), 0)

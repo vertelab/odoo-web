@@ -38,8 +38,8 @@ class WebPwaPush(models.AbstractModel):
         if not devices:
             return False
         icp = self.env['ir.config_parameter'].sudo()
-        if not icp.get_param('mail.web_push_vapid_private_key') or \
-                not icp.get_param('mail.web_push_vapid_public_key'):
+        if not icp.get_str('mail.web_push_vapid_private_key') or \
+                not icp.get_str('mail.web_push_vapid_public_key'):
             _logger.warning(
                 'web_pwa_push: missing VAPID keys, push to user %s skipped',
                 user.id)

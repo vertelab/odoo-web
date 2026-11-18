@@ -187,7 +187,7 @@ class PwaController(http.Controller):
 
     def _pwa_color(self, kind):
         key = 'pwa.manifest.%s_color' % kind
-        return request.env['ir.config_parameter'].sudo().get_param(key, '#1a1a2e')
+        return request.env['ir.config_parameter'].sudo().get_str(key, '#1a1a2e')
 
 
 if OcaWebManifest is not None:
@@ -208,11 +208,11 @@ if OcaWebManifest is not None:
             manifest = json.loads(res.response[0])
             icp = request.env['ir.config_parameter'].sudo()
             manifest['name'] = request.env.company.sudo().pwa_app_name('backend')
-            manifest['short_name'] = icp.get_param(
+            manifest['short_name'] = icp.get_str(
                 'pwa.manifest.short_name', manifest.get('name', 'Odoo'))
-            manifest['background_color'] = icp.get_param(
+            manifest['background_color'] = icp.get_str(
                 'pwa.manifest.background_color', '#714B67')
-            manifest['theme_color'] = icp.get_param(
+            manifest['theme_color'] = icp.get_str(
                 'pwa.manifest.theme_color', '#714B67')
             pwa_icon = request.env['ir.attachment'].sudo().search(
                 [('url', 'like', _PWA_ICON_URL_BASE + '.')], limit=1)
