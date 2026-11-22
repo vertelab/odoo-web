@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -14,11 +14,11 @@
                    'active content. The logo.dev API key is managed in '
                    'General Settings, near Contacts.',
     'category': 'Hidden',
-    'version': '18.0.1.0.1',
+    'version': '1.0.1',
     'depends': ['web', 'base_setup'],
     'data': [
         'views/res_config_settings_views.xml',
     ],
-    'author': 'Vertel Sverige AB',
+    'author': 'Vertel AB',
     'license': 'LGPL-3',
 }

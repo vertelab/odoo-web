@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -18,8 +18,8 @@
         får ingen BlogPosting-emitter och inget fel.
     """,
     'category': 'Website',
-    'version': '18.0.1.0.1',
-    'author': 'Vertel Sverige AB',
+    'version': '1.0.1',
+    'author': 'Vertel AB',
     'website': 'https://vertel.se',
     'license': 'LGPL-3',
     'depends': ['website'],
