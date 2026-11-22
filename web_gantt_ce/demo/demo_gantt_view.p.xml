@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_gantt" model="ir.ui.view">
+        <field name="name">res.partner.gantt.demo</field>
+        <field name="model">res.partner</field>
+        <field name="type">gantt</field>
+        <field name="arch" type="xml">
+            <gantt string="Partner Timeline" date_start="create_date" date_stop="write_date"
+                   color="color" default_group_by="company_type"/>
+        </field>
+    </record>
+
+    <record id="action_partner_gantt" model="ir.actions.act_window">
+        <field name="name">Partner Gantt</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">gantt,kanban,list,form</field>
+        <field name="view_id" ref="view_partner_gantt"/>
+    </record>
+</odoo>

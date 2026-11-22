@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -17,7 +17,7 @@ Gantt View CE
     ''',
     'description': 'Provides a Gantt chart view for project planning and scheduling.',
     'category': 'Hidden',
-    'version': '18.0.1.0.9',
+    'version': '1.0.9',
     'depends': ['web'],
     'assets': {
         # SCSS variables must be compiled before the stylesheets that use
@@ -48,7 +48,7 @@ Gantt View CE
         'demo/demo_gantt_view.xml',
     ],
     'auto_install': True,
-    'author': 'Vertel Sverige AB',
+    'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-web/web_gantt_ce',
     'license': 'LGPL-3',
 }
