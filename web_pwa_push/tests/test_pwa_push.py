@@ -145,9 +145,11 @@ class TestWebPwaPushInbox(TransactionCase):
         })
         return self.env['mail.push'].sudo().search_count([]) - before
 
-    def test_non_native_message_queues_push(self):
-        # message_type 'log' ligger utanför _NATIVE_WEB_PUSH_MESSAGE_TYPES
-        self.assertGreater(self._make_notification('log'), 0)
+    def test_non_native_message_type_queues_push(self):
+        # 'email_outgoing' (utgående massmail) ligger utanför
+        # _NATIVE_WEB_PUSH_MESSAGE_TYPES — ingen dubbel-push för den.
+        # Den används i stället för 'log', som inte finns i 19.0:s urval.
+        self.assertGreater(self._make_notification('email_outgoing'), 0)
 
     def test_native_message_type_skipped(self):
         # 'comment' hanteras av Odoos nativa web push → ingen dubbel-push
@@ -158,4 +160,4 @@ class TestWebPwaPushInbox(TransactionCase):
         icp.set_param('mail.web_push_vapid_private_key', '')
         icp.set_param('mail.web_push_vapid_public_key', '')
         # ska inte kasta, inte könas
-        self.assertEqual(self._make_notification('log'), 0)
+        self.assertEqual(self._make_notification('email_outgoing'), 0)
