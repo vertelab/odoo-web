@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright (C) 2026 Vertel Sverige AB
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+
+    <record id="web_pwa_app_view_list" model="ir.ui.view">
+        <field name="name">web.pwa.app.list</field>
+        <field name="model">web.pwa.app</field>
+        <field name="arch" type="xml">
+            <list string="PWA Apps">
+                <field name="sequence" widget="handle" />
+                <field name="key" />
+                <field name="name" />
+                <field name="start_url" />
+                <field name="scope" />
+                <field name="capture_enabled" />
+                <field name="active" widget="boolean_toggle" />
+            </list>
+        </field>
+    </record>
+
+    <record id="web_pwa_app_view_form" model="ir.ui.view">
+        <field name="name">web.pwa.app.form</field>
+        <field name="model">web.pwa.app</field>
+        <field name="arch" type="xml">
+            <form string="PWA App">
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="text-bg-danger"
+                        invisible="active"
+                    />
+                    <group>
+                        <group>
+                            <field name="key" />
+                            <field name="name" />
+                            <field name="description" />
+                            <field name="sequence" />
+                            <field name="active" invisible="1" />
+                        </group>
+                        <group>
+                            <field name="start_url" />
+                            <field name="scope" />
+                            <field name="display" />
+                            <field name="install_href" />
+                        </group>
+                    </group>
+                    <group string="Appearance">
+                        <group>
+                            <field name="icon_url" />
+                            <field name="theme_color" />
+                            <field name="background_color" />
+                        </group>
+                        <group>
+                            <field name="service_worker_scope" />
+                        </group>
+                    </group>
+                    <group string="Capture">
+                        <group>
+                            <field name="capture_enabled" />
+                            <field
+                                name="capture_model"
+                                invisible="not capture_enabled"
+                            />
+                            <field
+                                name="capture_method"
+                                invisible="not capture_enabled"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="capture_accept"
+                                invisible="not capture_enabled"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="web_pwa_app_view_search" model="ir.ui.view">
+        <field name="name">web.pwa.app.search</field>
+        <field name="model">web.pwa.app</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="key" />
+                <field name="name" />
+                <filter
+                    name="capture"
+                    string="With Capture"
+                    domain="[('capture_enabled', '=', True)]"
+                />
+                <separator />
+                <filter
+                    name="inactive"
+                    string="Archived"
+                    domain="[('active', '=', False)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="web_pwa_app_action" model="ir.actions.act_window">
+        <field name="name">PWA Apps</field>
+        <field name="res_model">web.pwa.app</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="web_pwa_app_menu"
+        name="PWA Apps"
+        parent="base.menu_custom"
+        action="web_pwa_app_action"
+        sequence="95"
+    />
+
+</odoo>

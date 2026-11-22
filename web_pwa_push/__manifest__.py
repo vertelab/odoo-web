@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -9,7 +9,7 @@
                    'branding (inherits web_pwa_customize), VAPID key management, and '
                    'pushes inbox notifications to registered devices.',
     'category': 'Hidden',
-    'version': '18.0.1.1.1',
+    'version': '1.1.1',
     'depends': ['web_pwa_customize', 'web', 'mail'],
     'data': [
         'security/ir.model.access.csv',
@@ -18,7 +18,7 @@
         'views/res_config_settings_views.xml',
         'views/webclient_templates.xml',
     ],
-    'author': 'Vertel Sverige AB',
+    'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-web/web_pwa_push',
     'license': 'LGPL-3',
 }

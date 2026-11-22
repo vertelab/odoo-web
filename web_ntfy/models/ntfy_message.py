@@ -122,8 +122,8 @@ class NtfyMessage(models.Model):
         topic = topic_model._topic_for_user(user)
         if not topic:
             return self.browse()
-        max_priority = self.env['ir.config_parameter'].sudo().get_param(
-            'web_ntfy.max_priority', 'max')
+        icp = self.env['ir.config_parameter'].sudo()
+        max_priority = icp.get_param('web_ntfy.max_priority', 'max')
         if priority and PRIORITY_RANK.get(priority, 3) > PRIORITY_RANK.get(max_priority, 5):
             priority = max_priority
         return self.sudo().create({

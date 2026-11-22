@@ -1,0 +1,223 @@
+# -*- coding: utf-8 -*-
+# Copyright (C) 2026 Vertel Sverige AB
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
+import base64
+import json
+
+from odoo.tests.common import TransactionCase, tagged
+
+from odoo.addons.base.tests.common import HttpCaseWithUserDemo
+
+
+def _fake_keys():
+    return json.dumps({
+        'p256dh': base64.urlsafe_b64encode(b'x' * 65).decode(),
+        'auth': base64.urlsafe_b64encode(b'y' * 16).decode(),
+    })
+
+
+@tagged('-at_install', 'post_install')
+class TestWebPwaPushRoutes(HttpCaseWithUserDemo):
+    """Routes under /pwa/ — manifest, SW (headers + push-listener), VAPID."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # #if VERSION >= "20.0"
+        cls.env['ir.config_parameter'].sudo().set_str(
+            'web_pwa_push.pwa_app_name', 'AI ACME AB')
+        # #else
+        cls.env['ir.config_parameter'].sudo().set_param(
+            'web_pwa_push.pwa_app_name', 'AI ACME AB')
+        # #endif
+
+    def test_manifest_ai_chat(self):
+        response = self.url_open('/pwa/manifest/ai-chat')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers['Content-Type'], 'application/manifest+json')
+        data = response.json()
+        self.assertEqual(data['start_url'], '/ai/chat')
+        self.assertEqual(data['scope'], '/ai/')
+        self.assertEqual(data['display'], 'standalone')
+        self.assertEqual(data['name'], 'AI ACME AB')
+        sizes = [i['sizes'] for i in data['icons']]
+        self.assertIn('192x192', sizes)
+        self.assertIn('512x512', sizes)
+
+    def test_sw_headers_and_push_listener(self):
+        """The service worker must stay pass-through and origin-wide.
+
+        Service-Worker-Allowed was '/ai/', which scoped the worker to the chat
+        and locked every other app out of push. It is '/' now: one worker per
+        origin. The pass-through invariant is unchanged - no cache, because
+        pages such as /ai/chat send Cache-Control: no-store.
+        """
+        response = self.url_open('/pwa/sw.js')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers['Content-Type'], 'text/javascript')
+        self.assertEqual(response.headers.get('Service-Worker-Allowed'), '/')
+        body = response.text
+        self.assertIn("addEventListener('push'", body)
+        self.assertIn("addEventListener('pushsubscriptionchange'", body)
+        # pass-through: ingen cache
+        self.assertIn("addEventListener('fetch'", body)
+        self.assertNotIn('caches.open', body)
+
+    def test_notificationclick_fallback_is_root(self):
+        """A notification without data.url opens the origin, not the chat.
+
+        The old fallback was '/ai/chat', which sent a DMS notification into
+        the chat. '/' is neutral for every app.
+        """
+        body = self.url_open('/pwa/sw.js').text
+        self.assertIn("notification.data.url) || '/'", body)
+        self.assertNotIn("|| '/ai/chat'", body)
+
+    def test_vapid_public_key_route(self):
+        response = self.url_open('/pwa/vapid-public-key')
+        self.assertEqual(response.status_code, 200)
+        key = response.json().get('vapid_public_key')
+        self.assertTrue(key)
+        icp = self.env['ir.config_parameter'].sudo()
+        # #if VERSION >= "20.0"
+        self.assertEqual(icp.get_str('mail.web_push_vapid_public_key'), key)
+        # #else
+        self.assertEqual(icp.get_param('mail.web_push_vapid_public_key'), key)
+        # #endif
+
+
+@tagged('-at_install', 'post_install')
+class TestWebPwaPushSettings(TransactionCase):
+
+    def test_generate_vapid_keys(self):
+        settings = self.env['res.config.settings'].create({})
+        settings.generate_vapid_keys()
+        self.assertTrue(settings.pwa_vapid_private_key)
+        self.assertTrue(settings.pwa_vapid_public_key)
+        # base64url utan padding
+        self.assertNotIn('=', settings.pwa_vapid_private_key)
+        settings.execute()
+        icp = self.env['ir.config_parameter'].sudo()
+        self.assertEqual(
+            # #if VERSION >= "20.0"
+            icp.get_str('mail.web_push_vapid_private_key'),
+            # #else
+            icp.get_param('mail.web_push_vapid_private_key'),
+            # #endif
+            settings.pwa_vapid_private_key)
+        self.assertEqual(
+            # #if VERSION >= "20.0"
+            icp.get_str('mail.web_push_vapid_public_key'),
+            # #else
+            icp.get_param('mail.web_push_vapid_public_key'),
+            # #endif
+            settings.pwa_vapid_public_key)
+
+    def test_default_name_chain(self):
+        company = self.env['res.company'].create({'name': 'ACME AB'})
+        icp = self.env['ir.config_parameter'].sudo()
+        # #if VERSION >= "20.0"
+        icp.set_str('web_pwa_push.pwa_app_name', '')
+        # #else
+        icp.set_param('web_pwa_push.pwa_app_name', '')
+        # #endif
+        self.assertEqual(company.pwa_app_name('chat'), 'AI ACME AB')
+        self.assertEqual(company.pwa_app_name('backend'), 'ACME AB')
+        # #if VERSION >= "20.0"
+        icp.set_str('web_pwa_push.pwa_app_name', 'Min App')
+        # #else
+        icp.set_param('web_pwa_push.pwa_app_name', 'Min App')
+        # #endif
+        self.assertEqual(company.pwa_app_name('chat'), 'Min App')
+
+    def test_logo_fallback_generates_attachments(self):
+        """Utan uppladdad ikon men med företagslogga → attachments genereras
+        från loggan (inkl. apple-touch 180)."""
+        import base64
+        from odoo.tools import file_open
+        with file_open('web_pwa_push/static/description/icon.png', 'rb') as f:
+            png = f.read()
+        company = self.env['res.company'].create({
+            'name': 'ACME AB',
+            'logo': base64.b64encode(png),
+        })
+        settings = self.env['res.config.settings'].create({})
+        settings.company_id = company
+        settings.set_values()
+        attachments = self.env['ir.attachment'].sudo().search(
+            [('url', 'like', '/web_pwa_push/icon')])
+        urls = attachments.mapped('url')
+        self.assertIn('/web_pwa_push/icon180x180.png', urls)
+        self.assertIn('/web_pwa_push/icon512x512.png', urls)
+
+
+@tagged('-at_install', 'post_install')
+class TestWebPwaPushInbox(TransactionCase):
+    """Hook på mail.notification.create — könar push för icke-nativa typer."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        icp = cls.env['ir.config_parameter'].sudo()
+        # #if VERSION >= "20.0"
+        icp.set_str('mail.web_push_vapid_private_key', 'priv')
+        # #else
+        icp.set_param('mail.web_push_vapid_private_key', 'priv')
+        # #endif
+        # #if VERSION >= "20.0"
+        icp.set_str('mail.web_push_vapid_public_key', 'pub')
+        # #else
+        icp.set_param('mail.web_push_vapid_public_key', 'pub')
+        # #endif
+        cls.partner = cls.env['res.partner'].create({'name': 'Bob'})
+        cls.device = cls.env['mail.push.device'].create({
+            'partner_id': cls.partner.id,
+            'endpoint': 'https://push.example.com/endpoint',
+            'keys': _fake_keys(),
+        })
+        cls.author = cls.env['res.partner'].create({'name': 'Alice'})
+
+    def _make_notification(self, message_type):
+        message = self.env['mail.message'].create({
+            'message_type': message_type,
+            'author_id': self.author.id,
+            'body': 'test body',
+            'model': 'res.partner',
+            'res_id': self.partner.id,
+        })
+        before = self.env['mail.push'].sudo().search_count([])
+        self.env['mail.notification'].create({
+            # Odoo 18 renamed message_id to mail_message_id.
+            'mail_message_id': message.id,
+            'res_partner_id': self.partner.id,
+            'notification_type': 'inbox',
+            'is_read': False,
+        })
+        return self.env['mail.push'].sudo().search_count([]) - before
+
+    def test_non_native_message_queues_push(self):
+        # 'sms' ligger utanför _NATIVE_WEB_PUSH_MESSAGE_TYPES. 'log' fanns
+        # inte som message_type i Odoo 18 (bara email, comment, email_outgoing,
+        # notification, auto_comment, user_notification, sms, snailmail), så
+        # testet föll i create() innan det mätte något.
+        self.assertGreater(self._make_notification('sms'), 0)
+
+    def test_native_message_type_skipped(self):
+        # 'comment' hanteras av Odoos nativa web push → ingen dubbel-push
+        self.assertEqual(self._make_notification('comment'), 0)
+
+    def test_missing_vapid_keys_no_crash(self):
+        icp = self.env['ir.config_parameter'].sudo()
+        # #if VERSION >= "20.0"
+        icp.set_str('mail.web_push_vapid_private_key', '')
+        # #else
+        icp.set_param('mail.web_push_vapid_private_key', '')
+        # #endif
+        # #if VERSION >= "20.0"
+        icp.set_str('mail.web_push_vapid_public_key', '')
+        # #else
+        icp.set_param('mail.web_push_vapid_public_key', '')
+        # #endif
+        # ska inte kasta, inte könas
+        self.assertEqual(self._make_notification('sms'), 0)

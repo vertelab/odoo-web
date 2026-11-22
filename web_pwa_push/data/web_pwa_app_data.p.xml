@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright (C) 2026 Vertel Sverige AB
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html). -->
+<odoo noupdate="1">
+
+    <!--
+      The two apps that used to be hardcoded in the controller. They are data
+      now, so the install hub and the manifest router read them from one place.
+      noupdate="1": a customer's edits to name/description survive an upgrade.
+    -->
+
+    <record id="pwa_app_ai_chat" model="web.pwa.app">
+        <field name="key">ai-chat</field>
+        <field name="name"></field>
+        <field name="description">AI-medarbetarna i fickan</field>
+        <field name="sequence">10</field>
+        <field name="start_url">/ai/chat</field>
+        <field name="scope">/ai/</field>
+        <field name="display">standalone</field>
+        <field name="install_href">/ai/chat</field>
+        <field name="service_worker_scope">/</field>
+    </record>
+
+    <record id="pwa_app_odoo" model="web.pwa.app">
+        <field name="key">odoo</field>
+        <field name="name"></field>
+        <field name="description">Hela Odoo som app</field>
+        <field name="sequence">20</field>
+        <field name="start_url">/odoo</field>
+        <field name="scope">/</field>
+        <field name="display">standalone</field>
+        <field name="install_href">/odoo</field>
+        <field name="service_worker_scope">/</field>
+    </record>
+
+</odoo>
