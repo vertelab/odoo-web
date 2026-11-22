@@ -7,7 +7,11 @@ import logging
 
 from odoo import fields, models
 from odoo.addons.mail.tools.jwt import generate_vapid_keys
+# #if VERSION >= "19.0"
+from odoo.tools.image import image_process
+# #else
 from odoo.tools import image_process
+# #endif
 
 _logger = logging.getLogger(__name__)
 

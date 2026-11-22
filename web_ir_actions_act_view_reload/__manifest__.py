@@ -13,7 +13,7 @@
     "website": "https://github.com/vertelab/odoo-web",
     "depends": ["web"],
     "data": [
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
     ],
     "assets": {
         "web.assets_backend": [

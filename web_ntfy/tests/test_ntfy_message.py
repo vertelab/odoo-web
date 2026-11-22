@@ -49,7 +49,7 @@ class TestNtfyMessage(TransactionCase):
         self.assertNotIn('priority', message._to_ntfy_json())
 
     def test_priority_capped_by_setting(self):
-        self.env['ir.config_parameter'].sudo().set_param('web_ntfy.max_priority', 'low')
+        self.env['ir.config_parameter'].sudo().set_str('web_ntfy.max_priority', 'low')
         message = self.message_model._publish(
             self.user, title='T', body='B', priority='max')
         self.assertEqual(message.priority, 'low')
@@ -85,7 +85,7 @@ class TestNtfyMessage(TransactionCase):
             (stale_date, tuple((old_delivered + old_undelivered).ids)),
         )
         self.env.invalidate_all()
-        self.env['ir.config_parameter'].sudo().set_param('web_ntfy.retention_days', '7')
+        self.env['ir.config_parameter'].sudo().set_str('web_ntfy.retention_days', '7')
         self.message_model._cron_retention()
         self.assertFalse(old_delivered.exists(), 'delivered+old must be deleted')
         self.assertTrue(old_undelivered.exists(), 'undelivered must be kept')

@@ -30,11 +30,11 @@ class WebPwaPush(models.AbstractModel):
         """Return the transports enabled in settings, as a set of names."""
         icp = self.env['ir.config_parameter'].sudo()
         transports = set()
-        web_push_enabled = icp.get_param('web_ntfy.transport_web_push', 'True') == 'True'
+        web_push_enabled = icp.get_str('web_ntfy.transport_web_push', 'True') == 'True'
         if web_push_enabled:
             transports.add('web_push')
-        ntfy_enabled = icp.get_param('web_ntfy.enabled', 'False') == 'True'
-        ntfy_transport = icp.get_param('web_ntfy.transport_ntfy', 'True') == 'True'
+        ntfy_enabled = icp.get_str('web_ntfy.enabled', 'False') == 'True'
+        ntfy_transport = icp.get_str('web_ntfy.transport_ntfy', 'True') == 'True'
         if ntfy_enabled and ntfy_transport:
             transports.add('ntfy')
         return transports

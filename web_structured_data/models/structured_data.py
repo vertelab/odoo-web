@@ -55,7 +55,7 @@ class WebsiteStructuredData(models.AbstractModel):
         """
         record.ensure_one()
         icp = self.env['ir.config_parameter'].sudo()
-        base_url = icp.get_param('web.base.url', '')
+        base_url = icp.get_str('web.base.url', '')
         url = ''
         try:
             url = record.get_base_url() + (record.website_url or '')

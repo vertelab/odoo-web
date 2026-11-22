@@ -22,7 +22,7 @@ class TestNtfyTransport(TransactionCase):
 
     def _set(self, **params):
         for key, value in params.items():
-            self.icp.set_param('web_ntfy.%s' % key, value)
+            self.icp.set_str('web_ntfy.%s' % key, value)
         self.env.invalidate_all()
 
     def test_no_transports_when_both_disabled(self):

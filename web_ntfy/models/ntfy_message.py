@@ -123,7 +123,7 @@ class NtfyMessage(models.Model):
         if not topic:
             return self.browse()
         icp = self.env['ir.config_parameter'].sudo()
-        max_priority = icp.get_param('web_ntfy.max_priority', 'max')
+        max_priority = icp.get_str('web_ntfy.max_priority', 'max')
         if priority and PRIORITY_RANK.get(priority, 3) > PRIORITY_RANK.get(max_priority, 5):
             priority = max_priority
         return self.sudo().create({
@@ -168,7 +168,7 @@ class NtfyMessage(models.Model):
         """
         icp = self.env['ir.config_parameter'].sudo()
         try:
-            days = int(icp.get_param('web_ntfy.retention_days', '7'))
+            days = int(icp.get_str('web_ntfy.retention_days', '7'))
         except (TypeError, ValueError):
             days = 7
         if days <= 0:

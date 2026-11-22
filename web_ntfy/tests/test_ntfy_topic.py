@@ -53,7 +53,7 @@ class TestNtfyTopic(TransactionCase):
     def test_salt_rotation_changes_topic(self):
         """Rotating the salt re-addresses every user."""
         before = self.topic_model._topic_for_user(self.user_a)
-        self.env['ir.config_parameter'].sudo().set_param(
+        self.env['ir.config_parameter'].sudo().set_str(
             'web_ntfy.salt', 'a-completely-different-salt-value')
         after = self.topic_model._topic_for_user(self.user_a)
         self.assertNotEqual(before, after)

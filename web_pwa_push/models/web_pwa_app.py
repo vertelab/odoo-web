@@ -128,7 +128,7 @@ class WebPwaApp(models.Model):
 
     def _pwa_color(self, kind):
         key = "pwa.manifest.%s_color" % kind
-        return self.env["ir.config_parameter"].sudo().get_param(key, "#1a1a2e")
+        return self.env["ir.config_parameter"].sudo().get_str(key, "#1a1a2e")
 
     @api.model
     def _get_app(self, key):

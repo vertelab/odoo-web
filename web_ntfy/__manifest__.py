@@ -25,7 +25,7 @@ a self-hosted server has no APNs credentials). Use web push on iOS instead.
     'version': '1.0.0',
     'depends': ['web', 'mail', 'web_pwa_push'],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'data/ir_cron_data.xml',
         'views/res_config_settings_views.xml',
     ],

@@ -34,10 +34,10 @@ class NtfyTopic(models.AbstractModel):
     def _get_salt(self):
         """Return the HMAC salt, creating it on first use."""
         icp = self.env['ir.config_parameter'].sudo()
-        salt = icp.get_param(SALT_PARAM)
+        salt = icp.get_str(SALT_PARAM)
         if not salt:
             salt = secrets.token_hex(32)
-            icp.set_param(SALT_PARAM, salt)
+            icp.set_str(SALT_PARAM, salt)
             _logger.info('web_ntfy: generated topic salt')
         return salt
 
@@ -76,4 +76,4 @@ class NtfyTopic(models.AbstractModel):
     @api.model
     def _is_enabled(self):
         icp = self.env['ir.config_parameter'].sudo()
-        return icp.get_param('web_ntfy.enabled', 'False') == 'True'
+        return icp.get_str('web_ntfy.enabled', 'False') == 'True'

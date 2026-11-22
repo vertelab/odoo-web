@@ -8,7 +8,7 @@ from babel.dates import format_date
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
-from odoo.osv import expression
+from odoo.fields import Domain
 from odoo.tools.misc import get_lang
 
 
@@ -71,12 +71,12 @@ class CohortMixin(models.AbstractModel):
                 continue
             cohort_start = self._cohort_period_start(date_start, range_info['from'])
 
-            period_domain = expression.AND([
+            period_domain = Domain.AND([
                 [(date_start, '!=', False)],
                 [(date_start, '>=', self._cohort_period_bound(date_start, range_info['from']))],
                 [(date_start, '<', self._cohort_period_bound(date_start, range_info['to']))],
             ])
-            group_domain = expression.AND([domain, period_domain])
+            group_domain = Domain.AND([domain, period_domain])
             records = self.search(group_domain)
 
             value = self._cohort_measure(records, measure)
