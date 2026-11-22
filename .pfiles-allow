@@ -11,7 +11,6 @@ web_bcg_matrix/static/src/bcg_matrix_renderer.xml
 web_bcg_matrix/static/src/bcg_matrix_view.js
 web_cohort_ce/validation.py
 web_cohort_ce/controllers/main.py
-web_cohort_ce/models/cohort.py
 web_cohort_ce/models/ir_action_act_window.py
 web_cohort_ce/models/ir_ui_view.py
 web_cohort_ce/models/models.py
@@ -29,11 +28,8 @@ web_cohort_ce/static/tests/cohort_view.test.js
 web_cohort_ce/tests/test_views.py
 web_fetch_logo/models/logo_fetcher.py
 web_fetch_logo/models/res_config_settings.py
-web_fetch_logo/models/web_fetch_logo_mixin.py
-web_fetch_logo/tests/test_logo_fetcher.py
 web_fetch_logo/views/res_config_settings_views.xml
 web_gantt_ce/demo/demo_gantt_view.xml
-web_gantt_ce/models/gantt.py
 web_gantt_ce/models/ir_ui_view.py
 web_gantt_ce/static/description/index.html
 web_gantt_ce/static/src/gantt_arch_parser.js
@@ -135,16 +131,10 @@ web_mermaid/static/description/index.html
 web_mermaid_ai/data/ai_coworker_data.xml
 web_mermaid_ai/models/mermaid.py
 web_mermaid_ai/static/description/index.html
-web_pwa_push/controllers/pwa_controller.py
-web_pwa_push/models/mail_notification.py
-web_pwa_push/models/res_company.py
 web_pwa_push/models/res_config_settings.py
-web_pwa_push/models/web_pwa_push.py
 web_pwa_push/static/description/index.html
-web_pwa_push/tests/test_pwa_push.py
 web_pwa_push/views/res_config_settings_views.xml
 web_pwa_push/views/webclient_templates.xml
-web_structured_data/models/structured_data.py
 web_swot/swot_view_implementation.py
 web_swot/controllers/swot_controller.py
 web_swot/controllers/swot_view.py
