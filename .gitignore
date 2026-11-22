@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 graphify-out/
+.ruff_cache/

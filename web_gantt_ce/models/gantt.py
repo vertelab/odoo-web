@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, models
 from odoo.osv import expression
 
 
@@ -65,7 +64,6 @@ class GanttMixin(models.AbstractModel):
             'length': self.search_count(domain),
             'progress_bars': self._get_progress_bars(
                 domain, progress_bar_fields, progress_field,
-                start_date, stop_date,
             ),
             'unavailabilities': self._get_unavailabilities(
                 domain, unavailability_fields, start_date, stop_date,
@@ -169,55 +167,32 @@ class GanttMixin(models.AbstractModel):
             return [(groupby_field, '=', value.id if value else False)]
         return [(groupby_field, '=', value)]
 
-    def _get_progress_bars(self, domain, progress_bar_fields, progress_field=None,
-                           start_date=None, stop_date=None):
+    def _get_progress_bars(self, domain, progress_bar_fields, progress_field=None):
         """Compute the progress bar data per group.
 
         For each group-by field listed in ``progress_bar_fields`` (a m2o/m2m
-        field), returns ``{field: {res_id: {'value': ..., 'max_value': ...}}}``.
-
-        The computation is delegated to the model's ``_gantt_progress_bar``
-        hook, mirroring Odoo Enterprise. Models with a domain-specific
-        progress bar (e.g. planned hours per workcenter) override that hook.
+        field), returns ``{field: {res_id: {'value': ..., 'max_value': ...}}}``
+        where ``max_value`` is the number of records in the group and
+        ``value`` is the number of records whose ``progress_field`` is set.
         """
         progress_bars = {}
-        if not start_date or not stop_date:
-            return {field_name: {} for field_name in progress_bar_fields or []}
-        start = fields.Datetime.from_string(start_date)
-        stop = fields.Datetime.from_string(stop_date)
         for field_name in progress_bar_fields or []:
+            progress_bars[field_name] = {'warning': False}
             field = self._fields.get(field_name)
             if not field or field.type not in ('many2one', 'many2many'):
                 continue
-            res_ids = set()
             for record in self.search(domain):
                 if field.type == 'many2one':
-                    if record[field_name]:
-                        res_ids.add(record[field_name].id)
+                    values = [record[field_name].id] if record[field_name] else []
                 else:
-                    res_ids.update(record[field_name].ids)
-            progress_bars[field_name] = self._gantt_progress_bar(
-                field_name, sorted(res_ids), start, stop,
-            )
-        return progress_bars
-
-    @api.model
-    def _gantt_progress_bar(self, field, res_ids, start, stop):
-        """Default progress bar: count records per group.
-
-        ``max_value`` is the number of records in the group, ``value`` the
-        number of records whose ``progress`` field is set. Override in a
-        model that needs a different measure (e.g. planned hours).
-
-        :param str field: the group-by field the progress bar applies to
-        :param list[int] res_ids: ids of the groups to compute the bar for
-        :param datetime start: start of the visible range
-        :param datetime stop: end of the visible range
-        :returns: ``{res_id: {'value': ..., 'max_value': ...}}``
-        """
-        progress_bars = {}
-        for res_id in res_ids:
-            progress_bars[res_id] = {'value': 0, 'max_value': 0}
+                    values = record[field_name].ids
+                for res_id in values:
+                    info = progress_bars[field_name].setdefault(
+                        res_id, {'value': 0, 'max_value': 0}
+                    )
+                    info['max_value'] += 1
+                    if progress_field and record[progress_field]:
+                        info['value'] += 1
         return progress_bars
 
     def _get_unavailabilities(self, domain, unavailability_fields, start_date=None, stop_date=None):
@@ -275,271 +250,19 @@ class GanttMixin(models.AbstractModel):
             dt = dt.astimezone(timezone.utc).replace(tzinfo=None)
         return dt.strftime('%Y-%m-%d %H:%M:%S')
 
-    # ------------------------------------------------------------------
-    # Rescheduling hooks
-    #
-    # ``web_gantt_reschedule`` drives the reschedule and delegates every
-    # decision to the hooks below. A model opts in to dependency-aware
-    # rescheduling by overriding ``_gantt_reschedule_relations``; the
-    # defaults reproduce the historical behaviour (write the dropped
-    # values, move nothing else).
-    # ------------------------------------------------------------------
-
-    def _gantt_reschedule_is_candidate(self, date_start_field, date_stop_field):
-        """Return whether ``self`` may be rescheduled.
-
-        Called for the dragged record and for every record reached while
-        following dependencies. Returning ``False`` for the dragged record
-        leaves it untouched; returning ``False`` for a dependency aborts
-        the whole move.
-
-        :return: bool
-        """
-        self.ensure_one()
-        return True
-
-    def _gantt_reschedule_compute_dates(self, date_candidate, search_forward,
-                                        date_start_field, date_stop_field,
-                                        reschedule_method=None):
-        """Compute the new ``(start, stop)`` for ``self``.
-
-        :param date_candidate: the date the record should be scheduled
-            around — for the dragged record the dropped date, for a
-            dependency the date derived from its predecessor.
-        :param search_forward: ``True`` when the move goes later in time.
-        :param reschedule_method: ``'maintainBuffer'`` or ``'consumeBuffer'``.
-        :return: ``(start, stop)`` as naive UTC datetimes.
-        """
-        self.ensure_one()
-        candidate = fields.Datetime.to_datetime(date_candidate)
-        start = fields.Datetime.to_datetime(self[date_start_field]) if self[date_start_field] else candidate
-        stop = fields.Datetime.to_datetime(self[date_stop_field]) if self[date_stop_field] else candidate
-        duration = stop - start
-        if search_forward:
-            return candidate, candidate + duration
-        return candidate - duration, candidate
-
-    def _gantt_reschedule_write_dates(self, start, stop, date_start_field, date_stop_field):
-        """Write the computed dates on ``self``.
-
-        Override to write through a different mechanism (a wizard, a
-        related record, ...). The default is a plain ``write``.
-        """
-        self.ensure_one()
-        self.write({date_start_field: start, date_stop_field: stop})
-
-    def _gantt_reschedule_relations(self, dependency_field, dependency_inverted_field,
-                                    search_forward, reschedule_method=None):
-        """Return the records that must follow ``self`` when it moves.
-
-        The default returns nothing: a model without its own rules moves
-        only the record the user dragged. Override to opt in, typically by
-        reading one of the two dependency fields:
-
-        * moving forward, follow ``dependency_inverted_field`` (the records
-          that depend on this one);
-        * moving backward, follow ``dependency_field`` (the records this one
-          depends on).
-
-        :return: recordset of the same model.
-        """
-        self.ensure_one()
-        return self.browse()
-
-    @api.model
-    def _gantt_reschedule_old_vals(self, record, data):
-        """Snapshot the current values of the fields ``data`` is about to write.
-
-        Used to build ``old_vals_per_pill_id`` so the UI can offer an Undo.
-        """
-        old_vals = {}
-        for field_name in data:
-            if field_name not in record._fields:
-                continue
-            field = record._fields[field_name]
-            value = record[field_name]
-            if field.type in ('many2many', 'one2many'):
-                old_vals[field_name] = value.ids or False
-            elif field.type == 'many2one':
-                old_vals[field_name] = value.id or False
-            else:
-                old_vals[field_name] = value
-        return old_vals
-
-    @api.model
-    def _gantt_reschedule_collect(self, moved, dependency_field, dependency_inverted_field,
-                                  search_forward, reschedule_method, date_start_field,
-                                  date_stop_field):
-        """Collect the records to move, in dependency order.
-
-        Depth-first traversal of ``_gantt_reschedule_relations``, braked by
-        ``_gantt_reschedule_is_candidate``. Raises ``UserError`` on a cycle
-        or on a dependency that may not be moved.
-
-        :return: ``(ordered, seen)`` where ``ordered`` lists the records to
-            move after ``moved`` and ``seen`` is the set of ids already
-            handled (including ``moved``).
-        """
-        ordered = []
-        seen = set(moved.ids)
-        # Records currently on the traversal stack, to detect cycles.
-        on_stack = set(moved.ids)
-
-        def visit(record):
-            relations = record._gantt_reschedule_relations(
-                dependency_field, dependency_inverted_field,
-                search_forward, reschedule_method,
-            )
-            for relation in relations:
-                if relation.id in on_stack:
-                    raise UserError(_(
-                        "Cannot reschedule: the dependencies form a cycle "
-                        "(reached %(name)s again).",
-                        name=relation.display_name,
-                    ))
-                if relation.id in seen:
-                    continue
-                if not relation._gantt_reschedule_is_candidate(date_start_field, date_stop_field):
-                    raise UserError(_(
-                        "Cannot reschedule: %(name)s depends on the moved "
-                        "record but may not be moved.",
-                        name=relation.display_name,
-                    ))
-                seen.add(relation.id)
-                on_stack.add(relation.id)
-                visit(relation)
-                on_stack.discard(relation.id)
-                ordered.append(relation)
-
-        for record in moved:
-            visit(record)
-        return ordered, seen
     @api.model
     def web_gantt_reschedule(self, data, reschedule_method, ids, dependency_field,
                              dependency_inverted_field, date_start_field, date_stop_field):
-        """Reschedule the given records, following declared dependencies.
+        """Reschedule the given records.
 
-        Every record the move touches — the dragged one and the dependencies
-        reached through ``_gantt_reschedule_relations`` — goes through
-        ``_gantt_reschedule_compute_dates``. All dates are computed before
-        anything is written, and the writes happen in a savepoint, so a
-        failure leaves every record untouched.
-
-        :return: ``{'type', 'message', 'old_vals_per_pill_id'}`` — the shape
-            ``gantt_renderer.js`` expects, including the Undo payload.
+        Kept intentionally simple in this CE port: the schedule values are
+        written directly on the records. Models that need dependency-aware
+        rescheduling (buffer consumption, etc.) can override this method.
         """
         if not isinstance(ids, (list, tuple)):
             ids = [ids]
-        moved = self.browse(ids).exists()
-        if not moved:
-            return {'type': 'warning', 'message': _("No record to reschedule."),
-                    'old_vals_per_pill_id': {}}
-
-        # Snapshot before anything is written, so Undo can restore it.
-        old_vals_per_pill_id = {
-            record.id: self._gantt_reschedule_old_vals(record, data)
-            for record in moved
-        }
-
-        if not (dependency_field and dependency_inverted_field):
-            # No dependency information in the arch: plain write, as before.
-            moved.write(data)
-            return {
-                'type': 'success',
-                'message': _("The records have been rescheduled."),
-                'old_vals_per_pill_id': old_vals_per_pill_id,
-            }
-
-        try:
-            # --- Phase 1: decide, without writing anything ----------------
-            for record in moved:
-                if not record._gantt_reschedule_is_candidate(date_start_field, date_stop_field):
-                    return {
-                        'type': 'warning',
-                        'message': _("%(name)s may not be rescheduled.",
-                                     name=record.display_name),
-                        'old_vals_per_pill_id': {},
-                    }
-
-            search_forward = True
-            if date_start_field in data and moved[date_start_field]:
-                search_forward = (
-                    fields.Datetime.to_datetime(data[date_start_field])
-                    >= fields.Datetime.to_datetime(moved[date_start_field])
-                )
-
-            ordered, _seen = self._gantt_reschedule_collect(
-                moved, dependency_field, dependency_inverted_field,
-                search_forward, reschedule_method,
-                date_start_field, date_stop_field,
-            )
-
-            # The dragged record is anchored on the date the user dropped it;
-            # the dependencies keep their offset to it. Both go through
-            # ``_gantt_reschedule_compute_dates`` so a model can constrain
-            # every date, not just the ones it drags along.
-            dropped_start = fields.Datetime.to_datetime(data[date_start_field])
-            delta = dropped_start - fields.Datetime.to_datetime(moved[0][date_start_field])
-
-            plan = []
-            for record in moved:
-                new_start, new_stop = record._gantt_reschedule_compute_dates(
-                    dropped_start, search_forward, date_start_field,
-                    date_stop_field, reschedule_method,
-                )
-                # Anything else the drop carried (grouped-by fields) is kept.
-                vals = {key: value for key, value in data.items()
-                        if key not in (date_start_field, date_stop_field)}
-                vals[date_start_field] = new_start
-                vals[date_stop_field] = new_stop
-                plan.append((record, vals))
-
-            for record in ordered:
-                old_start = fields.Datetime.to_datetime(record[date_start_field])
-                candidate = old_start + delta
-                new_start, new_stop = record._gantt_reschedule_compute_dates(
-                    candidate, search_forward, date_start_field, date_stop_field,
-                    reschedule_method,
-                )
-                plan.append((record, {date_start_field: new_start, date_stop_field: new_stop}))
-
-            # Snapshot the dependencies before any write, for Undo.
-            for record, vals in plan:
-                old_vals_per_pill_id.setdefault(
-                    record.id, self._gantt_reschedule_old_vals(record, vals))
-
-            # --- Phase 2: write, atomically -------------------------------
-            with self.env.cr.savepoint():
-                for record, vals in plan:
-                    if record in moved:
-                        record.write(vals)
-                    else:
-                        record._gantt_reschedule_write_dates(
-                            vals[date_start_field], vals[date_stop_field],
-                            date_start_field, date_stop_field,
-                        )
-
-        except UserError as error:
-            return {
-                'type': 'warning',
-                'message': error.args[0],
-                'old_vals_per_pill_id': {},
-            }
-
-        return {
-            'type': 'success',
-            'message': _("The records have been rescheduled."),
-            'old_vals_per_pill_id': old_vals_per_pill_id,
-        }
-
-    @api.model
-    def action_rollback_scheduling(self, old_vals_per_pill_id):
-        """Restore the values captured before a reschedule (the Undo button)."""
-        for record in self.browse([int(key) for key in old_vals_per_pill_id]):
-            vals = old_vals_per_pill_id.get(str(record.id)) or \
-                old_vals_per_pill_id.get(record.id)
-            if vals and record.exists():
-                record.write(vals)
+        self.browse(ids).write(data)
+        return data
 
 
 class ResPartner(models.Model):
