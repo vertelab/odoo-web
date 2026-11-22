@@ -6,14 +6,17 @@
     "version": "1.0.1",
     "license": "AGPL-3",
     "sequence": 6,
-    "author": "Vertel Sverige AB",
+    "author": "Vertel AB",
     "website": "https://www.vertel.se",
     "summary": 'Base module to add mermaid in any model',
     "description": """
         Base module to add mermaid in any model""",
     "depends": [
         "web",
-        'web_widget_mermaid_field' # https://github.com/VictorHachard/odoo-modules/tree/17.0/web_widget_mermaid_field,
+        # web_widget_mermaid_field is not ported past 17.0 and has no 18.0,
+        # 19.0 or 20.0 branch. The field widget is what mermaid.mixin renders
+        # into, so without it the mixin has no editor — see README.
+        'web_widget_mermaid_field',  # https://github.com/VictorHachard/odoo-modules
     ],
     "data": [
     ],

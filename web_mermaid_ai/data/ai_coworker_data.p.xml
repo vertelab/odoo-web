@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mermaid Diagram Generator — AI-coworker (bridge) -->
+    <record id="mermaid_diagram_coworker" model="ai.coworker">
+        <field name="name">Mermaid Diagram Generator</field>
+        <field name="sub_description">Genererar ren Mermaid-syntax för diagram</field>
+        <field name="description">
+Generate ONLY valid Mermaid diagram syntax. Return pure Mermaid code with absolutely no additional content.
+
+CRITICAL OUTPUT REQUIREMENTS:
+- Output raw Mermaid syntax ONLY - no explanations, commentary, or descriptions
+- NO markdown code blocks (no ```, no ```mermaid)
+- NO HTML tags whatsoever (no &lt;br&gt;, &lt;div&gt;, &lt;p&gt;, &lt;span&gt;, etc.)
+- NO introductory text (e.g., "Here is...", "This diagram...")
+- NO concluding text or summaries
+- NO whitespace or line breaks before or after the Mermaid code
+- First character of output must be the diagram type declaration
+
+MERMAID SYNTAX RULES:
+- Follow the official Mermaid syntax specification for the specified diagram type exactly
+- Use Mermaid-native syntax for all formatting and line breaks
+- For multi-line labels: use &lt;br/&gt; entity, never HTML tags
+- Apply proper Mermaid escaping for special characters
+- Adapt to any valid Mermaid diagram type, including newer or beta types
+
+OUTPUT VALIDATION:
+The output must be directly parseable by a Mermaid renderer without any preprocessing, string manipulation, or cleaning. Test your output mentally against the official Mermaid parser before returning it.
+        </field>
+        <field name="status">active</field>
+        <field name="model_ids" eval="[(6, 0, [
+            ref('web_mermaid.model_mermaid_mixin'),
+        ])]"/>
+        <field name="filter_domain">[]</field>
+        <field name="hitl_threshold">always</field>
+        <field name="orchestration_mode">single</field>
+        <field name="example_prompts">
+- "Generera ett sekvensdiagram för orderflödet"
+- "Skapa ett flowchart för supportprocessen"
+        </field>
+    </record>
+
+
+    <!-- Skill: mermaid.generator -->
+    <record id="skill_mermaid_generator" model="ai.skill">
+        <field name="name">mermaid.generator</field>
+        <field name="description">Generera ren, giltig Mermaid-syntax för diagram. Använd när användaren vill skapa/ändra ett diagram.</field>
+        <field name="category">development</field>
+        <field name="trigger_keywords">mermaid, diagram, flowchart, sekvensdiagram, use case, grafik</field>
+        <field name="recipe_text">
+# Mermaid Generator
+
+Generera ENDAST giltig Mermaid-syntax.
+
+## Kritiska regler
+- Svara med rå Mermaid-syntax — inga förklaringar, ingen markdown (```-block), inga HTML-taggar
+- Första tecknet ska vara diagramtypens deklaration (t.ex. `flowchart TD`)
+- Använd Mermaid-native syntax; för flerradiga etiketter: `&lt;br/&gt;` (aldrig HTML-taggar)
+- Escapa Mermaid-specialtecken korrekt
+
+## Diagramtyper
+- flowchart, sequenceDiagram, classDiagram, stateDiagram-v2, erDiagram, gantt, journey, pie
+- Anpassa till önskad typ (inkl. nyare/beta-typer)
+
+## Output
+Måste vara direkt tolkningsbar av en Mermaid-renderare utan förbehandling.
+        </field>
+    </record>
+
+    <!-- Koppla skill till coworkern -->
+    <record id="mermaid_diagram_coworker_skill" model="ai.coworker.skill">
+        <field name="coworker_id" ref="mermaid_diagram_coworker"/>
+        <field name="source_skill_id" ref="skill_mermaid_generator"/>
+    </record>
+
+    <!-- Init-type: powerbox — trigger via "/" i prompt-fältet på modeller
+         som ärver mermaid.mixin (model_ids tom = tillgänglig på alla). -->
+    <record id="mermaid_diagram_coworker_init" model="ai.coworker.init_type">
+        <field name="coworker_id" ref="mermaid_diagram_coworker"/>
+        <field name="init_type">powerbox</field>
+        <field name="enabled">True</field>
+        <field name="sequence">10</field>
+    </record>
+</odoo>

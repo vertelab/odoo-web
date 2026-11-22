@@ -67,7 +67,7 @@
 """# -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.http import request, Controller, route
-from odoo.osv import expression
+# odoo.osv was removed in 20.0; this module never used expression.
 
 
 # 1. Generisk SWOT View Helper
