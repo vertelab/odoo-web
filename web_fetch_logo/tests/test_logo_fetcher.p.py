@@ -212,10 +212,11 @@ class TestWebFetchLogoMixin(TransactionCase):
     def test_mixin_uses_config_api_key(self):
         # #if VERSION >= "20.0"
         self.env['ir.config_parameter'].set_str(
+            'web_fetch_logo.logo_dev_api_key', 'pk_mixin')
         # #else
         self.env['ir.config_parameter'].set_param(
-        # #endif
             'web_fetch_logo.logo_dev_api_key', 'pk_mixin')
+        # #endif
         with patch(
             'odoo.addons.web_fetch_logo.models.logo_fetcher.requests.get',
             side_effect=[_img_response(SVG, 'image/svg+xml')]
@@ -228,10 +229,11 @@ class TestWebFetchLogoMixin(TransactionCase):
     def test_mixin_without_key_skips_logo_dev(self):
         # #if VERSION >= "20.0"
         self.env['ir.config_parameter'].set_str(
+            'web_fetch_logo.logo_dev_api_key', '')
         # #else
         self.env['ir.config_parameter'].set_param(
-        # #endif
             'web_fetch_logo.logo_dev_api_key', '')
+        # #endif
         with patch(
             'odoo.addons.web_fetch_logo.models.logo_fetcher.requests.get',
             side_effect=[_img_response()]

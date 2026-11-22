@@ -54,8 +54,8 @@ class WebsiteStructuredData(models.AbstractModel):
         Google-formatet och ORM:en möts, och det ska vara samma källa.
         """
         record.ensure_one()
-        base_url = self.env['ir.config_parameter'].sudo().get_param(
-            'web.base.url', '')
+        icp = self.env['ir.config_parameter'].sudo()
+        base_url = icp.get_param('web.base.url', '')
         url = ''
         try:
             url = record.get_base_url() + (record.website_url or '')

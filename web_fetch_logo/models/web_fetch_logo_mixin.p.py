@@ -27,10 +27,10 @@ class WebFetchLogoMixin(models.AbstractModel):
         Uses the environment's ``ir.config_parameter`` for the logo.dev
         API key. Never raises on fetch failures.
         """
+        icp = self.env['ir.config_parameter'].sudo()
         # #if VERSION >= "20.0"
-        api_key = self.env['ir.config_parameter'].sudo().get_str(
+        api_key = icp.get_str('web_fetch_logo.logo_dev_api_key', '')
         # #else
-        api_key = self.env['ir.config_parameter'].sudo().get_param(
+        api_key = icp.get_param('web_fetch_logo.logo_dev_api_key', '')
         # #endif
-            'web_fetch_logo.logo_dev_api_key', '')
         return _fetch_logo_b64(domain_or_url, api_key=api_key)
