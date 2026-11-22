@@ -112,7 +112,6 @@ web_grid_ce/static/tests/grid_cells/float_toggle_grid_cell.test.js
 web_grid_ce/static/tests/legacy/helpers.js
 web_grid_ce/tools/grid_view_validation.py
 web_ir_actions_act_view_reload/models/ir_actions_act_view_reload.py
-web_ir_actions_act_view_reload/security/ir.model.access.csv
 web_ir_actions_act_view_reload/static/src/js/web_ir_actions_act_view_reload.esm.js
 web_map_ce/validation.py
 web_map_ce/demo/demo_map_view.xml

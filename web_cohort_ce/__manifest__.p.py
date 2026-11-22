@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+# Copyright (C) 2026 Vertel AB
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
+{
+    'name': 'Web: Cohort View CE',
+    'summary': 'Cohort view for Odoo Community Edition.',
+    'description': '''
+Cohort View CE
+==============
+
+    Cohort view for Odoo Community Edition.
+
+    Features:
+
+        - Web integration: Exposes HTTP endpoints for external systems.
+        - Extends Odoo: Builds on cohort.mixin, web.cohort.view.model.
+    ''',
+    'category': 'Hidden',
+    'version': '1.0.0',
+    'depends': ['web'],
+    'assets': {
+        'web.assets_backend_lazy': [
+            'web_cohort_ce/static/src/**/*',
+        ],
+        'web.assets_unit_tests': [
+            'web_cohort_ce/static/tests/**/*.js',
+        ],
+    },
+    'auto_install': True,
+    'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-web/web_cohort_ce',
+    'license': 'LGPL-3',
+}
