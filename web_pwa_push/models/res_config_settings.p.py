@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 import base64
@@ -7,11 +7,7 @@ import logging
 
 from odoo import fields, models
 from odoo.addons.mail.tools.jwt import generate_vapid_keys
-# #if VERSION >= "20.0"
 from odoo.tools.image import image_process
-# #else
-from odoo.tools import image_process
-# #endif
 
 _logger = logging.getLogger(__name__)
 
