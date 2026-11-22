@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_bcg_matrix" model="ir.ui.view">
+        <field name="name">res.partner.bcg.demo</field>
+        <field name="model">res.partner</field>
+        <field name="type">bcg_matrix</field>
+        <field name="arch" type="xml">
+            <bcg_matrix string="Partner Portfolio (BCG)"
+                        x_field="partner_latitude" y_field="partner_longitude"
+                        x_label="Latitude" y_label="Longitude"
+                        label_field="name"
+                        x_midpoint="59" y_midpoint="18"
+                        quadrant_labels="NE,NV,SO,SV"/>
+        </field>
+    </record>
+
+    <record id="action_product_bcg_matrix" model="ir.actions.act_window">
+        <field name="name">BCG Portfolio</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">bcg_matrix,kanban,list,form</field>
+        <field name="view_id" ref="view_product_bcg_matrix"/>
+    </record>
+
+</odoo>

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -18,7 +18,7 @@ BCG Matrix View
     'description': 'Visualizes records in a 2x2 matrix based on two numeric fields. '
                    'Useful for portfolio analysis, risk assessment, and customer segmentation.',
     'category': 'Hidden',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'depends': ['web'],
     'assets': {
         'web.assets_backend_lazy': [
@@ -29,7 +29,7 @@ BCG Matrix View
         'demo/demo_bcg_matrix_view.xml',
     ],
     'auto_install': False,
-    'author': 'Vertel Sverige AB',
+    'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-web/web_bcg_matrix',
     'license': 'LGPL-3',
 }

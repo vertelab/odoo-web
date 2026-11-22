@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_calendar_event_year_wheel" model="ir.ui.view">
+        <field name="name">res.partner.year_wheel.demo</field>
+        <field name="model">res.partner</field>
+        <field name="type">year_wheel</field>
+        <field name="arch" type="xml">
+            <year_wheel string="Partner Year Wheel" date_field="create_date"
+                        color_field="company_type" label_field="name"
+                        start_month="1" segments="12"/>
+        </field>
+    </record>
+
+    <record id="action_calendar_event_year_wheel" model="ir.actions.act_window">
+        <field name="name">Year Wheel</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">year_wheel,kanban,list,form</field>
+        <field name="view_id" ref="view_calendar_event_year_wheel"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.map.ce</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="46"/>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='base_geolocalize']" position="after">
+                <setting id="openstreetmap_info" string="OpenStreetMap" help="Map view uses OpenStreetMap/Nominatim for geocoding. No token required. Max 1 request/second.">
+                    <div class="content-group">
+                        <div class="text-muted">
+                            Geocoding provided by <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>
+                            via <a href="https://nominatim.org" target="_blank">Nominatim</a>.
+                            Coordinates are cached in res.partner after first lookup.
+                        </div>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>

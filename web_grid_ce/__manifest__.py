@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -17,7 +17,7 @@ Grid View CE
     ''',
     'description': 'Provides a read/write 2D grid view for pivoting data.',
     'category': 'Hidden',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'depends': ['web'],
     'assets': {
         'web.assets_backend_lazy': [
@@ -28,7 +28,7 @@ Grid View CE
         ],
     },
     'auto_install': True,
-    'author': 'Vertel Sverige AB',
+    'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-web/web_grid_ce',
     'license': 'LGPL-3',
 }

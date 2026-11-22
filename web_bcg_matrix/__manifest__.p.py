@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+# Copyright (C) 2026 Vertel AB
+# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+
+{
+    'name': 'Web: BCG Matrix View',
+    'summary': 'Boston Consulting Group matrix view (4-quadrant scatter plot).',
+    'description': '''
+BCG Matrix View
+===============
+
+    Boston Consulting Group matrix view (4-quadrant scatter plot).
+
+    Features:
+
+        - Extends Odoo: Builds on existing Odoo models.
+    ''',
+    'description': 'Visualizes records in a 2x2 matrix based on two numeric fields. '
+                   'Useful for portfolio analysis, risk assessment, and customer segmentation.',
+    'category': 'Hidden',
+    'version': '1.0.0',
+    'depends': ['web'],
+    'assets': {
+        'web.assets_backend_lazy': [
+            'web_bcg_matrix/static/src/**/*',
+        ],
+    },
+    'demo': [
+        'demo/demo_bcg_matrix_view.xml',
+    ],
+    'auto_install': False,
+    'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-web/web_bcg_matrix',
+    'license': 'LGPL-3',
+}
