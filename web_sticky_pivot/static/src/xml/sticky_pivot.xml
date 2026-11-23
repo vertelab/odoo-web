@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        Extension of the Odoo 18 pivot renderer.
+
+        No t-name: an extension must not register itself as a primary template.
+        The parent (web.PivotRenderer) lives in web.assets_backend_lazy, so this
+        file must be loaded from the same bundle - see __manifest__.py.
+
+        The xpaths target structures verified against
+        web/static/src/views/pivot/pivot_renderer.xml in Odoo 18
+        (18.0-20261123):
+
+          line 6   <div class="o_pivot mx-3">
+          line 12  <thead>
+          line 17  <th t-att-colspan="cell.width" .../>   the leaf header cells
+
+        The previous version used //thead//th[@colspan]. That does not match:
+        the colspan is an OWL directive (t-att-colspan), not a rendered
+        attribute, and the xpath is evaluated on the template source, not on
+        the DOM. The corrected expression selects the th element that carries
+        the t-att-colspan directive.
+    -->
+    <t t-inherit="web.PivotRenderer" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_pivot')]" position="attributes">
+            <attribute name="style" add="overflow-x:visible" separator=";"/>
+        </xpath>
+        <xpath expr="//thead" position="attributes">
+            <attribute name="class" add="o_sticky_pivot_head" separator=" "/>
+        </xpath>
+        <xpath expr="//th[@t-att-colspan]" position="attributes">
+            <attribute name="class" add="o_sticky_pivot_first_col" separator=" "/>
+        </xpath>
+    </t>
+
+</templates>

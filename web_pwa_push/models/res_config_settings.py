@@ -7,7 +7,7 @@ import logging
 
 from odoo import fields, models
 from odoo.addons.mail.tools.jwt import generate_vapid_keys
-from odoo.tools import image_process
+from odoo.tools.image import image_process
 
 _logger = logging.getLogger(__name__)
 

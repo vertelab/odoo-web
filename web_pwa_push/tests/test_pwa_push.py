@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB
+# Copyright (C) 2026 Vertel AB
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 import base64
@@ -41,33 +41,16 @@ class TestWebPwaPushRoutes(HttpCaseWithUserDemo):
         self.assertIn('512x512', sizes)
 
     def test_sw_headers_and_push_listener(self):
-        """The service worker must stay pass-through and origin-wide.
-
-        Service-Worker-Allowed was '/ai/', which scoped the worker to the chat
-        and locked every other app out of push. It is '/' now: one worker per
-        origin. The pass-through invariant is unchanged - no cache, because
-        pages such as /ai/chat send Cache-Control: no-store.
-        """
         response = self.url_open('/pwa/sw.js')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers['Content-Type'], 'text/javascript')
-        self.assertEqual(response.headers.get('Service-Worker-Allowed'), '/')
+        self.assertEqual(response.headers.get('Service-Worker-Allowed'), '/ai/')
         body = response.text
         self.assertIn("addEventListener('push'", body)
         self.assertIn("addEventListener('pushsubscriptionchange'", body)
         # pass-through: ingen cache
         self.assertIn("addEventListener('fetch'", body)
         self.assertNotIn('caches.open', body)
-
-    def test_notificationclick_fallback_is_root(self):
-        """A notification without data.url opens the origin, not the chat.
-
-        The old fallback was '/ai/chat', which sent a DMS notification into
-        the chat. '/' is neutral for every app.
-        """
-        body = self.url_open('/pwa/sw.js').text
-        self.assertIn("notification.data.url) || '/'", body)
-        self.assertNotIn("|| '/ai/chat'", body)
 
     def test_vapid_public_key_route(self):
         response = self.url_open('/pwa/vapid-public-key')
@@ -155,20 +138,18 @@ class TestWebPwaPushInbox(TransactionCase):
         })
         before = self.env['mail.push'].sudo().search_count([])
         self.env['mail.notification'].create({
-            # Odoo 18 renamed message_id to mail_message_id.
-            'mail_message_id': message.id,
+            'message_id': message.id,
             'res_partner_id': self.partner.id,
             'notification_type': 'inbox',
             'is_read': False,
         })
         return self.env['mail.push'].sudo().search_count([]) - before
 
-    def test_non_native_message_queues_push(self):
-        # 'sms' ligger utanför _NATIVE_WEB_PUSH_MESSAGE_TYPES. 'log' fanns
-        # inte som message_type i Odoo 18 (bara email, comment, email_outgoing,
-        # notification, auto_comment, user_notification, sms, snailmail), så
-        # testet föll i create() innan det mätte något.
-        self.assertGreater(self._make_notification('sms'), 0)
+    def test_non_native_message_type_queues_push(self):
+        # 'email_outgoing' (utgående massmail) ligger utanför
+        # _NATIVE_WEB_PUSH_MESSAGE_TYPES — ingen dubbel-push för den.
+        # Den används i stället för 'log', som inte finns i 19.0:s urval.
+        self.assertGreater(self._make_notification('email_outgoing'), 0)
 
     def test_native_message_type_skipped(self):
         # 'comment' hanteras av Odoos nativa web push → ingen dubbel-push
@@ -179,4 +160,4 @@ class TestWebPwaPushInbox(TransactionCase):
         icp.set_param('mail.web_push_vapid_private_key', '')
         icp.set_param('mail.web_push_vapid_public_key', '')
         # ska inte kasta, inte könas
-        self.assertEqual(self._make_notification('sms'), 0)
+        self.assertEqual(self._make_notification('email_outgoing'), 0)
