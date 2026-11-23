@@ -1,0 +1,8 @@
+# Odoo Web (vertelab/odoo-web) — Python-beroenden
+#
+# Installeras av repo_apply tillsammans med alla andra
+# /usr/share/odoo-*/requirements.txt.
+#
+# Inventering 2026-11-13: filen saknades helt. web_mermaid importerar
+# BeautifulSoup på modulnivå för att sanera Mermaid-källor.
+beautifulsoup4
