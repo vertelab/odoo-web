@@ -1,0 +1,52 @@
+/*
+    Sticky pivot view — Odoo 18.
+
+    Header sticks during vertical scroll, the first column sticks during
+    horizontal scroll. Class names are prefixed o_sticky_pivot_ so they cannot
+    collide with the Cybrosys module's cb_* classes during a migration.
+*/
+
+.o_pivot .o_sticky_pivot_head {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.o_pivot .o_sticky_pivot_head th {
+    background-color: var(--o-view-background-color, #fff);
+    outline: 1px solid var(--o-border-color, #dee2e6);
+    outline-offset: -1px;
+    border: none;
+}
+
+.o_pivot .o_sticky_pivot_first_col {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+}
+
+.o_pivot tbody tr th,
+.o_pivot tbody tr td.text-nowrap {
+    position: sticky;
+    left: 0;
+    background-color: var(--o-view-background-color, #fff);
+    outline: 1px solid var(--o-border-color, #dee2e6);
+    outline-offset: -1px;
+}
+
+/* Keep the corner cell above both the sticky head and the sticky column. */
+.o_pivot .o_sticky_pivot_head .o_sticky_pivot_first_col {
+    z-index: 15;
+}
+
+/* The group-by dropdown must not be clipped by the sticky container. */
+.o_pivot .o-dropdown.dropdown.o_group_by_menu {
+    position: relative !important;
+    display: block !important;
+}
+
+.o_pivot th .o-dropdown.dropdown.o_group_by_menu > .o-dropdown--menu.dropdown-menu {
+    position: absolute !important;
+    left: 105% !important;
+    top: 100% !important;
+}
