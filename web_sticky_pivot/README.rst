@@ -29,16 +29,56 @@ What this module does
   template.
 * Uses ``o_sticky_pivot_*`` class names so it cannot collide with the
   ``cb_*`` classes of the module it supersedes.
+* On install, uninstalls ``sticky_pivot_view`` if it is present and installed.
 
-Migration
-=========
+Relationship to sticky_pivot_view
+=================================
 
-Install this module, then uninstall ``sticky_pivot_view``. Both extensions
-applied at once would double the CSS.
+This module supersedes ``sticky_pivot_view``. Both extensions cannot be active
+at once: they target the same template and would apply the sticky CSS twice.
 
-``auto_install`` is True: the module activates itself when ``web`` is present,
-which is always. That is intentional — the fix should not depend on somebody
-remembering to install it.
+``depends`` is deliberately ``web`` and not ``sticky_pivot_view``. Depending on
+the module we are about to remove would make the uninstall cascade back onto
+this module, and we would remove ourselves along with it.
+
+``auto_install`` is False. The module is installed deliberately, once per
+database, because it performs a destructive step.
+
+Install
+=======
+
+::
+
+    checkmodule -d <database> -m web_sticky_pivot
+
+The ``post_init_hook`` then checks ``sticky_pivot_view``:
+
+============================  ==========================================
+State of sticky_pivot_view    Hook does
+============================  ==========================================
+missing                       nothing
+``uninstalled``               nothing
+``to remove``                 nothing (already queued)
+``installed``                 uninstalls it
+``to upgrade``                uninstalls it
+============================  ==========================================
+
+If the uninstall raises, the exception is logged and swallowed. A failed
+cleanup must not roll back the installation of this module — then the console
+error the module exists to remove would come back with no way to see why. The
+log line names the manual command.
+
+Verified
+========
+
+Tested on Odoo 18.0-20261123 against a copy of the production database:
+
+* hook with no ``sticky_pivot_view`` present → logs, does nothing
+* hook with ``sticky_pivot_view`` installed → uninstalls it, this module stays
+* hook with ``sticky_pivot_view`` in ``to remove`` → leaves it alone
+* pivot view renders with no console error
+* ``.o_sticky_pivot_head`` → ``position: sticky``, ``top: 0px``
+* ``.o_sticky_pivot_first_col`` → ``position: sticky``, ``left: 0px``
 
 Credits
 =======

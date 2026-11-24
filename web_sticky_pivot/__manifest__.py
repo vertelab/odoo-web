@@ -1,6 +1,6 @@
 {
     'name': 'Web: Sticky Pivot View',
-    'version': '18.0.1.0.1',
+    'version': '18.0.1.0.2',
     'category': 'Hidden/Tools',
     'summary': "Sticky pivot headers and first column, without breaking the lazy pivot bundle",
     'description': '''
@@ -32,9 +32,23 @@ wrong bundle. This module places the same extension in
 the ``t-name`` attribute (an extension must not register itself as a primary
 template).
 
-This module does not replace ``sticky_pivot_view``; it supersedes it. Install
-this one and uninstall the other, otherwise both extensions load and the
-behaviour is applied twice.
+Relationship to sticky_pivot_view
+---------------------------------
+
+This module supersedes ``sticky_pivot_view``. Both extensions cannot be active
+at once: they target the same template and would apply the sticky CSS twice.
+
+``depends`` is deliberately ``web`` and not ``sticky_pivot_view``. Depending on
+the module we are about to remove would make the uninstall cascade back onto
+this module, and we would remove ourselves along with it.
+
+On install, ``post_init_hook`` checks whether ``sticky_pivot_view`` is present
+and installed. If it is, it is uninstalled; if it is not, the hook does
+nothing. The check is the point - a hook that uninstalls unconditionally would
+fail on every database that never had the Cybrosys module.
+
+``auto_install`` is False: the module is installed deliberately, once per
+database, because it performs a destructive step.
     ''',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-web/web_sticky_pivot',
@@ -48,7 +62,8 @@ behaviour is applied twice.
             'web_sticky_pivot/static/src/xml/sticky_pivot.xml',
         ],
     },
+    'post_init_hook': 'post_init_hook',
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
     'application': False,
 }
