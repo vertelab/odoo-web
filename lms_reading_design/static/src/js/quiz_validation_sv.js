@@ -54,6 +54,11 @@ const TRANSLATIONS = [
     // Sign-up hint
     ["Don't have an account?", "Har du inget konto?"],
     ["Sign Up!", "Skapa ett"],
+    // The join-and-submit button. Odoo passes this string as joinMessage in
+    // _renderJoinWidget, so it is not part of the validation DOM — the patch
+    // below rewrites it after the widget has been appended.
+    ["Join & Submit", "Skicka in"],
+    ["Join this Course", "Gå med i kursen"],
     // Member view
     ["Check your answers", "Rätta svaren"],
     ["Done!", "Klart!"],
@@ -104,4 +109,40 @@ Quiz.prototype._renderValidationInfo = function () {
             }
         }
     }
+};
+
+/**
+ * The join-and-submit button.
+ *
+ * Its label is not part of the validation template: Odoo passes it as
+ * `joinMessage: _t('Join & Submit')` when it builds the CourseJoinWidget in
+ * `_renderJoinWidget`, and the widget renders it from `this.joinMessage`. That
+ * means the text-node pass above never sees it.
+ *
+ * In fullscreen the quiz widget's root does not contain the join button, so the
+ * lookup goes through the document rather than through `this.el`. The class
+ * names are left alone — `.o_wslides_js_course_join_link` is what enrolls the
+ * visitor and submits the answers.
+ */
+const originalRenderJoinWidget = Quiz.prototype._renderJoinWidget;
+
+Quiz.prototype._renderJoinWidget = function () {
+    originalRenderJoinWidget.apply(this, arguments);
+
+    // The widget appends asynchronously; give it a tick before rewriting.
+    const rewrite = () => {
+        for (const label of document.querySelectorAll(
+            ".o_wslides_js_course_join_link"
+        )) {
+            const text = label.textContent.trim();
+            for (const [from, to] of TRANSLATIONS) {
+                if (text === from) {
+                    label.textContent = to;
+                    break;
+                }
+            }
+        }
+    };
+    rewrite();
+    setTimeout(rewrite, 0);
 };
