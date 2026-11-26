@@ -1,0 +1,341 @@
+// Copyright (C) 2026 Vertel Sverige AB (<https://vertel.se>).
+// License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+//
+// LMS: Reading Design
+// ===================
+// Readable eLearning. Two jobs:
+//
+//   1. A slide can never paint itself unreadable. Course slides carry their
+//      own HTML in module data, so a section can hold a dark background while
+//      still claiming the light colour combination (o_cc1). That produced
+//      near-black text on a dark blue cover: 1.94:1 contrast, below the 4.5:1
+//      WCAG AA requires. In fullscreen the same text sat on a dark gradient
+//      and measured 1.01:1 — invisible.
+//
+//   2. The fullscreen player reads like a document. Odoo renders articles on
+//      a bare white sheet with no measure, no rhythm and no heading hierarchy.
+//      Long lessons become a wall of text.
+//
+// Everything here is module SCSS, so it is re-applied on every upgrade. The
+// website's own custom CSS files live inside Odoo's package directory and are
+// overwritten by any Odoo upgrade — a redesign placed there would vanish.
+
+// ─── Palette ────────────────────────────────────────────────────────────────
+$lms-ink:            #10202e;   // body text on paper
+$lms-ink-soft:       #3f5566;   // secondary text
+$lms-heading:        #14324a;   // headings
+$lms-paper:          #fbfcfd;   // reading surface
+$lms-paper-edge:     #e6ecf1;   // hairline
+$lms-accent:         #0f766e;   // links, rules, small marks
+$lms-accent-soft:    #e6f4f2;
+$lms-warm:           #b45309;   // the one warm note
+$lms-radius:         14px;
+
+// ─── 1. Covers: readable text, always ───────────────────────────────────────
+// A cover with a dark background must carry light text. The slides set the
+// background inline on .s_parallax_bg, so we key off the section instead of
+// trying to out-specify the inline style: any s_cover that is not explicitly
+// a light combination gets light text. This is what stops the 1.94:1 case
+// from ever coming back, no matter what a slide's own HTML claims.
+.o_wslides_lesson_main,
+.o_wslides_fs_main {
+
+    section.s_cover {
+        color: #fff;
+
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6 {
+            color: #fff !important;
+            text-wrap: balance;
+        }
+
+        p, .lead, span, li {
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        a:not(.btn) {
+            color: #fff;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        // Keep the cover readable when a slide insists on a light combination
+        // but still paints a dark background behind it.
+        &.o_cc1, &.o_cc2 {
+            h1, h2, h3, h4, h5, h6,
+            .h1, .h2, .h3, .h4, .h5, .h6 {
+                color: #fff !important;
+            }
+        }
+    }
+
+    // A light cover (explicitly marked) keeps dark text.
+    section.s_cover.s_cover_light {
+        color: $lms-ink;
+
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6 {
+            color: $lms-heading !important;
+        }
+
+        p, .lead, span, li {
+            color: $lms-ink-soft;
+        }
+    }
+}
+
+// ─── 2. The fullscreen player: a proper reading surface ─────────────────────
+.o_wslides_fs_main {
+
+    // Odoo paints a dark gradient behind everything. Keep it as the frame, but
+    // soften it so the paper page has something calm to sit on.
+    background-image: linear-gradient(150deg, #16232f 0%, #0e1720 100%);
+
+    .o_wslides_slide_fs_header {
+        background-image: none;
+        background-color: rgba(9, 15, 21, 0.72);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .o_wslides_fs_sidebar {
+        background-image: none;
+        background-color: #101a24;
+        border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    // The article body. Odoo gives it 'bg-white block w-100 overflow-auto p-3'
+    // and nothing else; we turn it into a page.
+    .o_wslide_fs_article_content {
+        background-color: $lms-paper !important;
+        color: $lms-ink;
+        max-width: 78ch;
+        margin: 0 auto;
+        padding: 0 !important;
+        border-radius: $lms-radius;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+        font-size: 1.0625rem;
+        line-height: 1.72;
+        -webkit-font-smoothing: antialiased;
+
+        // The slide's own sections provide the vertical rhythm.
+        > section {
+            padding-left: clamp(1.25rem, 4vw, 3rem);
+            padding-right: clamp(1.25rem, 4vw, 3rem);
+
+            &:first-child {
+                padding-top: clamp(2rem, 5vw, 3.5rem);
+            }
+
+            &:last-child {
+                padding-bottom: clamp(2rem, 5vw, 3.5rem);
+            }
+        }
+
+        // Headings: clear hierarchy, no shouting.
+        h1, .h1 {
+            font-size: clamp(1.75rem, 3.2vw, 2.35rem);
+            font-weight: 650;
+            letter-spacing: -0.015em;
+            line-height: 1.2;
+            color: $lms-heading;
+            margin-bottom: 0.6em;
+        }
+
+        h2, .h2 {
+            font-size: clamp(1.3rem, 2.2vw, 1.55rem);
+            font-weight: 620;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            color: $lms-heading;
+            margin-top: 1.9em;
+            margin-bottom: 0.55em;
+        }
+
+        h3, .h3, h4, .h4, h5, .h5 {
+            font-size: 1.08rem;
+            font-weight: 620;
+            line-height: 1.4;
+            color: $lms-heading;
+            margin-top: 1.4em;
+            margin-bottom: 0.4em;
+        }
+
+        // A short rule under section headings gives the eye a landing point.
+        h2:not(:first-child) {
+            padding-top: 0.2em;
+            border-top: 1px solid $lms-paper-edge;
+        }
+
+        p {
+            margin-bottom: 1.05em;
+            color: $lms-ink;
+            max-width: 72ch;
+        }
+
+        .lead {
+            font-size: 1.14rem;
+            line-height: 1.6;
+            color: $lms-ink-soft;
+        }
+
+        strong {
+            font-weight: 650;
+            color: $lms-heading;
+        }
+
+        a:not(.btn) {
+            color: $lms-accent;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+
+            &:hover {
+                color: darken($lms-accent, 12%);
+            }
+        }
+
+        ul, ol {
+            padding-left: 1.3em;
+            margin-bottom: 1.05em;
+
+            li {
+                margin-bottom: 0.35em;
+            }
+        }
+
+        hr {
+            border-color: $lms-paper-edge;
+            opacity: 1;
+            margin: 2em 0;
+        }
+
+        blockquote {
+            border-left: 3px solid $lms-accent;
+            background: $lms-accent-soft;
+            padding: 0.85em 1.1em;
+            border-radius: 0 $lms-radius $lms-radius 0;
+            color: $lms-ink-soft;
+        }
+
+        // Tables read as data, not as decoration.
+        table {
+            font-size: 0.96rem;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 1px solid $lms-paper-edge;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.3em;
+
+            th {
+                background: #f1f5f8;
+                color: $lms-heading;
+                font-weight: 620;
+                border: 0;
+                border-bottom: 1px solid $lms-paper-edge;
+                padding: 0.6em 0.85em;
+            }
+
+            td {
+                border: 0;
+                border-bottom: 1px solid $lms-paper-edge;
+                padding: 0.55em 0.85em;
+            }
+
+            tr:last-child td {
+                border-bottom: 0;
+            }
+        }
+
+        // Screenshots: they carry the lesson, so give them room.
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid $lms-paper-edge;
+            box-shadow: 0 3px 12px rgba(16, 32, 46, 0.08);
+        }
+
+        figure {
+            margin: 1.4em 0;
+
+            figcaption {
+                font-size: 0.9rem;
+                color: $lms-ink-soft;
+                margin-top: 0.6em;
+                line-height: 1.5;
+            }
+        }
+
+        // Section backgrounds inside a slide: keep them as soft bands instead
+        // of hard blocks, so the page stays one surface.
+        .o_colored_level {
+            border-radius: 10px;
+        }
+
+        // Feature cards get a card treatment.
+        .s_features .s_features_icon {
+            width: 2.4rem;
+            height: 2.4rem;
+            line-height: 2.4rem;
+            text-align: center;
+            background-color: $lms-accent-soft !important;
+            color: $lms-accent !important;
+            border-radius: 10px;
+        }
+
+        .s_call_to_action {
+            background: linear-gradient(135deg, #f0f7f6 0%, #e8f1f7 100%) !important;
+            border-left: 3px solid $lms-accent;
+        }
+
+        // Badges used in the course text ("Betald", "Pågående").
+        .badge {
+            font-weight: 600;
+            padding: 0.35em 0.7em;
+            border-radius: 999px;
+        }
+    }
+
+    // Quiz slides already get 'bg-white' from Odoo; align them with the paper.
+    .o_wslides_fs_content.bg-white {
+        background-color: $lms-paper !important;
+    }
+
+    // The join/verify invitation. Odoo renders it as a blue alert-info box;
+    // keep the function, drop the colour clash.
+    .o_wslides_join_course.alert-info {
+        background-color: $lms-accent-soft !important;
+        border: 1px solid rgba(15, 118, 110, 0.28) !important;
+        border-radius: $lms-radius;
+        color: $lms-heading !important;
+
+        b, .h5, span {
+            color: $lms-heading !important;
+        }
+
+        .badge.bg-warning {
+            background-color: $lms-warm !important;
+            color: #fff !important;
+        }
+    }
+}
+
+// ─── 3. Course pages: calmer rhythm ─────────────────────────────────────────
+.o_wslides_lesson_main {
+
+    .o_wslides_lesson_card,
+    .card {
+        border-radius: $lms-radius;
+        border-color: $lms-paper-edge;
+    }
+
+    .o_wslides_slide_list_item:hover {
+        background-color: $lms-accent-soft;
+    }
+}

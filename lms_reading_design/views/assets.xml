@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The SCSS is registered through the manifest 'assets' key. This file exists
+    so the module has a data file to load and so a future view-level fix has a
+    home; it deliberately contains no records.
+-->
+<odoo>
+    <data noupdate="1"/>
+</odoo>
