@@ -339,3 +339,162 @@ $lms-radius:         14px;
         background-color: $lms-accent-soft;
     }
 }
+
+// ─── 4. Quiz slides: same reading surface as the articles ───────────────────
+// The quiz is rendered by a different widget than the articles and therefore
+// inherits Odoo's bootstrap container: 1140px wide, 15px side padding, 16px
+// body text. The articles sit on a 78ch page with 71px margins and 17px text.
+// The result reads as a different site. This block gives the quiz the same
+// page, the same type scale and the same rhythm.
+.o_wslides_fs_main {
+
+    .o_wslides_fs_quiz_container {
+        // Odoo gives this a bare .container; we centre a reading column
+        // instead, matching the article surface.
+        // Match the article page exactly: 78ch content, and the padding
+        // counted *inside* that width so the text column lines up with the
+        // articles rather than ending 96px short of it.
+        > .container {
+            max-width: 78ch;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+            margin-left: auto;
+            margin-right: auto;
+            box-sizing: border-box;
+        }
+
+        // Intro line above the first question
+        > .container > .mt-3 {
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            color: $lms-ink-soft;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid $lms-paper-edge;
+        }
+    }
+
+    // ── Question ───────────────────────────────────────────────────────────
+    .o_wslides_js_lesson_quiz_question {
+        margin-top: 2.6rem !important;
+        margin-bottom: 1.6rem !important;
+
+        .h4 {
+            font-family: inherit;
+            font-size: 1.22rem;
+            font-weight: 620;
+            line-height: 1.4;
+            color: $lms-heading;
+            margin-bottom: 0.9rem;
+            display: flex;
+            gap: 0.6rem;
+            align-items: baseline;
+
+            // The question number: a small accent marker instead of grey text
+            small.text-muted {
+                flex: 0 0 auto;
+                font-size: 0.82rem;
+                font-weight: 700;
+                color: $lms-accent !important;
+                background: $lms-accent-soft;
+                border-radius: 999px;
+                min-width: 1.7rem;
+                height: 1.7rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 1;
+            }
+        }
+    }
+
+    // ── Answers ────────────────────────────────────────────────────────────
+    // Odoo's list-group leaves only the top corners rounded, which reads as a
+    // rendering mistake. Each answer becomes a card with even rounding, real
+    // spacing and a clear selected state.
+    .o_wslides_js_lesson_quiz_question .list-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        border-radius: 0;
+    }
+
+    a.o_wslides_quiz_answer.list-group-item {
+        background-color: #fff;
+        border: 1px solid $lms-paper-edge !important;
+        border-radius: 10px !important;
+        padding: 0.7rem 1rem !important;
+        font-size: 1.02rem;
+        line-height: 1.55;
+        color: $lms-ink;
+        transition: border-color 0.15s ease, background-color 0.15s ease,
+                    box-shadow 0.15s ease;
+
+        &:hover {
+            background-color: $lms-accent-soft;
+            border-color: rgba(15, 118, 110, 0.45) !important;
+            color: $lms-ink;
+        }
+
+        // Selected answer: a ring in the accent colour
+        &:has(input:checked),
+        &.active {
+            background-color: $lms-accent-soft;
+            border-color: $lms-accent !important;
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.14);
+            font-weight: 600;
+        }
+
+        // The radio marker
+        label {
+            margin-right: 0.75rem !important;
+        }
+
+        i.fa-circle {
+            color: #b6c4d0;
+            font-size: 1.05rem;
+        }
+
+        i.fa-check-circle {
+            color: #15803d;
+        }
+
+        i.fa-times-circle {
+            color: #b91c1c;
+        }
+
+        span {
+            color: inherit;
+        }
+    }
+
+    // Correct / wrong after checking
+    a.o_wslides_quiz_answer.list-group-item-success {
+        background-color: #ecfdf3 !important;
+        border-color: #15803d !important;
+    }
+
+    a.o_wslides_quiz_answer.list-group-item-danger {
+        background-color: #fef2f2 !important;
+        border-color: #b91c1c !important;
+    }
+
+    // The per-answer explanation that appears after checking
+    .o_wslides_quiz_answer_info.list-group-item-info {
+        background-color: $lms-accent-soft !important;
+        border: 1px solid rgba(15, 118, 110, 0.28) !important;
+        border-radius: 10px !important;
+        color: $lms-heading !important;
+        font-size: 0.96rem;
+        line-height: 1.55;
+        margin-top: -0.25rem;
+    }
+
+    // ── Validation / submit area ───────────────────────────────────────────
+    .o_wslides_js_lesson_quiz_validation {
+        padding-top: 1.4rem !important;
+
+        .o_wslides_join_course.alert-info {
+            margin-bottom: 1.2rem;
+        }
+    }
+}
